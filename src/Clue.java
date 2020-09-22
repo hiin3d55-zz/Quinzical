@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,15 +9,50 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Clue {
+	
+	public void recordClues(String[] categories) {
+		for (int i = 0; i < categories.length; i++) {
+			String[] clues = getAllClues(categories[i]);
+			clues = randomiseClues(clues, 5);
+			FileWriter fw;
+			try {
+				fw = new FileWriter("data/" + categories[i], true);
+				for (int j = 0; j < clues.length; j++) {
+					fw.write(clues[j] + "\n");
+				}
+				fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	
 	public String[] getClues(String category, boolean gameModule) {
 		String[] clues = getAllClues(category);
 		if (gameModule) {
-			clues = randomiseClues(clues, 5);
+			clues = getRecordedClues(category);
 		} else {
+			clues = getAllClues(category);
 			clues = randomiseClues(clues, 1);
 		}
 		
-		return formatClues(clues);
+		return clues;
+	}
+	
+	private String[] getRecordedClues(String category) {
+		File file = new File("data/" + category);
+		List<String> clues = new ArrayList<String>();
+		try {
+			Scanner scanner = new Scanner(file);
+			while (scanner.hasNext()) {
+				clues.add(scanner.nextLine());
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return clues.toArray(new String[clues.size()]);
 	}
 	
 	private String[] getAllClues(String category) {
@@ -30,7 +67,8 @@ public class Clue {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return clues.toArray(new String[clues.size()]);
+		String[] cluesArray = clues.toArray(new String[clues.size()]);
+		return formatClues(cluesArray);
 	}
 	
 	private String[] randomiseClues(String[] clues, int count) {
@@ -54,5 +92,25 @@ public class Clue {
 			res[i] = question.substring(0, question.length() - pos);
 		}
 		return res;
+	}
+	
+	public String getAnswer(String category, String clue) {
+		File file = new File("questionBank/" + category);
+		String line = null;
+		try {
+			Scanner scanner = new Scanner(file);
+			while (scanner.hasNext()) {
+				line = scanner.nextLine();
+				if (line.matches(clue + ".*")) {
+					line = line.split("[)]")[1];
+					line = line.trim();
+					break;
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return line;
 	}
 }

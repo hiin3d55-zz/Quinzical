@@ -11,7 +11,15 @@ public class QuestionBank {
 	}
 	
 	public String[] requestClueForCategory(String category, boolean gameModule) {
+		//Generate data first
+		if (gameModule) {
+			requestCategory(true);
+		}
 		return _category.requestClue(category, gameModule);
+	}
+	
+	public String answerForClue(String category, String clue) {
+		return _category.getClueAnswer(category, clue);
 	}
 
 }

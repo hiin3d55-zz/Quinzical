@@ -9,7 +9,7 @@ public class Category {
 
 	public Category() {
 		_clue = new Clue();
-		_categoryRecordFolder = new File("data/categories");
+		_categoryRecordFolder = new File("data/");
 	}
 
 	public String[] getCategories(boolean gameModule) {
@@ -20,18 +20,19 @@ public class Category {
 			return allCategories;
 		}
 			
-//		File categoryRecords = new File("data/categories");
 		if (_categoryRecordFolder.exists()) {
 			return _categoryRecordFolder.list();
 		} else {
-			System.out.println(_categoryRecordFolder.mkdirs());
-			
+			_categoryRecordFolder.mkdir();
 			String[] categories = randomiseCategories(allCategories);
+			
 			try {
 				recordCategories(categories);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			_clue.recordClues(categories);
+			
 			return categories;
 		}
 		
@@ -55,9 +56,11 @@ public class Category {
 		return randomed.toArray(new String[randomed.size()]);
 	}
 	
+	public String[] requestClue(String category, boolean gameModule) {
+		return _clue.getClues(category, gameModule);
+	}
 	
-
-	public String[] requestClue(String category, boolean multiple) {
-		return _clue.getClues(category, multiple);
+	public String getClueAnswer(String category, String clue) {
+		return _clue.getAnswer(category, clue);
 	}
 }
