@@ -9,39 +9,45 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Clue {
+	private File _categoryRecordFolder;
 	
-	public void recordClues(String[] categories) {
-		for (int i = 0; i < categories.length; i++) {
-			String[] clues = getAllClues(categories[i]);
-			clues = randomiseClues(clues, 5);
-			FileWriter fw;
-			try {
-				fw = new FileWriter("data/" + categories[i], true);
-				for (int j = 0; j < clues.length; j++) {
-					fw.write(clues[j] + "\n");
-				}
-				fw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
+	public Clue() {
+		_categoryRecordFolder = new File("data/");
 	}
-	
+		
 	public String[] getClues(String category, boolean gameModule) {
 		String[] clues = getAllClues(category);
-		if (gameModule) {
-			clues = getRecordedClues(category);
-		} else {
-			clues = getAllClues(category);
-			clues = randomiseClues(clues, 1);
+		
+		if (!gameModule) {
+			return randomiseClues(clues, 1);
 		}
 		
+		File file = new File(_categoryRecordFolder.getPath() + category);
+		if (file.length() == 0) {
+			recordClues(category);
+		}
+		
+		clues = getRecordedClues(category);
 		return clues;
 	}
 	
+	private void recordClues(String category) {
+		String[] clues = getAllClues(category);
+		clues = randomiseClues(clues, 5);
+		FileWriter fw;
+		try {
+			fw = new FileWriter(_categoryRecordFolder.getPath() + category, true);
+			for (int j = 0; j < clues.length; j++) {
+				fw.write(clues[j] + "\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private String[] getRecordedClues(String category) {
-		File file = new File("data/" + category);
+		File file = new File(_categoryRecordFolder.getPath() + category);
 		List<String> clues = new ArrayList<String>();
 		try {
 			Scanner scanner = new Scanner(file);

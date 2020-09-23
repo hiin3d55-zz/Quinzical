@@ -2,8 +2,11 @@
 
 public class QuestionBank {
 	private Category _category; 
+	private Clue _clue;
+
 	
 	public QuestionBank() {
+		_clue = new Clue();
 		_category = new Category();
 	}
 	public String[] requestCategory(boolean gameModule) {
@@ -11,15 +14,11 @@ public class QuestionBank {
 	}
 	
 	public String[] requestClueForCategory(String category, boolean gameModule) {
-		//Generate data first
-		if (gameModule) {
-			requestCategory(true);
-		}
-		return _category.requestClue(category, gameModule);
+		return _clue.getClues(category, gameModule);
 	}
 	
 	public String answerForClue(String category, String clue) {
-		return _category.getClueAnswer(category, clue);
+		return _clue.getAnswer(category, clue);
 	}
 
 }

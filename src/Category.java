@@ -4,11 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Category {
-	private Clue _clue;
 	private File _categoryRecordFolder;
 
 	public Category() {
-		_clue = new Clue();
 		_categoryRecordFolder = new File("data/");
 	}
 
@@ -31,13 +29,8 @@ public class Category {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			_clue.recordClues(categories);
-			
 			return categories;
 		}
-		
-
-		
 	}
 	
 	private void recordCategories(String[] categories) throws IOException {
@@ -54,13 +47,5 @@ public class Category {
 			randomed.add(categories[(int)(Math.random()*categories.length)]);
 		}
 		return randomed.toArray(new String[randomed.size()]);
-	}
-	
-	public String[] requestClue(String category, boolean gameModule) {
-		return _clue.getClues(category, gameModule);
-	}
-	
-	public String getClueAnswer(String category, String clue) {
-		return _clue.getAnswer(category, clue);
 	}
 }
