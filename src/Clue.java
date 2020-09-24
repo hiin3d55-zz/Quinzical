@@ -3,16 +3,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Clue {
-	private File _categoryRecordFolder;
+	private File _dataRecordFolder;
 	
 	public Clue() {
-		_categoryRecordFolder = new File("data/");
+		_dataRecordFolder = new File("data/categories");
 	}
 		
 	public String[] getClues(String category, boolean gameModule) {
@@ -22,8 +23,8 @@ public class Clue {
 			return randomiseClues(clues, 1);
 		}
 		
-		File file = new File(_categoryRecordFolder.getPath() + category);
-		if (file.length() == 0) {
+		File file = new File(_dataRecordFolder.getPath() + category);
+		if (file.exists() && file.length() == 0) {
 			recordClues(category);
 		}
 		
@@ -36,7 +37,7 @@ public class Clue {
 		clues = randomiseClues(clues, 5);
 		FileWriter fw;
 		try {
-			fw = new FileWriter(_categoryRecordFolder.getPath() + category, true);
+			fw = new FileWriter(_dataRecordFolder.getPath() + category, true);
 			for (int j = 0; j < clues.length; j++) {
 				fw.write(clues[j] + "\n");
 			}
@@ -47,7 +48,7 @@ public class Clue {
 	}
 	
 	private String[] getRecordedClues(String category) {
-		File file = new File(_categoryRecordFolder.getPath() + category);
+		File file = new File(_dataRecordFolder.getPath() + category);
 		List<String> clues = new ArrayList<String>();
 		try {
 			Scanner scanner = new Scanner(file);
@@ -118,5 +119,30 @@ public class Clue {
 			e.printStackTrace();
 		}
 		return line;
+	}
+	
+	public boolean update(String category, String clue) {
+		List<String> cluesList = new ArrayList<String>();
+		Collections.addAll(cluesList, getAllClues(category));
+		for (int i = 0; i < cluesList.size(); i++) {
+			FileWriter fw;
+			try {
+				fw = new FileWriter(_dataRecordFolder + "/" + category);
+				if (cluesList.get(i).matches(clue + ".*")) {
+					cluesList.remove(i);
+				} else {
+					fw.write(cluesList.get(i));
+				}
+				fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (cluesList.size() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }

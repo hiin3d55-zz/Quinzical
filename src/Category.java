@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Category {
-	private File _categoryRecordFolder;
+	private File _dataRecordFolder;
 
 	public Category() {
-		_categoryRecordFolder = new File("data/");
+		_dataRecordFolder = new File("data/categories");
 	}
 
 	public String[] getCategories(boolean gameModule) {
@@ -18,10 +18,10 @@ public class Category {
 			return allCategories;
 		}
 			
-		if (_categoryRecordFolder.exists()) {
-			return _categoryRecordFolder.list();
+		if (_dataRecordFolder.exists()) {
+			return _dataRecordFolder.list();
 		} else {
-			_categoryRecordFolder.mkdir();
+			_dataRecordFolder.mkdirs();
 			String[] categories = randomiseCategories(allCategories);
 			
 			try {
@@ -35,7 +35,7 @@ public class Category {
 	
 	private void recordCategories(String[] categories) throws IOException {
 		for (int i = 0; i < categories.length; i++) {
-			File file = new File(_categoryRecordFolder.getPath() + "/" + categories[i]);
+			File file = new File(_dataRecordFolder.getPath() + "/" + categories[i]);
 			file.createNewFile();
 		}
 	}
@@ -47,5 +47,10 @@ public class Category {
 			randomed.add(categories[(int)(Math.random()*categories.length)]);
 		}
 		return randomed.toArray(new String[randomed.size()]);
+	}
+	
+	public void update(String category) {
+		File file = new File(_dataRecordFolder + "/" + category);
+		file.delete();
 	}
 }

@@ -1,5 +1,4 @@
 
-
 public class QuestionBank {
 	private Category _category; 
 	private Clue _clue;
@@ -18,7 +17,14 @@ public class QuestionBank {
 	}
 	
 	public String answerForClue(String category, String clue) {
-		return _clue.getAnswer(category, clue);
+		String ans = _clue.getAnswer(category, clue);
+		updateQuestionBank(category, clue);
+		return ans;
 	}
 
+	private void updateQuestionBank(String category, String clue) {
+		if (_clue.update(category, clue)) {
+			_category.update(category);
+		}
+	}
 }
