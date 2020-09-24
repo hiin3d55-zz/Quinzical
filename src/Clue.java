@@ -43,27 +43,20 @@ public abstract class Clue {
 	protected String[] formatClues(String[] clues) {
 		String[] res = new String[clues.length];
 		for (int i = 0; i < clues.length; i++) {
-			String question = clues[i].split("[(]")[0];
-			int pos = 0;
-			while (!Character.isAlphabetic(question.charAt(question.length() - 1 - pos))) {
-				pos++;
-			}
-			
-			res[i] = question.substring(0, question.length() - pos);
+			res[i] = clues[i].split("[|]")[0];
 		}
 		return res;
 	}
 	
-	public String getAnswer(String category, String clue) {
+	public String[] getAnswer(String category, String clue) {
 		File file = new File("questionBank/" + category);
-		String line = null;
+		String ans = null;
 		try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNext()) {
-				line = scanner.nextLine();
-				if (line.matches(clue + ".*")) {
-					line = line.split("[)]")[1];
-					line = line.trim();
+				ans = scanner.nextLine();
+				if (ans.matches(clue + ".*")) {
+					ans = ans.split("[|]")[2];
 					break;
 				}
 			}
@@ -71,6 +64,6 @@ public abstract class Clue {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return line;
+		return ans.split("/");
 	}
 }

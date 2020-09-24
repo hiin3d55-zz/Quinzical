@@ -50,8 +50,8 @@ public class GamesModuleClue extends Clue{
 		return clues.toArray(new String[clues.size()]);
 	}
 
-	public String getAnswer(String category, String clue) {
-		String ans = super.getAnswer(category, clue);
+	public String[] getAnswer(String category, String clue) {
+		String[] ans = super.getAnswer(category, clue);
 		update(category, clue);
 		return ans;
 	}
