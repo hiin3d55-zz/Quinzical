@@ -4,6 +4,9 @@ public class QuestionBank {
 	private Clue _clue;
 
 	
+	/**
+	 * @param gameModule Give true if data retrieved is for games module, otherwise false.
+	 */
 	public QuestionBank(boolean gameModule) {
 		if (gameModule) {
 			_clue = new GamesModuleClue();
@@ -13,6 +16,8 @@ public class QuestionBank {
 			_category = new PracticeModuleCategory();
 		}
 	}
+	
+	
 	public String[] requestCategory() {
 		return _category.getCategories();
 	}
@@ -21,8 +26,10 @@ public class QuestionBank {
 		return _clue.getClues(category);
 	}
 	
-	public String answerForClue(String category, String clue) {
-		String ans = _clue.getAnswer(category, clue);
-		return ans;
+	/**
+	 * Some answers have multiple answers.
+	 */
+	public String[] answerForClue(String category, String clue) {
+		return _clue.getAnswer(category, clue);
 	}
 }

@@ -13,15 +13,18 @@ public class Score {
 	
 	public int getScore() {
 		if (!_scoreRecordFile.exists()) {
+			try {
+				_scoreRecordFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			setScore(0);
 		}
 		return readCurrentScore();
 	}
 	
 	private void setScore(int value) {
-		try {
-			_scoreRecordFile.createNewFile();
-			
+		try {		
 			FileWriter fw = new FileWriter(_scoreRecordFile);
 			fw.write(Integer.toString(value));
 			fw.close();
