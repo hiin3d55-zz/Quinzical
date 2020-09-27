@@ -20,4 +20,15 @@ public abstract class Category {
 		}
 		return randomed.toArray(new String[randomed.size()]);
 	}
+	
+	public void removeCategoryData() {
+		File[] allFiles = _dataRecordFolder.listFiles();
+
+		if (allFiles != null) {
+			for (File file: allFiles) {
+				file.delete();
+			}
+		}
+		_dataRecordFolder.delete();
+	}
 }
