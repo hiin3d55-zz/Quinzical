@@ -3,7 +3,6 @@ package view;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -12,11 +11,11 @@ import model.QuestionBank;
 public class GamesModule {
 	
 	private Stage _primaryStage;
-	private ArrayList<Button> _buttons;
+	private ArrayList<Question> _questions;
 	
 	public GamesModule(Stage primaryStage) {
 		_primaryStage = primaryStage;
-		_buttons = new ArrayList<Button>();
+		_questions = new ArrayList<Question>();
 	}
 	
 	public void display() {
@@ -29,13 +28,31 @@ public class GamesModule {
 		QuestionBank questionBank = new QuestionBank(true);
 		String[] categoriesStrArray = questionBank.requestCategory();
 		
+		
 		int categoryIdx = 0;
 		for (String categoryStr : categoriesStrArray) {
 			Text categoryText = new Text(categoryStr + " ");
 			gamesModPane.add(categoryText, categoryIdx, 1);
 			
-			categoryIdx++;
+			String[] clues = questionBank.requestClueForCategory(categoryStr);
+			int amount = 100;
+			int clueIdx = 2;
+			for (String clue : clues) {
+				Question question = new Question(amount, clue);
+
+				_questions.add(question);
+				gamesModPane.add(question.getButton(), categoryIdx, clueIdx);
+				
+				clueIdx++;
+				amount += 100;
+			}
+			
+			categoryIdx = 2;
+			clueIdx++;
+			amount = 100;
 		}
+		
+		
 		
 		_primaryStage.setScene(new Scene(gamesModPane, 600, 400));
 		_primaryStage.show();
