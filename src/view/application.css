@@ -1,0 +1,49 @@
+.background-screen {
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1C1C1C, #494949);
+}
+
+.normal-text {
+	-fx-fill: #EAEAEA;
+}
+
+.golden-btn {
+	-fx-background-color: #AD974F;
+	-fx-text-fill: #EAEAEA;
+	-fx-font-weight: 700;
+}
+
+.golden-btn:hover {
+	-fx-background-color: #8E793E;
+}
+
+.normal-btn {
+	-fx-background-color: transparent;
+	-fx-border-color: #EAEAEA;
+	-fx-text-fill: #EAEAEA;
+	-fx-font-weight: 700;
+}
+
+.normal-btn:hover {
+	-fx-background-color: #292929;
+}
+
+/**
+ * This section is for welcome screen.
+ */
+
+.welcome-screen-box {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-family: 'serif';
+	-fx-font-size: 14px;
+	-fx-spacing: 7;
+}
+
+.welcome-msg {
+	-fx-font-weight: bold;
+	-fx-font-size: 25px;
+}
+
+
+
+
