@@ -81,6 +81,9 @@ public class GamesModule {
 								question.nowMin();
 							}
 						}
+						
+						AnswerScreen answerScrn = new AnswerScreen(_primaryStage);
+						answerScrn.display();
 					}
 				}
 			});
