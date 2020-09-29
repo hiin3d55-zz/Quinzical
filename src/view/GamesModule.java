@@ -82,7 +82,7 @@ public class GamesModule {
 							}
 						}
 						
-						AnswerScreen answerScrn = new AnswerScreen(_primaryStage);
+						AnswerScreen answerScrn = new AnswerScreen(_primaryStage, pressedQuestion);
 						answerScrn.display();
 					}
 				}
