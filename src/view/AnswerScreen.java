@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class AnswerScreen {
 	
 	private Stage _primaryStage;
-	private TextField _attempt;
+	private TextField _attemptInput;
 	private Button _submitBtn;
 	private Button _dontKnowBtn;
 	
@@ -22,7 +22,7 @@ public class AnswerScreen {
 	
 	public AnswerScreen(Stage primaryStage, Question question) {
 		_primaryStage = primaryStage;
-		_attempt = new TextField("Type your answer here");
+		_attemptInput = new TextField("Type your answer here");
 		_submitBtn = new Button("Submit");
 		_dontKnowBtn = new Button("Don\'t know");
 		_question = question;
@@ -34,7 +34,7 @@ public class AnswerScreen {
 		instruction.setText("Listen to the clue then answer the question.");
 		answerPane.add(instruction, 0, 0);
 		
-		answerPane.add(_attempt, 0, 1);
+		answerPane.add(_attemptInput, 0, 1);
 		answerPane.add(_submitBtn, 0, 2);
 		answerPane.add(_dontKnowBtn, 1, 2);
 		
@@ -50,14 +50,29 @@ public class AnswerScreen {
 	public void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				System.out.println("Submit!");
+				String attempt = _attemptInput.getText();
+				attempt = attempt.toLowerCase();
+				attempt = attempt.trim();
+				
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question);
+				
+				if (attempt.equals("")) {
+					solScrn.displayDontKnow();
+				}
+				
+				for (String solution : _question.getSolution()) {
+					if (attempt.equals(solution)) {
+						solScrn.displayCorrect();
+					}
+				}
+				solScrn.displayIncorrect();
 			}
 		});
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				GamesModule gamesMod = new GamesModule(_primaryStage);
-        		gamesMod.display();
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question);
+				solScrn.displayDontKnow();
 			}
 		});
 	}
@@ -70,6 +85,7 @@ public class AnswerScreen {
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
 		try {
 			Process process = builder.start();
+			process.toString();
 		}
 		catch (IOException e) {
 			System.out.println("Error with using festival to read out the question.");

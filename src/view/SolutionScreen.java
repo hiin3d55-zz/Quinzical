@@ -8,17 +8,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Score;
 
 public class SolutionScreen {
 	
 	private Stage _primaryStage;
 	private Button _returnBtn;
 	private String _solution;
+	private Score _score;
+	private Question _question;
 	
-	public SolutionScreen(Stage primaryStage) {
+	public SolutionScreen(Stage primaryStage, Question question) {
 		_primaryStage= primaryStage;
 		_returnBtn = new Button("Return");
 		_solution = "Not yet implemented.";
+		_question = question;
 		
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -36,18 +40,27 @@ public class SolutionScreen {
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
 		try {
 			Process process = builder.start();
+			process.toString();
 		} catch (IOException e) {
 			System.out.println("Error with using festival to read out the question.");
 			e.printStackTrace();
 		}
 		
-		// Record the increased winnings.
-		updateWinnings(true);
+		// Record the increased score.
+		_score.updateScore(_question.getAmount());
 		
 		setUpAndShow(correctMsg);
 	}
 	
 	public void displayIncorrect() {
+		
+		// Record the decreased winnings.
+		_score.updateScore(-_question.getAmount());
+		
+		displayDontKnow();
+	}
+	
+	public void displayDontKnow() {
 		Text incorrectMsg = new Text("Incorrect. The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
@@ -56,14 +69,10 @@ public class SolutionScreen {
 		try {
 			Process process = builder.start();
 			process.toString();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error with using festival to read out the question.");
 			e.printStackTrace();
 		}
-		
-		// Record the decreased winnings.
-		updateWinnings(false);
 		
 		setUpAndShow(incorrectMsg);
 	}
@@ -75,9 +84,5 @@ public class SolutionScreen {
 		
 		_primaryStage.setScene(new Scene(_solutionPane, 600, 400));
 		_primaryStage.show();
-	}
-	
-	public void updateWinnings(boolean correct) {
-		// Not yet implemented.
 	}
 }

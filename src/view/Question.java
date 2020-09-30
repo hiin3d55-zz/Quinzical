@@ -11,8 +11,9 @@ public class Question {
 	private String _category;
 	private Button _clueBtn;
 	private boolean _isMin;
+	private String[] _solution;
 	
-	public Question(int amount, String clue, String category) {
+	public Question(int amount, String clue, String category, String[] solution) {
 		_amount = amount;
 		_clue = clue;
 		_category = category;
@@ -22,6 +23,7 @@ public class Question {
 		} else {
 			_isMin = false;
 		}
+		_solution = solution;
 		
 		_clueBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -50,5 +52,9 @@ public class Question {
 	
 	public void nowMin() {
 		_isMin = true;
+	}
+	
+	public String[] getSolution() {
+		return _solution;
 	}
 }

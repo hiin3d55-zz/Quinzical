@@ -50,7 +50,7 @@ public class GamesModule {
 			int clueIdx = 2; // Start from 2 because 0 is for the instructions and 1 is for categories.
 			
 			for (String clue : clues) {
-				Question question = new Question(amount, clue, categoryStr);
+				Question question = new Question(amount, clue, categoryStr, questionBank.answerForClue(categoryStr, clue));
 				_questions.add(question);
 				gamesModPane.add(question.getButton(), categoryIdx, clueIdx);
 				
