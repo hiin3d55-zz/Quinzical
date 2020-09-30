@@ -1,11 +1,8 @@
 package view;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
