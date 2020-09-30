@@ -33,4 +33,8 @@ public class QuestionBank {
 	public String[] answerForClue(String category, String clue) {
 		return _clue.getAnswer(category, clue);
 	}
+	
+	public void resetGame() {
+		_category.removeCategoryData();
+	}
 }
