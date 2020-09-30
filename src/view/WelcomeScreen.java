@@ -21,9 +21,9 @@ public class WelcomeScreen {
 		_primaryStage = primaryStage;
 
 		_pracModBtn = new Button("The Practice Module");
-		_pracModBtn.getStyleClass().add("golden-btn");
+		_pracModBtn.getStyleClass().addAll("golden-button");
 		_gamesModBtn = new Button("The Games Module");
-		_gamesModBtn.getStyleClass().add("normal-btn");
+		_gamesModBtn.getStyleClass().addAll("normal-button");
 		
 		// Rest of this constructor are event handlers.
 		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
