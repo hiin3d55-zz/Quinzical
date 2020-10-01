@@ -1,5 +1,4 @@
 package model;
-
 import java.io.File;
 
 public class PracticeModuleCategory extends Category{

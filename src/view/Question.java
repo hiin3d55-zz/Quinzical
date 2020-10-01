@@ -57,4 +57,8 @@ public class Question {
 	public String[] getSolution() {
 		return _solution;
 	}
+	
+	public String getClue() {
+		return _clue;
+	}
 }

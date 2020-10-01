@@ -17,18 +17,21 @@ public class SolutionScreen {
 	private String _solution;
 	private Score _score;
 	private Question _question;
+	private GamesModule _gamesMod;
 	
-	public SolutionScreen(Stage primaryStage, Question question) {
+	public SolutionScreen(Stage primaryStage, Question question, GamesModule gamesMod, String solution) {
 		_primaryStage= primaryStage;
 		_returnBtn = new Button("Return");
-		_solution = "Not yet implemented.";
+		_solution = solution;
 		_question = question;
+		_gamesMod = gamesMod;
+		
+		_score = new Score();
 		
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
-        		GamesModule gamesMod = new GamesModule(_primaryStage);
-        		gamesMod.display();
+        		_gamesMod.display();
         	}
 		});
 	}
@@ -61,10 +64,10 @@ public class SolutionScreen {
 	}
 	
 	public void displayDontKnow() {
-		Text incorrectMsg = new Text("Incorrect. The actual answer is: " + _solution);
+		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-		String sayIncorrectCmd = "echo \"Incorrect the actual answer is " + _solution + "\" | festival --tts";		
+		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
 		try {
 			Process process = builder.start();

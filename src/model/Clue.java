@@ -68,4 +68,6 @@ public abstract class Clue {
 		}
 		return ans.split("/");
 	}
+	
+	public void update(String category, String clue) {}
 }

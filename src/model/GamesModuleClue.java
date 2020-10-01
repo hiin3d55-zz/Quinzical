@@ -1,5 +1,4 @@
 package model;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -54,11 +53,10 @@ public class GamesModuleClue extends Clue{
 
 	public String[] getAnswer(String category, String clue) {
 		String[] ans = super.getAnswer(category, clue);
-		update(category, clue);
 		return ans;
 	}
 
-	private void update(String category, String clue) {
+	public void update(String category, String clue) {
 		List<String> cluesList = new ArrayList<String>();
 		Collections.addAll(cluesList, getClues(category));
 		File file = new File(_dataRecordFolder + "/" + category);

@@ -1,5 +1,4 @@
 package model;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,9 +10,6 @@ public class Score {
 	
 	public Score() {
 		_scoreRecordFile = new File("data/score");
-	}
-	
-	public int getScore() {
 		if (!_scoreRecordFile.exists()) {
 			try {
 				_scoreRecordFile.createNewFile();
@@ -22,7 +18,6 @@ public class Score {
 			}
 			setScore(0);
 		}
-		return readCurrentScore();
 	}
 	
 	private void setScore(int value) {
@@ -35,7 +30,7 @@ public class Score {
 		}
 	}
 	
-	private int readCurrentScore() {
+	public int getScore() {
 		String score = null;
 		try {
 			Scanner scanner = new Scanner(_scoreRecordFile);
@@ -48,7 +43,7 @@ public class Score {
 	}
 	
 	public void updateScore(int value) {
-		int currentScore = readCurrentScore();
+		int currentScore = getScore();
 		setScore(currentScore + value);
 	}
 	

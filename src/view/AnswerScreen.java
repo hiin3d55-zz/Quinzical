@@ -17,15 +17,17 @@ public class AnswerScreen {
 	private TextField _attemptInput;
 	private Button _submitBtn;
 	private Button _dontKnowBtn;
+	private GamesModule _gamesMod;
 	
 	private Question _question;
 	
-	public AnswerScreen(Stage primaryStage, Question question) {
+	public AnswerScreen(Stage primaryStage, Question question, GamesModule gamesMod) {
 		_primaryStage = primaryStage;
 		_attemptInput = new TextField("Type your answer here");
 		_submitBtn = new Button("Submit");
 		_dontKnowBtn = new Button("Don\'t know");
 		_question = question;
+		_gamesMod = gamesMod;
 	}
 	
 	public void display() {
@@ -43,35 +45,46 @@ public class AnswerScreen {
 		_primaryStage.setScene(new Scene(answerPane, 600, 400));
 		_primaryStage.show();
 		
-		System.out.println(_question); // Something is wrong with this.
+		System.out.println(_question.getClue()); // Something is wrong with this.
 		speakClue();
 	}
 	
 	public void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				boolean correct = false;
+				
 				String attempt = _attemptInput.getText();
 				attempt = attempt.toLowerCase();
 				attempt = attempt.trim();
 				
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question);
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, _gamesMod, 
+						_question.getSolution()[0]);
 				
-				if (attempt.equals("")) {
+				if (attempt.equals("") || attempt.equals("Type your answer here")) {
 					solScrn.displayDontKnow();
 				}
 				
 				for (String solution : _question.getSolution()) {
+					solution = solution.toLowerCase();
+					solution = solution.trim();
+					
 					if (attempt.equals(solution)) {
 						solScrn.displayCorrect();
+						correct = true;
 					}
 				}
-				solScrn.displayIncorrect();
+				
+				if (!correct) {
+					solScrn.displayIncorrect();
+				}
 			}
 		});
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question);
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, _gamesMod, 
+						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
 			}
 		});
@@ -80,7 +93,7 @@ public class AnswerScreen {
 	public void speakClue() {
 		
 		// Bash command for speaking out the clue.
-		String speakClueCmd = "echo \"" + _question + "\" | festival --tts";
+		String speakClueCmd = "echo \"" + _question.getClue() + "\" | festival --tts";
 		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
 		try {
