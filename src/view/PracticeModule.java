@@ -42,7 +42,6 @@ public class PracticeModule {
 					PracticeAnswerScreen answerScrn = new PracticeAnswerScreen(_primaryStage, clue[0], answer[0]);
 					answerScrn.display();
 				}
-				
 			});
 			pracModBox.getChildren().add(categoryBtn);
 		}
