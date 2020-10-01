@@ -42,7 +42,7 @@ public class Question {
 		return _clueBtn;
 	}
 	
-	public boolean checkIfItIsMin() {
+	public boolean isMin() {
 		return _isMin;
 	}
 	

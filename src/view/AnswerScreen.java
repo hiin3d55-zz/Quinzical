@@ -45,7 +45,6 @@ public class AnswerScreen {
 		_primaryStage.setScene(new Scene(answerPane, 600, 400));
 		_primaryStage.show();
 		
-		System.out.println(_question.getClue()); // Something is wrong with this.
 		speakClue();
 	}
 	
