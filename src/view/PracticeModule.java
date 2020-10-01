@@ -25,8 +25,7 @@ public class PracticeModule {
 		VBox pracModBox = new VBox();
 		
 		Text instruction = new Text();
-		instruction.setText("Please choose a clue to be read out. You can only choose the lowest money value "
-				+ "for each category.");
+		instruction.setText("Please choose any category");
 		pracModBox.getChildren().add(instruction);
 		
 		String[] categories = _questionBank.requestCategory();
