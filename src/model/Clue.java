@@ -70,4 +70,6 @@ public abstract class Clue {
 	}
 	
 	public void update(String category, String clue) {}
+	
+	public abstract int[] getClueValues(String category);
 }

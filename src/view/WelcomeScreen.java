@@ -37,6 +37,7 @@ public class WelcomeScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				GamesModule gamesMod = new GamesModule(_primaryStage);
+				gamesMod.initialise();
 				gamesMod.display();
 			}
 		});

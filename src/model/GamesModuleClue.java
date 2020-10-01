@@ -83,4 +83,14 @@ public class GamesModuleClue extends Clue{
 			file.delete();
 		}
 	}
+	
+	public int[] getClueValues(String category) {
+		int clues = getRecordedClues(category).length;
+		
+		int[] values = new int[clues];
+		for (int i = 5; i > (5 - clues); i--) {
+			values[clues - (5 - i) - 1] = i * 100;
+		}
+		return values;
+	}
 }
