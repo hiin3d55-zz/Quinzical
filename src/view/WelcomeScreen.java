@@ -49,7 +49,7 @@ public class WelcomeScreen {
 		
 		welcomePane.setCenter(welcomeBox);
 		
-		Scene welcomeScene = new Scene (welcomePane,600,400);
+		Scene welcomeScene = new Scene(welcomePane,600,400);
 		
 		welcomeScene.getStylesheets().add("view/application.css");
 		_primaryStage.setScene(welcomeScene);
@@ -60,7 +60,8 @@ public class WelcomeScreen {
 		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Practice Module");
+				PracticeModule pracMod = new PracticeModule(_primaryStage);
+				pracMod.display();
 			}
 		});
 

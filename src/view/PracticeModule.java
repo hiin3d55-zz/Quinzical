@@ -10,6 +10,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.QuestionBank;
 
+/**
+ * This class represents the screen that gets displayed when the user selects Practice Module from the WelcomeScreen.
+ * The user is provided with category buttons so that they can choose which category question they want to answer.
+ * 
+ * @author Sherman Chin, Dave Shin
+ *
+ */
 public class PracticeModule {
 	
 	private Stage _primaryStage;
@@ -17,7 +24,7 @@ public class PracticeModule {
 	
 	public PracticeModule(Stage primaryStage) {
 		_primaryStage = primaryStage;
-		_questionBank = new QuestionBank(false);
+		_questionBank = new QuestionBank(false); // False because we are in Practice Module.
 	}
 	
 	public void display() {
@@ -30,15 +37,16 @@ public class PracticeModule {
 		
 		String[] categories = _questionBank.requestCategory();
 		
+		// Detect the button press.
 		for (String category: categories) {
 			Button categoryBtn = new Button(category);
+			
 			categoryBtn.setOnAction(new EventHandler<ActionEvent>() {
-
 				@Override
 				public void handle(ActionEvent arg0) {
 					String[] clue = _questionBank.requestClueForCategory(category);
 					String[] answer = _questionBank.answerForClue(category, clue[0]);
-					PracticeAnswerScreen answerScrn = new PracticeAnswerScreen(_primaryStage, clue[0], answer[0]);
+					PracticeAnswerScreen answerScrn = new PracticeAnswerScreen(_primaryStage, clue[0], answer);
 					answerScrn.display();
 				}
 			});
