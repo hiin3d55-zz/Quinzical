@@ -27,6 +27,7 @@ public class AnswerScreen {
 	private TextField _attemptInput;
 	private Button _submitBtn;
 	private Button _dontKnowBtn;
+	private Button _repeatBtn;
 	private Question _question;
 	
 	public AnswerScreen(BorderPane pane, Question question) {
@@ -41,6 +42,9 @@ public class AnswerScreen {
 		_dontKnowBtn = new Button("Don\'t know");
 		_dontKnowBtn.getStyleClass().add("normal-button");
 		
+		_repeatBtn = new Button("Repeat Clue");
+		_repeatBtn.getStyleClass().add("golden-button");
+		
 		_question = question;
 	}
 	
@@ -48,8 +52,13 @@ public class AnswerScreen {
 		VBox answerBox = new VBox();
 		answerBox.getStyleClass().add("center-screen-box");
 		
+		HBox inputAndSoundBtn = new HBox();
+		inputAndSoundBtn.getStyleClass().add("center-screen-box");
+		
 		Text instruction = new Text("Listen to the clue then answer the question.");
 		instruction.getStyleClass().add("normal-text");
+		
+		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
 		HBox buttonBox = new HBox();
 		buttonBox.getStyleClass().add("center-screen-box");
@@ -57,7 +66,7 @@ public class AnswerScreen {
 		
 		handleEvents();
 		
-		answerBox.getChildren().addAll(instruction, _attemptInput, buttonBox);
+		answerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox);
 		_pane.setCenter(answerBox);
 
 		speakClue();
@@ -107,6 +116,12 @@ public class AnswerScreen {
 				SolutionScreen solScrn = new SolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
+			}
+		});
+		
+		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				speakClue();
 			}
 		});
 	}
