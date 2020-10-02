@@ -14,7 +14,6 @@
 
 .golden-button {
 	-fx-background-color: #AD974F;
-
 }
 
 .golden-button:hover {
@@ -37,6 +36,14 @@
 	-fx-font-family: 'serif';
 	-fx-font-size: 14px;
 	-fx-spacing: 7;
+}
+
+.menu-button {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 100px;
+	-fx-border-color: #EAEAEA;
+	-fx-border-radius: 5px;
+	-fx-background-radius: 5px;
 }
 
 .invisible-component {

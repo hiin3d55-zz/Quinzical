@@ -54,7 +54,7 @@ public class Quinzical extends Application {
 	
 	private void setUpFooter() {
 		Button menuBtn = new Button("Main Menu");
-		menuBtn.getStyleClass().addAll("golden-button");
+		menuBtn.getStyleClass().addAll("golden-button", "menu-button");
 		menuBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
