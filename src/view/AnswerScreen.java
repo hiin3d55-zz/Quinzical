@@ -34,7 +34,6 @@ public class AnswerScreen {
 		_pane = pane;
 		
 		_attemptInput = new TextField();
-		_attemptInput.setMaxWidth(200);
 		
 		_submitBtn = new Button("Submit");
 		_submitBtn.getStyleClass().add("golden-button");
