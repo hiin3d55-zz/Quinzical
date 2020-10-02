@@ -1,6 +1,6 @@
 .background-screen {
 	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1C1C1C, #494949);
-	-fx-padding: 20;
+	-fx-padding: 20px;
 }
 
 .normal-text {
@@ -35,7 +35,7 @@
 	-fx-text-alignment: center;
 	-fx-font-family: 'serif';
 	-fx-font-size: 14px;
-	-fx-spacing: 7;
+	-fx-spacing: 7px;
 }
 
 .menu-button {
@@ -50,13 +50,13 @@
 	visibility: hidden;
 }
 
-/**
- * This section is for welcome screen.
- */
-
 .header-msg {
 	-fx-font-weight: bold;
 	-fx-font-size: 25px;
+}
+
+.text-field {
+	-fx-max-width: 280;
 }
 
 /**
@@ -64,8 +64,8 @@
  */
  
 .clue-grid {
-	-fx-padding: 20;
-	-fx-spacing: 28;
+	-fx-padding: 20px;
+	-fx-spacing: 28px;
 	-fx-alignment: baseline-center;
 }
 
@@ -74,5 +74,15 @@
  */
 .solution-text {
 	-fx-font-size: 20px;
+}
+
+/**
+ * This section is for practice module
+ */
+.category-grid {
+	-fx-padding: 20px;
+	-fx-hgap: 20px;
+	-fx-vgap: 10px;
+	-fx-alignment: center;
 }
 

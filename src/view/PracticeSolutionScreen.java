@@ -19,13 +19,15 @@ import javafx.stage.Stage;
  */
 public class PracticeSolutionScreen {
 	
-	private Stage _primaryStage;
+//	private Stage _primaryStage;
+	private BorderPane _pane;
 	private Button _returnBtn;
 	private String _clue;
 	private String _solution;
 	
-	public PracticeSolutionScreen(Stage primaryStage, String clue, String solution) {
-		_primaryStage = primaryStage;
+	public PracticeSolutionScreen(BorderPane pane, String clue, String solution) {
+//		_primaryStage = primaryStage;
+		_pane = pane;
 		_returnBtn = new Button("Return");
 		_clue = clue;
 		_solution = solution;
@@ -73,15 +75,15 @@ public class PracticeSolutionScreen {
 		
 		solutionPane.setCenter(solutionBox);
 		
-		_primaryStage.setScene(new Scene(solutionPane, 600, 400));
-		_primaryStage.show();
+//		_primaryStage.setScene(new Scene(solutionPane, 600, 400));
+//		_primaryStage.show();
 	}
 	
 	public void handleEvents() {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
-        		PracticeModule practiceMod = new PracticeModule(_primaryStage);
+        		PracticeModule practiceMod = new PracticeModule(_pane);
         		practiceMod.display();
         	}
 		});

@@ -55,8 +55,8 @@ public class WelcomeScreen {
 		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-//				PracticeModule pracMod = new PracticeModule(_primaryStage);
-//				pracMod.display();
+				PracticeModule pracMod = new PracticeModule(_pane);
+				pracMod.display();
 			}
 		});
 
