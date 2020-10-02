@@ -27,7 +27,7 @@ public class WelcomeScreen {
 		_pracModBtn = new Button("The Practice Module");
 		_pracModBtn.getStyleClass().addAll("golden-button");
 		_gamesModBtn = new Button("The Games Module");
-		_gamesModBtn.getStyleClass().addAll("normal-button");
+		_gamesModBtn.getStyleClass().addAll("golden-button");
 	}
 
 	public void display() {
@@ -43,14 +43,14 @@ public class WelcomeScreen {
 		optionsText.getStyleClass().add("normal-text");
 		// Display the main menu.
 		VBox welcomeBox = new VBox();
-		welcomeBox.getChildren().addAll(welcomeMessage, optionsText, _pracModBtn, _gamesModBtn);
-		welcomeBox.getStyleClass().add("welcome-screen-box");
+		welcomeBox.getChildren().addAll(welcomeMessage, optionsText, _gamesModBtn,_pracModBtn);
+		welcomeBox.getStyleClass().add("center-screen-box");
 		VBox.setMargin(welcomeMessage, new Insets(0, 0, 15, 0));
 		
 		welcomePane.setCenter(welcomeBox);
 		
 		Scene welcomeScene = new Scene(welcomePane,600,400);
-		
+				
 		welcomeScene.getStylesheets().add("view/application.css");
 		_primaryStage.setScene(welcomeScene);
 		_primaryStage.show();

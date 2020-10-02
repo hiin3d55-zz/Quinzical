@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,21 +22,13 @@ import model.QuestionBank;
  *
  */
 public class GamesModule {
-	
 	private Stage _primaryStage;
-	private BorderPane _gamesModPane;
-	private VBox _gamesModBox;
-	private Scene _gamesModScene;
 	
 	private QuestionBank _questionBank;
 	private ArrayList<ArrayList<Question>> _allQuestions; // Keeps track of which clues have been revealed.
 	
 	public GamesModule(Stage primaryStage) {
 		_primaryStage = primaryStage;
-		_gamesModPane = new BorderPane();
-		_gamesModBox = new VBox();
-		_gamesModPane.setCenter(_gamesModBox);
-		_gamesModScene = new Scene(_gamesModPane, 600, 400);
 		
 		// QuestionBank retrieves the data from the backend. The argument is true because we are in Games Module.
 		_questionBank = new QuestionBank(true);
@@ -46,27 +39,37 @@ public class GamesModule {
 	 * This method is only called once until the game is reset. This is because this method initialises the GamesModule.
 	 */
 	private void initialise() {
+		BorderPane gamesModPane = new BorderPane();
+		gamesModPane.getStyleClass().add("background-screen");
+
+		VBox gamesModBox = new VBox();
+		gamesModBox.getStyleClass().add("center-screen-box");
+
 		Text instruction1 = new Text("Please choose a clue to be read out");
+		instruction1.getStyleClass().add("normal-text");
 		Text instruction2 = new Text("You can only choose the lowest money value for each category.");
-		_gamesModBox.getChildren().addAll(instruction1, instruction2);
-//		_gamesModPane.add(instruction, 0, 0);
+		instruction2.getStyleClass().add("normal-text");
+
+		gamesModBox.getChildren().addAll(instruction1, instruction2);
 		
 		String[] categoriesStrArray = _questionBank.requestCategory();
 		
 		HBox clueGrid = new HBox();
+		clueGrid.getStyleClass().addAll("center-screen-box", "clue-grid");
+
 		// Set out the GUI for Games Module. The end product is a screen with multiple buttons for the clues.
-//		int categoryIdx = 0;
 		for (String categoryStr : categoriesStrArray) {
 			VBox categoryColumn = new VBox();
+			categoryColumn.getStyleClass().addAll("center-screen-box");
+			
 			Text categoryText = new Text(categoryStr);
+			categoryText.getStyleClass().add("normal-text");
 			categoryColumn.getChildren().add(categoryText);
-//			_gamesModPane.add(categoryText, categoryIdx, 1);
 			
 			String[] clues = _questionBank.requestClueForCategory(categoryStr);
 			
 			ArrayList<Question> questions = new ArrayList<Question>();
 			
-//			int clueIdx = 2; // Start from 2 because 0 is for the instructions and 1 is for categories.
 			
 			// Create the buttons for the clues.
 			int valueIdx = 0;
@@ -77,23 +80,33 @@ public class GamesModule {
 						_questionBank.answerForClue(categoryStr, clue));
 				
 				questions.add(question);
-//				_gamesModPane.add(question.getButton(), categoryIdx, clueIdx);
+
 				
-//				clueIdx++;
-				valueIdx++;
+				Button clueButton = question.getButton();
 				
+				if (valueIdx == 0) {
+					clueButton.getStyleClass().add("golden-button");
+				} else {
+					clueButton.getStyleClass().add("normal-button");
+				}
 				categoryColumn.getChildren().add(question.getButton());
+				valueIdx++;
 			}
 			
 			_allQuestions.add(questions);
 			
-//			categoryIdx++;
-//			clueIdx = 2;
 			valueIdx = 0;
 			clueGrid.getChildren().add(categoryColumn);
 		}
 		
-		_gamesModBox.getChildren().add(clueGrid);
+		gamesModBox.getChildren().add(clueGrid);
+		gamesModPane.setCenter(gamesModBox);
+		
+		Scene gamesModScene = new Scene(gamesModPane, 600, 400);
+		gamesModScene.getStylesheets().add("view/application.css");
+
+		_primaryStage.setScene(gamesModScene);
+		_primaryStage.show();
 	}
 	
 	public void display() {
@@ -105,8 +118,6 @@ public class GamesModule {
 		} else { // Keep displaying the GamesModule if there are still clues remaining.
 			initialise();
 			handleEvents();
-			_primaryStage.setScene(_gamesModScene);
-			_primaryStage.show();
 		}
 	}
 	
@@ -124,14 +135,13 @@ public class GamesModule {
 							
 							// Do operations that removes the pressed clue so that it is removed from the Games Module.
 							_allQuestions.get(_allQuestions.indexOf(questionsForCategory)).remove(pressedQuestion);
-							_gamesModPane.getChildren().remove(pressedQuestion.getButton());
 							_questionBank.updateClue(pressedQuestion.getCategory(), pressedQuestion.getClue());
 							
 							// If a category contains no clues, remove that category from _allQuestions.
 							if (_allQuestions.get(_allQuestions.indexOf(questionsForCategory)).isEmpty()) {
 								_allQuestions.remove(questionsForCategory);
 							}
-							System.out.println(pressedQuestion.getClue());
+							
 							AnswerScreen answerScrn = new AnswerScreen(_primaryStage, pressedQuestion, 
 									GamesModule.this);
 							answerScrn.display();

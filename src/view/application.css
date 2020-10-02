@@ -30,11 +30,7 @@
 	-fx-background-color: #292929;
 }
 
-/**
- * This section is for welcome screen.
- */
-
-.welcome-screen-box {
+.center-screen-box {
 	-fx-alignment: center;
 	-fx-text-alignment: center;
 	-fx-font-family: 'serif';
@@ -42,11 +38,24 @@
 	-fx-spacing: 7;
 }
 
+/**
+ * This section is for welcome screen.
+ */
+
 .welcome-msg {
 	-fx-font-weight: bold;
 	-fx-font-size: 25px;
 }
 
+/**
+ * This section is for Games Module screen.
+ */
+ 
+.clue-grid {
+	-fx-padding: 20;
+	-fx-spacing: 25;
+	-fx-alignment: baseline-center;
+}
 
 
 
