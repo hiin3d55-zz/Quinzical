@@ -23,30 +23,28 @@ public class SolutionScreen {
 	private String _solution;
 	private Score _score;
 	private Question _question;
-	private GamesModule _gamesMod;
 	
-	public SolutionScreen(Stage primaryStage, Question question, GamesModule gamesMod, String solution) {
+	public SolutionScreen(Stage primaryStage, Question question, String solution) {
 		_primaryStage= primaryStage;
 		_returnBtn = new Button("Return");
 		_solution = solution;
 		_score = new Score();
 		_question = question;
-		_gamesMod = gamesMod;
 	}
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
-		
-		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
-		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
-		try {
-			Process process = builder.start();
-			process.toString();
-		} catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
+//		
+//		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
+//		
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
+//		try {
+//			Process process = builder.start();
+//			process.toString();
+//		} catch (IOException e) {
+//			System.out.println("Error with using festival to read out the question.");
+//			e.printStackTrace();
+//		}
 		
 		// Record the increased score.
 		_score.updateScore(_question.getAmount());
@@ -66,16 +64,16 @@ public class SolutionScreen {
 		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
-		try {
-			Process process = builder.start();
-			process.toString();
-		} catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
-		
+//		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
+//		try {
+//			Process process = builder.start();
+//			process.toString();
+//		} catch (IOException e) {
+//			System.out.println("Error with using festival to read out the question.");
+//			e.printStackTrace();
+//		}
+//		
 		setUpAndShow(incorrectMsg);
 	}
 	
@@ -94,7 +92,8 @@ public class SolutionScreen {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
-        		_gamesMod.display();
+				GamesModule gamesMod = new GamesModule(_primaryStage);
+        		gamesMod.display();
         		System.out.println(_score.getScore());
         	}
 		});

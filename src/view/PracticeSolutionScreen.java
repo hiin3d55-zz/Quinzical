@@ -35,14 +35,14 @@ public class PracticeSolutionScreen {
 		Text correctMsg = new Text("Correct!");
 		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
 		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
-		try {
-			Process process = builder.start();
-		} catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
-				
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
+//		try {
+//			Process process = builder.start();
+//		} catch (IOException e) {
+//			System.out.println("Error with using festival to read out the question.");
+//			e.printStackTrace();
+//		}
+//				
 		setUpAndShow(correctMsg);
 	}
 	
@@ -51,15 +51,15 @@ public class PracticeSolutionScreen {
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
 		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
-		try {
-			Process process = builder.start();
-			process.toString();
-		}
-		catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
+//		try {
+//			Process process = builder.start();
+//			process.toString();
+//		}
+//		catch (IOException e) {
+//			System.out.println("Error with using festival to read out the question.");
+//			e.printStackTrace();
+//		}
 		setUpAndShow(incorrectMsg);
 	}
 	

@@ -64,7 +64,7 @@ public class AnswerScreen {
 				attempt = attempt.toLowerCase();
 				attempt = attempt.trim();
 				
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, _gamesMod, 
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, 
 						_question.getSolution()[0]);
 				
 				// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
@@ -94,7 +94,7 @@ public class AnswerScreen {
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, _gamesMod, 
+				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
 			}
@@ -104,17 +104,17 @@ public class AnswerScreen {
 	public void speakClue() {
 		
 		// Bash command for speaking out the clue.
-		String speakClueCmd = "echo \"" + _question.getClue() + "\" | festival --tts";
-		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
-		try {
-			Process process = builder.start();
-			process.toString(); // This line does not do anything. It is just here so that the 
-								// variable of process is used.
-		}
-		catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
+//		String speakClueCmd = "echo \"" + _question.getClue() + "\" | festival --tts";
+//		
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
+//		try {
+//			Process process = builder.start();
+//			process.toString(); // This line does not do anything. It is just here so that the 
+//								// variable of process is used.
+//		}
+//		catch (IOException e) {
+//			System.out.println("Error with using festival to read out the question.");
+//			e.printStackTrace();
+//		}
 	}
 }
