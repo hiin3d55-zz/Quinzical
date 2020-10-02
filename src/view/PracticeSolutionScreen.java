@@ -11,22 +11,24 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the screen that gets displayed when the user has submitted the correct
+ * answer or used all three attempts.
+ * 
+ * @author Sherman Chin, Dave Shin
+ */
 public class PracticeSolutionScreen {
-	private String _solution;
+	
 	private Stage _primaryStage;
 	private Button _returnBtn;
+	private String _clue;
+	private String _solution;
 	
-	public PracticeSolutionScreen(Stage primaryStage, String solution) {
-		_solution = solution;
+	public PracticeSolutionScreen(Stage primaryStage, String clue, String solution) {
 		_primaryStage = primaryStage;
 		_returnBtn = new Button("Return");
-		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-        	public void handle(ActionEvent event) {
-        		PracticeModule practiceMod = new PracticeModule(_primaryStage);
-        		practiceMod.display();
-        	}
-		});
+		_clue = clue;
+		_solution = solution;
 	}
 	
 	public void displayCorrect() {
@@ -45,7 +47,7 @@ public class PracticeSolutionScreen {
 	}
 	
 	public void displayIncorrect() {
-		Text incorrectMsg = new Text("The actual answer is: " + _solution);
+		Text incorrectMsg = new Text("Clue: " + _clue + "\nThe actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
 		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
@@ -62,6 +64,8 @@ public class PracticeSolutionScreen {
 	}
 	
 	public void setUpAndShow(Text msg) {
+		handleEvents();
+		
 		BorderPane solutionPane = new BorderPane();
 		VBox solutionBox = new VBox();
 		
@@ -73,4 +77,13 @@ public class PracticeSolutionScreen {
 		_primaryStage.show();
 	}
 	
+	public void handleEvents() {
+		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+        	public void handle(ActionEvent event) {
+        		PracticeModule practiceMod = new PracticeModule(_primaryStage);
+        		practiceMod.display();
+        	}
+		});
+	}
 }
