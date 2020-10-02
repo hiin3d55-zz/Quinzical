@@ -142,8 +142,7 @@ public class GamesModule {
 								_allQuestions.remove(questionsForCategory);
 							}
 							
-							AnswerScreen answerScrn = new AnswerScreen(_primaryStage, pressedQuestion, 
-									GamesModule.this);
+							AnswerScreen answerScrn = new AnswerScreen(_primaryStage, pressedQuestion);
 							answerScrn.display();
 						}
 					}

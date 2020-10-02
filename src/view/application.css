@@ -57,5 +57,10 @@
 	-fx-alignment: baseline-center;
 }
 
-
+/**
+ * This section is for solution screen
+ */
+.solution-text {
+	-fx-font-size: 20px;
+}
 

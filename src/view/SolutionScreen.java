@@ -5,7 +5,9 @@ import java.io.IOException;
 import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Score;
@@ -26,7 +28,8 @@ public class SolutionScreen {
 	
 	public SolutionScreen(Stage primaryStage, Question question, String solution) {
 		_primaryStage= primaryStage;
-		_returnBtn = new Button("Return");
+		_returnBtn = new Button("Return to Games Module");
+		_returnBtn.getStyleClass().add("golden-button");
 		_solution = solution;
 		_score = new Score();
 		_question = question;
@@ -80,11 +83,22 @@ public class SolutionScreen {
 	public void setUpAndShow(Text msg) {
 		handleEvents();
 		
-		GridPane _solutionPane = new GridPane();
-		_solutionPane.add(msg, 0, 0);
-		_solutionPane.add(_returnBtn, 0, 1);
+		msg.getStyleClass().addAll("normal-text", "solution-text");
 		
-		_primaryStage.setScene(new Scene(_solutionPane, 600, 400));
+		BorderPane solutionPane = new BorderPane();
+		solutionPane.getStyleClass().add("background-screen");
+		
+		VBox solutionBox = new VBox();
+		solutionBox.getStyleClass().add("center-screen-box");
+		
+		solutionBox.getChildren().addAll(msg, _returnBtn);
+		
+		solutionPane.setCenter(solutionBox);
+		
+		Scene solutionScene = new Scene(solutionPane, 600, 400);
+		solutionScene.getStylesheets().add("view/application.css");
+		
+		_primaryStage.setScene(solutionScene);
 		_primaryStage.show();
 	}
 	
@@ -94,7 +108,6 @@ public class SolutionScreen {
         	public void handle(ActionEvent event) {
 				GamesModule gamesMod = new GamesModule(_primaryStage);
         		gamesMod.display();
-        		System.out.println(_score.getScore());
         	}
 		});
 	}

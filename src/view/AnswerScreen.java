@@ -4,10 +4,14 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,31 +27,46 @@ public class AnswerScreen {
 	private TextField _attemptInput;
 	private Button _submitBtn;
 	private Button _dontKnowBtn;
-	private GamesModule _gamesMod;
 	private Question _question;
 	
-	public AnswerScreen(Stage primaryStage, Question question, GamesModule gamesMod) {
+	public AnswerScreen(Stage primaryStage, Question question) {
 		_primaryStage = primaryStage;
+		
 		_attemptInput = new TextField();
+		_attemptInput.setMaxWidth(200);
+		
 		_submitBtn = new Button("Submit");
+		_submitBtn.getStyleClass().add("golden-button");
+		
 		_dontKnowBtn = new Button("Don\'t know");
-		_gamesMod = gamesMod;
+		_dontKnowBtn.getStyleClass().add("normal-button");
+		
 		_question = question;
 	}
 	
 	public void display() {
-		GridPane answerPane = new GridPane();
-		Text instruction = new Text();
-		instruction.setText("Listen to the clue then answer the question.");
-		answerPane.add(instruction, 0, 0);
+		BorderPane answerPane = new BorderPane();
+		answerPane.getStyleClass().add("background-screen");
 		
-		answerPane.add(_attemptInput, 0, 1);
-		answerPane.add(_submitBtn, 0, 2);
-		answerPane.add(_dontKnowBtn, 1, 2);
+		VBox answerBox = new VBox();
+		answerBox.getStyleClass().add("center-screen-box");
+		
+		Text instruction = new Text("Listen to the clue then answer the question.");
+		instruction.getStyleClass().add("normal-text");
+		
+		HBox buttonBox = new HBox();
+		buttonBox.getStyleClass().add("center-screen-box");
+		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
 		handleEvents();
 		
-		_primaryStage.setScene(new Scene(answerPane, 600, 400));
+		answerBox.getChildren().addAll(instruction, _attemptInput, buttonBox);
+		answerPane.setCenter(answerBox);
+		
+		Scene answerScene = new Scene(answerPane, 600, 400);
+		answerScene.getStylesheets().add("view/application.css");
+		
+		_primaryStage.setScene(answerScene);
 		_primaryStage.show();
 		
 		speakClue();
