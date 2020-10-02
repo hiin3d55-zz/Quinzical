@@ -10,6 +10,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Score;
 
+/**
+ * This class represents the screen that get shown after the user submits their answer.
+ * 
+ * @author Dave Shin
+ *
+ */
 public class SolutionScreen {
 	
 	private Stage _primaryStage;
@@ -23,21 +29,14 @@ public class SolutionScreen {
 		_primaryStage= primaryStage;
 		_returnBtn = new Button("Return");
 		_solution = solution;
+		_score = new Score();
 		_question = question;
 		_gamesMod = gamesMod;
-		
-		_score = new Score();
-		
-		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-        	public void handle(ActionEvent event) {
-        		_gamesMod.display();
-        	}
-		});
 	}
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
+		
 		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
 		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
@@ -81,11 +80,23 @@ public class SolutionScreen {
 	}
 	
 	public void setUpAndShow(Text msg) {
+		handleEvents();
+		
 		GridPane _solutionPane = new GridPane();
 		_solutionPane.add(msg, 0, 0);
 		_solutionPane.add(_returnBtn, 0, 1);
 		
 		_primaryStage.setScene(new Scene(_solutionPane, 600, 400));
 		_primaryStage.show();
+	}
+	
+	public void handleEvents() {
+		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+        	public void handle(ActionEvent event) {
+        		_gamesMod.display();
+        		System.out.println(_score.getScore());
+        	}
+		});
 	}
 }

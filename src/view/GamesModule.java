@@ -24,8 +24,7 @@ public class GamesModule {
 	private Scene _gamesModScene;
 	
 	private QuestionBank _questionBank;
-	private ArrayList<Question> _questionsForCategory; // List of questions that are displayed on screen.
-	private ArrayList<ArrayList<Question>> _allQuestions;
+	private ArrayList<ArrayList<Question>> _allQuestions; // Keeps track of which clues have been revealed.
 	
 	public GamesModule(Stage primaryStage) {
 		_primaryStage = primaryStage;
@@ -34,10 +33,12 @@ public class GamesModule {
 		
 		// QuestionBank retrieves the data from the backend. The argument is true because we are in Games Module.
 		_questionBank = new QuestionBank(true);
-		_questionsForCategory = new ArrayList<Question>();
 		_allQuestions = new ArrayList<ArrayList<Question>>();
 	}
 	
+	/**
+	 * This method is only called once until the game is reset. This is because this method initialises the GamesModule.
+	 */
 	public void initialise() {
 		Text instruction = new Text();
 		instruction.setText("Please choose a clue to be read out. You can only choose the lowest money value "
@@ -49,6 +50,7 @@ public class GamesModule {
 		// Set out the GUI for Games Module. The end product is a screen with multiple buttons for the clues.
 		int categoryIdx = 0;
 		for (String categoryStr : categoriesStrArray) {
+			
 			Text categoryText = new Text(categoryStr + " ");
 			_gamesModPane.add(categoryText, categoryIdx, 1);
 			
@@ -83,19 +85,15 @@ public class GamesModule {
 	
 	public void display() {
 		
-		System.out.println(_questionBank.requestCategory().length);
-		
 		// When there are no clues left, treat the user to the Reward Screen.
 		if (_questionBank.requestCategory().length == 0) {
-			System.out.println("Am");
-			
 			RewardScreen rewardScrn = new RewardScreen(_primaryStage);
 			rewardScrn.display();
+		} else { // Keep displaying the GamesModule if there are still clues remaining.
+			handleEvents();
+			_primaryStage.setScene(_gamesModScene);
+			_primaryStage.show();
 		}
-		
-		handleEvents();
-		_primaryStage.setScene(_gamesModScene);
-		_primaryStage.show();
 	}
 	
 	public void handleEvents() {
@@ -105,6 +103,7 @@ public class GamesModule {
 			for (Question pressedQuestion : questionsForCategory) {
 				pressedQuestion.getButton().setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent event) {	
+						
 						// We need to check if the clue that is pressed has the minimum value for that category because
 						// only the clues that have the minimum value in their category can be selected.
 						if (questionsForCategory.indexOf(pressedQuestion) == 0) {
@@ -113,16 +112,8 @@ public class GamesModule {
 							_allQuestions.get(_allQuestions.indexOf(questionsForCategory)).remove(pressedQuestion);
 							_gamesModPane.getChildren().remove(pressedQuestion.getButton());
 							_questionBank.updateClue(pressedQuestion.getCategory(), pressedQuestion.getClue());
-									
-//							// Make the next minimum clue the minimum clue because the current minimum clue is removed.
-//							for (Question question : _questions) {
-//								if ( question.getCategory().equals(pressedQuestion.getCategory()) 
-//										&& question.getAmount() == (pressedQuestion.getAmount() + 100) ) {
-//									question.nowMin();
-//									System.out.println(question.isMin());
-//								}
-//							}
 							
+							// If a category contains no clues, remove that category from _allQuestions.
 							if (_allQuestions.get(_allQuestions.indexOf(questionsForCategory)).isEmpty()) {
 								_allQuestions.remove(questionsForCategory);
 							}

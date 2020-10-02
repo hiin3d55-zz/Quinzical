@@ -1,16 +1,19 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+/**
+ * This class contains all information that has to do with a specific question.
+ * 
+ * @author Dave Shin
+ *
+ */
 public class Question {
 
 	private int _amount;
 	private String _clue;
 	private String _category;
 	private Button _clueBtn;
-	private boolean _isMin;
 	private String[] _solution;
 	
 	public Question(int amount, String clue, String category, String[] solution) {
@@ -18,20 +21,7 @@ public class Question {
 		_clue = clue;
 		_category = category;
 		_clueBtn = new Button("$" + String.valueOf(amount));
-		if (amount == 100) {
-			_isMin = true;
-		} else {
-			_isMin = false;
-		}
 		_solution = solution;
-		
-		_clueBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				if (_isMin) {
-					System.out.println("hello hi");
-				}
-			}
-		});
 	}
 	
 	public int getAmount() {
@@ -42,18 +32,10 @@ public class Question {
 		return _clueBtn;
 	}
 	
-	public boolean isMin() {
-		return _isMin;
-	}
-	
 	public String getCategory() {
 		return _category;
 	}
-	
-	public void nowMin() {
-		_isMin = true;
-	}
-	
+
 	public String[] getSolution() {
 		return _solution;
 	}

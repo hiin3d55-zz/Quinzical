@@ -10,40 +10,29 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the screen that gets displayed when the user starts the game.
+ * 
+ * @author Dave Shin
+ *
+ */
 public class WelcomeScreen {
 
 	private Stage _primaryStage;
-
 	private Button _pracModBtn;
 	private Button _gamesModBtn;
 
 	public WelcomeScreen(Stage primaryStage) {
 		_primaryStage = primaryStage;
-
 		_pracModBtn = new Button("The Practice Module");
 		_pracModBtn.getStyleClass().addAll("golden-button");
 		_gamesModBtn = new Button("The Games Module");
 		_gamesModBtn.getStyleClass().addAll("normal-button");
-		
-		// Rest of this constructor are event handlers.
-		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				System.out.println("Practice Module");
-			}
-		});
-
-		_gamesModBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				GamesModule gamesMod = new GamesModule(_primaryStage);
-				gamesMod.initialise();
-				gamesMod.display();
-			}
-		});
 	}
 
 	public void display() {
+		handleEvents();
+		
 		BorderPane welcomePane = new BorderPane();
 		welcomePane.getStyleClass().add("background-screen");
 		
@@ -65,6 +54,24 @@ public class WelcomeScreen {
 		welcomeScene.getStylesheets().add("view/application.css");
 		_primaryStage.setScene(welcomeScene);
 		_primaryStage.show();
+	}
+	
+	public void handleEvents() {
+		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Practice Module");
+			}
+		});
+
+		_gamesModBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				GamesModule gamesMod = new GamesModule(_primaryStage);
+				gamesMod.initialise();
+				gamesMod.display();
+			}
+		});
 	}
 }
 
