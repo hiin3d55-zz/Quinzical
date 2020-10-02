@@ -1,5 +1,6 @@
 .background-screen {
 	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1C1C1C, #494949);
+	-fx-padding: 20;
 }
 
 .normal-text {
@@ -38,11 +39,15 @@
 	-fx-spacing: 7;
 }
 
+.invisible-component {
+	visibility: hidden;
+}
+
 /**
  * This section is for welcome screen.
  */
 
-.welcome-msg {
+.header-msg {
 	-fx-font-weight: bold;
 	-fx-font-size: 25px;
 }
@@ -53,7 +58,7 @@
  
 .clue-grid {
 	-fx-padding: 20;
-	-fx-spacing: 25;
+	-fx-spacing: 28;
 	-fx-alignment: baseline-center;
 }
 

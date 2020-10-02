@@ -22,13 +22,13 @@ import model.QuestionBank;
  *
  */
 public class GamesModule {
-	private Stage _primaryStage;
+	private BorderPane _pane;
 	
 	private QuestionBank _questionBank;
 	private ArrayList<ArrayList<Question>> _allQuestions; // Keeps track of which clues have been revealed.
 	
-	public GamesModule(Stage primaryStage) {
-		_primaryStage = primaryStage;
+	public GamesModule(BorderPane pane) {
+		_pane = pane;
 		
 		// QuestionBank retrieves the data from the backend. The argument is true because we are in Games Module.
 		_questionBank = new QuestionBank(true);
@@ -39,9 +39,6 @@ public class GamesModule {
 	 * This method is only called once until the game is reset. This is because this method initialises the GamesModule.
 	 */
 	private void initialise() {
-		BorderPane gamesModPane = new BorderPane();
-		gamesModPane.getStyleClass().add("background-screen");
-
 		VBox gamesModBox = new VBox();
 		gamesModBox.getStyleClass().add("center-screen-box");
 
@@ -100,20 +97,17 @@ public class GamesModule {
 		}
 		
 		gamesModBox.getChildren().add(clueGrid);
-		gamesModPane.setCenter(gamesModBox);
+		_pane.setCenter(gamesModBox);
 		
-		Scene gamesModScene = new Scene(gamesModPane, 600, 400);
-		gamesModScene.getStylesheets().add("view/application.css");
-
-		_primaryStage.setScene(gamesModScene);
-		_primaryStage.show();
+		//Shows the main menu button at the bottom
+		_pane.getBottom().getStyleClass().remove("invisible-component");
 	}
 	
 	public void display() {
 		
 		// When there are no clues left, treat the user to the Reward Screen.
 		if (_questionBank.requestCategory().length == 0) {
-			RewardScreen rewardScrn = new RewardScreen(_primaryStage);
+			RewardScreen rewardScrn = new RewardScreen(_pane);
 			rewardScrn.display();
 		} else { // Keep displaying the GamesModule if there are still clues remaining.
 			initialise();
@@ -142,7 +136,7 @@ public class GamesModule {
 								_allQuestions.remove(questionsForCategory);
 							}
 							
-							AnswerScreen answerScrn = new AnswerScreen(_primaryStage, pressedQuestion);
+							AnswerScreen answerScrn = new AnswerScreen(_pane, pressedQuestion);
 							answerScrn.display();
 						}
 					}

@@ -23,14 +23,14 @@ import javafx.stage.Stage;
  */
 public class AnswerScreen {
 	
-	private Stage _primaryStage;
+	private BorderPane _pane;
 	private TextField _attemptInput;
 	private Button _submitBtn;
 	private Button _dontKnowBtn;
 	private Question _question;
 	
-	public AnswerScreen(Stage primaryStage, Question question) {
-		_primaryStage = primaryStage;
+	public AnswerScreen(BorderPane pane, Question question) {
+		_pane = pane;
 		
 		_attemptInput = new TextField();
 		_attemptInput.setMaxWidth(200);
@@ -44,10 +44,7 @@ public class AnswerScreen {
 		_question = question;
 	}
 	
-	public void display() {
-		BorderPane answerPane = new BorderPane();
-		answerPane.getStyleClass().add("background-screen");
-		
+	public void display() {	
 		VBox answerBox = new VBox();
 		answerBox.getStyleClass().add("center-screen-box");
 		
@@ -61,14 +58,8 @@ public class AnswerScreen {
 		handleEvents();
 		
 		answerBox.getChildren().addAll(instruction, _attemptInput, buttonBox);
-		answerPane.setCenter(answerBox);
-		
-		Scene answerScene = new Scene(answerPane, 600, 400);
-		answerScene.getStylesheets().add("view/application.css");
-		
-		_primaryStage.setScene(answerScene);
-		_primaryStage.show();
-		
+		_pane.setCenter(answerBox);
+
 		speakClue();
 	}
 	
@@ -83,7 +74,7 @@ public class AnswerScreen {
 				attempt = attempt.toLowerCase();
 				attempt = attempt.trim();
 				
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question, 
+				SolutionScreen solScrn = new SolutionScreen(_pane, _question, 
 						_question.getSolution()[0]);
 				
 				// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
@@ -113,7 +104,7 @@ public class AnswerScreen {
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				SolutionScreen solScrn = new SolutionScreen(_primaryStage, _question,
+				SolutionScreen solScrn = new SolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
 			}

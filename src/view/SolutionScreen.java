@@ -20,14 +20,14 @@ import model.Score;
  */
 public class SolutionScreen {
 	
-	private Stage _primaryStage;
+	private BorderPane _pane;
 	private Button _returnBtn;
 	private String _solution;
 	private Score _score;
 	private Question _question;
 	
-	public SolutionScreen(Stage primaryStage, Question question, String solution) {
-		_primaryStage= primaryStage;
+	public SolutionScreen(BorderPane pane, Question question, String solution) {
+		_pane = pane;
 		_returnBtn = new Button("Return to Games Module");
 		_returnBtn.getStyleClass().add("golden-button");
 		_solution = solution;
@@ -59,7 +59,6 @@ public class SolutionScreen {
 		
 		// Record the decreased winnings.
 		_score.updateScore(-_question.getAmount());
-		
 		displayDontKnow();
 	}
 	
@@ -82,31 +81,28 @@ public class SolutionScreen {
 	
 	public void setUpAndShow(Text msg) {
 		handleEvents();
+		updateScoreText();
 		
 		msg.getStyleClass().addAll("normal-text", "solution-text");
-		
-		BorderPane solutionPane = new BorderPane();
-		solutionPane.getStyleClass().add("background-screen");
 		
 		VBox solutionBox = new VBox();
 		solutionBox.getStyleClass().add("center-screen-box");
 		
 		solutionBox.getChildren().addAll(msg, _returnBtn);
 		
-		solutionPane.setCenter(solutionBox);
-		
-		Scene solutionScene = new Scene(solutionPane, 600, 400);
-		solutionScene.getStylesheets().add("view/application.css");
-		
-		_primaryStage.setScene(solutionScene);
-		_primaryStage.show();
+		_pane.setCenter(solutionBox);
+	}
+	
+	private void updateScoreText() {
+		Text scoreText = (Text)_pane.getTop();
+		scoreText.setText("Current Score: " + _score.getScore());
 	}
 	
 	public void handleEvents() {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
-				GamesModule gamesMod = new GamesModule(_primaryStage);
+				GamesModule gamesMod = new GamesModule(_pane);
         		gamesMod.display();
         	}
 		});

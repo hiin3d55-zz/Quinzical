@@ -3,12 +3,10 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * This class represents the screen that gets displayed when the user starts the game.
@@ -18,12 +16,12 @@ import javafx.stage.Stage;
  */
 public class WelcomeScreen {
 
-	private Stage _primaryStage;
+	private BorderPane _pane;
 	private Button _pracModBtn;
 	private Button _gamesModBtn;
 
-	public WelcomeScreen(Stage primaryStage) {
-		_primaryStage = primaryStage;
+	public WelcomeScreen(BorderPane pane) {
+		_pane = pane;
 		_pracModBtn = new Button("The Practice Module");
 		_pracModBtn.getStyleClass().addAll("golden-button");
 		_gamesModBtn = new Button("The Games Module");
@@ -33,11 +31,11 @@ public class WelcomeScreen {
 	public void display() {
 		handleEvents();
 		
-		BorderPane welcomePane = new BorderPane();
-		welcomePane.getStyleClass().add("background-screen");
+//		BorderPane _welcomePane = new BorderPane();
+		_pane.getStyleClass().add("background-screen");
 		
 		Text welcomeMessage = new Text("Welcome to Quinzical!");
-		welcomeMessage.getStyleClass().addAll("welcome-msg", "normal-text");
+		welcomeMessage.getStyleClass().addAll("header-msg", "normal-text");
 		
 		Text optionsText = new Text("Please select from one of the following options:");
 		optionsText.getStyleClass().add("normal-text");
@@ -47,28 +45,25 @@ public class WelcomeScreen {
 		welcomeBox.getStyleClass().add("center-screen-box");
 		VBox.setMargin(welcomeMessage, new Insets(0, 0, 15, 0));
 		
-		welcomePane.setCenter(welcomeBox);
+		_pane.setCenter(welcomeBox);
 		
-		Scene welcomeScene = new Scene(welcomePane,600,400);
-				
-		welcomeScene.getStylesheets().add("view/application.css");
-		_primaryStage.setScene(welcomeScene);
-		_primaryStage.show();
+		//Hiddens the main menu button at the bottom
+		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 	
 	public void handleEvents() {
 		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				PracticeModule pracMod = new PracticeModule(_primaryStage);
-				pracMod.display();
+//				PracticeModule pracMod = new PracticeModule(_primaryStage);
+//				pracMod.display();
 			}
 		});
 
 		_gamesModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				GamesModule gamesMod = new GamesModule(_primaryStage);
+				GamesModule gamesMod = new GamesModule(_pane);
 				gamesMod.display();
 			}
 		});

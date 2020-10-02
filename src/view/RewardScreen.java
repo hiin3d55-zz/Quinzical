@@ -4,7 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.QuestionBank;
@@ -20,14 +23,16 @@ import model.Score;
  */
 public class RewardScreen {
 	
-	private Stage _primaryStage;
+	private BorderPane _pane;
 	private Button _playAgainBtn;
 	private Score _score;
 	private QuestionBank _questionBank;
 	
-	public RewardScreen(Stage primaryStage) {
-		_primaryStage = primaryStage;
+	public RewardScreen(BorderPane pane) {
+		_pane = pane;
 		_playAgainBtn = new Button("Play again!");
+		_playAgainBtn.getStyleClass().add("golden-button");
+		
 		_score = new Score();
 		_questionBank = new QuestionBank(true);
 	}
@@ -35,15 +40,21 @@ public class RewardScreen {
 	public void display() {
 		handleEvents();
 		
-		GridPane _rewardPane = new GridPane();
-		Text rewardMsg = new Text("Congratualtions! You attempted all questions. Your final score is: " 
-									+ Integer.toString(_score.getScore()));
+		VBox rewardBox = new VBox();
+		rewardBox.getStyleClass().add("center-screen-box");
 		
-		_rewardPane.add(rewardMsg, 0, 0);
-		_rewardPane.add(_playAgainBtn, 0, 1);
+		Text congratulationMsg = new Text("Congratulations! All Questions Attempted!");
+		congratulationMsg.getStyleClass().addAll("header-msg", "normal-text");
+
+		Text infoMsg = new Text("Your final score is");
+		infoMsg.getStyleClass().add("normal-text");
 		
-		_primaryStage.setScene(new Scene(_rewardPane, 600, 400));
-		_primaryStage.show();
+		Text scoreText = new Text(Integer.toString(_score.getScore()));
+		scoreText.setFont(new Font(20));
+		scoreText.getStyleClass().add("normal-text");
+		
+		rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, _playAgainBtn);
+		_pane.setCenter(rewardBox);
 	}
 	
 	public void handleEvents() {
@@ -52,7 +63,7 @@ public class RewardScreen {
         	public void handle(ActionEvent event) {
 				_score.resetScore();
 				_questionBank.resetGame();
-        		WelcomeScreen welcomeScrn = new WelcomeScreen(_primaryStage);
+        		WelcomeScreen welcomeScrn = new WelcomeScreen(_pane);
         		welcomeScrn.display();
         	}
 		});
