@@ -8,67 +8,80 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Score;
 
+/**
+ * This class represents the screen that get shown after the user submits their answer.
+ * 
+ * @author Dave Shin
+ *
+ */
 public class SolutionScreen {
 	
 	private Stage _primaryStage;
 	private Button _returnBtn;
 	private String _solution;
+	private Score _score;
+	private Question _question;
+	private GamesModule _gamesMod;
 	
-	public SolutionScreen(Stage primaryStage) {
+	public SolutionScreen(Stage primaryStage, Question question, GamesModule gamesMod, String solution) {
 		_primaryStage= primaryStage;
 		_returnBtn = new Button("Return");
-		_solution = "Not yet implemented.";
-		
-		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-        	public void handle(ActionEvent event) {
-        		GamesModule gamesMod = new GamesModule(_primaryStage);
-        		gamesMod.display();
-        	}
-		});
+		_solution = solution;
+		_score = new Score();
+		_question = question;
+		_gamesMod = gamesMod;
 	}
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
+		
 		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
 		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
 		try {
 			Process process = builder.start();
+			process.toString();
 		} catch (IOException e) {
 			System.out.println("Error with using festival to read out the question.");
 			e.printStackTrace();
 		}
 		
-		// Record the increased winnings.
-		updateWinnings(true);
+		// Record the increased score.
+		_score.updateScore(_question.getAmount());
 		
 		setUpAndShow(correctMsg);
 	}
 	
 	public void displayIncorrect() {
-		Text incorrectMsg = new Text("Incorrect. The actual answer is: " + _solution);
+		
+		// Record the decreased winnings.
+		_score.updateScore(-_question.getAmount());
+		
+		displayDontKnow();
+	}
+	
+	public void displayDontKnow() {
+		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-		String sayIncorrectCmd = "echo \"Incorrect the actual answer is " + _solution + "\" | festival --tts";		
+		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
 		try {
 			Process process = builder.start();
 			process.toString();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error with using festival to read out the question.");
 			e.printStackTrace();
 		}
-		
-		// Record the decreased winnings.
-		updateWinnings(false);
 		
 		setUpAndShow(incorrectMsg);
 	}
 	
 	public void setUpAndShow(Text msg) {
+		handleEvents();
+		
 		GridPane _solutionPane = new GridPane();
 		_solutionPane.add(msg, 0, 0);
 		_solutionPane.add(_returnBtn, 0, 1);
@@ -77,7 +90,13 @@ public class SolutionScreen {
 		_primaryStage.show();
 	}
 	
-	public void updateWinnings(boolean correct) {
-		// Not yet implemented.
+	public void handleEvents() {
+		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+        	public void handle(ActionEvent event) {
+        		_gamesMod.display();
+        		System.out.println(_score.getScore());
+        	}
+		});
 	}
 }

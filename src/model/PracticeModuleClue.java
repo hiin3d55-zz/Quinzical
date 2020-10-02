@@ -5,4 +5,8 @@ public class PracticeModuleClue extends Clue{
 		String[] clues = getAllClues(category);
 		return randomiseClues(clues, 1);
 	}
+
+	public int[] getClueValues(String category) {
+		return null;
+	}
 }

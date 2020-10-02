@@ -53,11 +53,10 @@ public class GamesModuleClue extends Clue{
 
 	public String[] getAnswer(String category, String clue) {
 		String[] ans = super.getAnswer(category, clue);
-		update(category, clue);
 		return ans;
 	}
 
-	private void update(String category, String clue) {
+	public void update(String category, String clue) {
 		List<String> cluesList = new ArrayList<String>();
 		Collections.addAll(cluesList, getClues(category));
 		File file = new File(_dataRecordFolder + "/" + category);
@@ -83,5 +82,15 @@ public class GamesModuleClue extends Clue{
 		if (cluesList.size() == 0) {
 			file.delete();
 		}
+	}
+	
+	public int[] getClueValues(String category) {
+		int clues = getRecordedClues(category).length;
+		
+		int[] values = new int[clues];
+		for (int i = 5; i > (5 - clues); i--) {
+			values[clues - (5 - i) - 1] = i * 100;
+		}
+		return values;
 	}
 }
