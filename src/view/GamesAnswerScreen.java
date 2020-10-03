@@ -1,19 +1,11 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * This class represents the screen that shows when the user tries to answer the question.
@@ -56,6 +48,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 	 * Adds listeners to different buttons.
 	 */
 	protected void handleEvents() {
+		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				boolean loseScore = true;
@@ -66,7 +59,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 				attempt = attempt.toLowerCase();
 				attempt = attempt.trim();
 				
-				SolutionScreen solScrn = new SolutionScreen(_pane, _question, 
+				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question, 
 						_question.getSolution()[0]);
 				
 				// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
@@ -96,7 +89,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				SolutionScreen solScrn = new SolutionScreen(_pane, _question,
+				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
 			}

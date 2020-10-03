@@ -1,19 +1,15 @@
 package view;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 /**
  * This class represents the screen that gets displayed when the user has submitted the correct
@@ -21,19 +17,13 @@ import javafx.stage.Stage;
  * 
  * @author Sherman Chin, Dave Shin
  */
-public class PracticeSolutionScreen {
+public class PracticeSolutionScreen extends SolutionScreen{
 	
-	private BorderPane _pane;
-	private Button _returnBtn;
 	private String _clue;
-	private String _solution;
 	
 	public PracticeSolutionScreen(BorderPane pane, String clue, String solution) {
-		_pane = pane;
-		_returnBtn = new Button("Return to Practice Module");
-		_returnBtn.getStyleClass().add("golden-button");
+		super(pane, solution, new Button("Return to Practice Module"));
 		_clue = clue;
-		_solution = solution;
 	}
 	
 	public void displayCorrect() {
@@ -51,33 +41,17 @@ public class PracticeSolutionScreen {
 		clueMsg.setWrappingWidth(500);
 		clueMsg.setTextAlignment(TextAlignment.CENTER);
 		
+		speak("The actual answer is " + _solution);
+		
 		Text answerMsg = new Text("Answer: " + _solution);
 		answerMsg.getStyleClass().addAll("normal-text", "information-text");
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-		speak("The actual answer is " + _solution);
 		
 		List<Text> messages  = new ArrayList<Text>();
 		messages.add(clueMsg);
 		messages.add(answerMsg);
 		setUpAndShow(messages);
-	}
-	
-	/**
-	 * This method uses bash commands to use festival to speak any sentences.
-	 * @param speech A string which will be spoken out using festival.
-	 */
-	private void speak(String speech) {
-		String cmd = "echo \""+ speech + "\" | festival --tts";	
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		}
-//		catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
 	}
 	
 	private void setUpAndShow(List<Text> messages) {

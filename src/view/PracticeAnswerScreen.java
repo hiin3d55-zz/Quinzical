@@ -1,18 +1,11 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 /**
  * This class represents the screen that gets displayed when the user is trying to answer the question.
@@ -67,6 +60,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 	 * Adds listeners to buttons
 	 */
 	protected void handleEvents() {
+		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {

@@ -55,7 +55,6 @@ public abstract class AnswerScreen {
 				speak(_clue);
 			}
 		});
-		this.handleEvents();
 	}
 	
 	/**
@@ -65,9 +64,9 @@ public abstract class AnswerScreen {
 	protected void speak(String speech) {
 		
 		// Bash command for speaking out the clue.
-//		String speakClueCmd = "echo \"" + speech + "\" | festival --tts";
+		String cmd = "echo \"" + speech + "\" | festival --tts";
 //		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
 //		try {
 //			Process process = builder.start();
 //			process.toString();
