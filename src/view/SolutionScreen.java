@@ -25,6 +25,7 @@ public class SolutionScreen {
 	private String _solution;
 	private Score _score;
 	private Question _question;
+	private SoundAdjuster _adjuster;
 	
 	public SolutionScreen(BorderPane pane, Question question, String solution) {
 		_pane = pane;
@@ -33,49 +34,31 @@ public class SolutionScreen {
 		_solution = solution;
 		_score = new Score();
 		_question = question;
+		_adjuster = new SoundAdjuster(_solution);
 	}
 	
 	public void displayCorrect() {
-		Text correctMsg = new Text("Correct!");
-//		
-//		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
-//		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		} catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
+		_adjuster = new SoundAdjuster("Correct!");
+		_adjuster.speak();
 		
 		// Record the increased score.
 		_score.updateScore(_question.getAmount());
 		
+		Text correctMsg = new Text("Correct!");
 		setUpAndShow(correctMsg);
 	}
 	
 	public void displayIncorrect() {
-		
 		// Record the decreased winnings.
 		_score.updateScore(-_question.getAmount());
 		displayDontKnow();
 	}
 	
 	public void displayDontKnow() {
-		Text incorrectMsg = new Text("The actual answer is: " + _solution);
+		_adjuster = new SoundAdjuster("The actual answer is " + _solution);
+		_adjuster.speak();
 		
-		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-//		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		} catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
-//		
+		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		setUpAndShow(incorrectMsg);
 	}
 	

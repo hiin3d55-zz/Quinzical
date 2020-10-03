@@ -1,19 +1,17 @@
 package view;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * This class represents the screen that shows when the user tries to answer the question.
@@ -29,6 +27,9 @@ public class AnswerScreen {
 	private Button _dontKnowBtn;
 	private Button _repeatBtn;
 	private Question _question;
+	private SoundAdjuster _adjuster;
+	private Text _currentSpeed;
+	private VBox _answerBox;
 	
 	public AnswerScreen(BorderPane pane, Question question) {
 		_pane = pane;
@@ -45,11 +46,17 @@ public class AnswerScreen {
 		_repeatBtn.getStyleClass().add("golden-button");
 		
 		_question = question;
+		
+		_adjuster = new SoundAdjuster(_question.getClue());
+		
+		_currentSpeed = new Text(_adjuster.getSpeed() + " (Default)");
+		
+		_answerBox = new VBox();
 	}
 	
 	public void display() {	
-		VBox answerBox = new VBox();
-		answerBox.getStyleClass().add("center-screen-box");
+		
+		_answerBox.getStyleClass().add("center-screen-box");
 		
 		HBox inputAndSoundBtn = new HBox();
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
@@ -65,10 +72,23 @@ public class AnswerScreen {
 		
 		handleEvents();
 		
-		answerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox);
-		_pane.setCenter(answerBox);
+		_answerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox, _adjuster.getFasterBtn(), 
+				_adjuster.getSlowerBtn(), _currentSpeed);
+		_pane.setCenter(_answerBox);
+		
+		_adjuster.speak();
+	}
+	
+	public void updateSpeed() {
+		_answerBox.getChildren().remove(_currentSpeed);
+		
+		if (_adjuster.getSpeed().equals("1.0")) {
+			_currentSpeed = new Text(_adjuster.getSpeed() + " (Deafult)");
+		} else {
+			_currentSpeed = new Text(_adjuster.getSpeed());
+		}
 
-		speakClue();
+		_answerBox.getChildren().add(_currentSpeed);
 	}
 	
 	public void handleEvents() {
@@ -120,25 +140,22 @@ public class AnswerScreen {
 		
 		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				speakClue();
+				_adjuster.speak();
 			}
 		});
-	}
-	
-	public void speakClue() {
 		
-		// Bash command for speaking out the clue.
-//		String speakClueCmd = "echo \"" + _question.getClue() + "\" | festival --tts";
-//		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString(); // This line does not do anything. It is just here so that the 
-//								// variable of process is used.
-//		}
-//		catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
+		_adjuster.getFasterBtn().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				_adjuster.fasterSpeed();
+				updateSpeed();
+			}
+		});
+		
+		_adjuster.getSlowerBtn().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				_adjuster.slowerSpeed();
+				updateSpeed();
+			}
+		});
 	}
 }
