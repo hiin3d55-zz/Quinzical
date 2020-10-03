@@ -16,22 +16,16 @@ import model.QuestionBank;
  * @author Sherman Chin, Dave Shin
  *
  */
-public class PracticeModule {
-	
-	private BorderPane _pane;
-	private QuestionBank _questionBank;
+public class PracticeModule extends Module{
 	
 	public PracticeModule(BorderPane pane) {
-		_pane = pane;
-		_questionBank = new QuestionBank(false);
+		super(pane, new QuestionBank(false));
 	}
 	
 	/**
 	 * This method lays out the GUI for Practice Module
 	 */
 	public void display() {
-		VBox pracModBox = new VBox();
-		pracModBox.getStyleClass().add("center-screen-box");
 		
 		Text header = new Text("PracticeModule!");
 		header.getStyleClass().addAll("header-msg", "normal-text");
@@ -41,7 +35,7 @@ public class PracticeModule {
 		FlowPane categoryBox = new FlowPane();
 		categoryBox.getStyleClass().add("category-grid");
 		
-		pracModBox.getChildren().addAll(header, instruction, categoryBox);
+		_centerBox.getChildren().addAll(header, instruction, categoryBox);
 		
 		String[] categories = _questionBank.requestCategory();
 		
@@ -62,7 +56,7 @@ public class PracticeModule {
 			categoryBox.getChildren().add(categoryBtn);
 		}
 		
-		_pane.setCenter(pracModBox);
+		_pane.setCenter(_centerBox);
 		
 		//Shows the main menu button at the bottom
 		_pane.getBottom().getStyleClass().remove("invisible-component");

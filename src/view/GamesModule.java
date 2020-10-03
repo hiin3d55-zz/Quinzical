@@ -21,26 +21,35 @@ import model.QuestionBank;
  * @author Dave Shin
  *
  */
-public class GamesModule {
-	private BorderPane _pane;
-	
-	private QuestionBank _questionBank;
+public class GamesModule extends Module{
 	private ArrayList<ArrayList<Question>> _allQuestions; // Keeps track of which clues have been revealed.
 	
 	public GamesModule(BorderPane pane) {
-		_pane = pane;
+		super(pane, new QuestionBank(true));
 		
 		// QuestionBank retrieves the data from the backend.
-		_questionBank = new QuestionBank(true);
 		_allQuestions = new ArrayList<ArrayList<Question>>();
+	}
+	
+	/**
+	 * Depending if all clues have been asked, a reward screen / Games Module screen will be layed out
+	 */
+	public void display() {
+		
+		// When there are no clues left, treat the user to the Reward Screen.
+		if (_questionBank.requestCategory().length == 0) {
+			RewardScreen rewardScrn = new RewardScreen(_pane);
+			rewardScrn.display();
+		} else { // Keep displaying the GamesModule if there are still clues remaining.
+			createGUI();
+			handleEvents();
+		}
 	}
 	
 	/**
 	 * This method lays out the GUI for Games Module
 	 */
-	private void initialise() {
-		VBox gamesModBox = new VBox();
-		gamesModBox.getStyleClass().add("center-screen-box");
+	private void createGUI() {
 		
 		Text header = new Text("Games Module!");
 		header.getStyleClass().addAll("header-msg","normal-text");
@@ -49,7 +58,7 @@ public class GamesModule {
 		Text instruction2 = new Text("You can only choose the lowest money value for each category.");
 		instruction2.getStyleClass().add("normal-text");
 
-		gamesModBox.getChildren().addAll(header, instruction1, instruction2);
+		_centerBox.getChildren().addAll(header, instruction1, instruction2);
 		
 		String[] categoriesStrArray = _questionBank.requestCategory();
 		
@@ -98,32 +107,17 @@ public class GamesModule {
 			clueGrid.getChildren().add(categoryColumn);
 		}
 		
-		gamesModBox.getChildren().add(clueGrid);
-		_pane.setCenter(gamesModBox);
+		_centerBox.getChildren().add(clueGrid);
+		_pane.setCenter(_centerBox);
 		
 		//Shows the main menu button at the bottom
 		_pane.getBottom().getStyleClass().remove("invisible-component");
 	}
 	
 	/**
-	 * Depending if all clues have been asked, a reward screen / Games Module screen will be layed out
-	 */
-	public void display() {
-		
-		// When there are no clues left, treat the user to the Reward Screen.
-		if (_questionBank.requestCategory().length == 0) {
-			RewardScreen rewardScrn = new RewardScreen(_pane);
-			rewardScrn.display();
-		} else { // Keep displaying the GamesModule if there are still clues remaining.
-			initialise();
-			handleEvents();
-		}
-	}
-	
-	/**
 	 * Add listeners to each buttons
 	 */
-	public void handleEvents() {
+	private void handleEvents() {
 		
 		// When a clue button is pressed.
 		for (ArrayList<Question> questionsForCategory : _allQuestions) {
@@ -144,7 +138,7 @@ public class GamesModule {
 								_allQuestions.remove(questionsForCategory);
 							}
 							
-							AnswerScreen answerScrn = new AnswerScreen(_pane, pressedQuestion);
+							AnswerScreen answerScrn = new GamesAnswerScreen(_pane, pressedQuestion);
 							answerScrn.display();
 						}
 					}
