@@ -37,17 +37,8 @@ public class SolutionScreen {
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
-//		
-//		String sayCorrectCmd = "echo \"Correct\" | festival --tts";
-//		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayCorrectCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		} catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
+		
+		speak("Correct");
 		
 		// Record the increased score.
 		_score.updateScore(_question.getAmount());
@@ -56,7 +47,6 @@ public class SolutionScreen {
 	}
 	
 	public void displayIncorrect() {
-		
 		// Record the decreased winnings.
 		_score.updateScore(-_question.getAmount());
 		displayDontKnow();
@@ -66,17 +56,26 @@ public class SolutionScreen {
 		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-//		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", sayIncorrectCmd);
+		speak("The actual answer is " + _solution);
+
+		setUpAndShow(incorrectMsg);
+	}
+	
+	/**
+	 * This method uses bash commands to use festival to speak any sentences.
+	 * @param speech A string which will be spoken out using festival.
+	 */
+	private void speak(String speech) {
+		String cmd = "echo \""+ speech + "\" | festival --tts";	
+//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
 //		try {
 //			Process process = builder.start();
 //			process.toString();
-//		} catch (IOException e) {
+//		}
+//		catch (IOException e) {
 //			System.out.println("Error with using festival to read out the question.");
 //			e.printStackTrace();
 //		}
-//		
-		setUpAndShow(incorrectMsg);
 	}
 	
 	private void setUpAndShow(Text msg) {

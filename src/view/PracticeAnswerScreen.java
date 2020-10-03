@@ -59,6 +59,9 @@ public class PracticeAnswerScreen{
 		
 	}
 	
+	/**
+	 * Lays out the GUI.
+	 */
 	public void display() {
 		handleEvents();
 		
@@ -79,11 +82,13 @@ public class PracticeAnswerScreen{
 		_pane.setCenter(pracAnsBox);
 	}
 	
+	/**
+	 * Adds listeners to buttons
+	 */
 	public void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
-				
 				boolean correct = false;
 				
 				String attempt = _attemptInput.getText();
@@ -93,7 +98,7 @@ public class PracticeAnswerScreen{
 				attempt = attempt.trim();
 				
 				PracticeSolutionScreen solScrn = new PracticeSolutionScreen(_pane, _clue, _answers[0]);
-		
+				
 				// A for loop is used because there can be multiple solutions and we want to 
 				// check if the attempt matches with at least one solution.
 				for (String solution : _answers) {
@@ -133,6 +138,10 @@ public class PracticeAnswerScreen{
 		});
 	}
 	
+	/**
+	 * This method uses bash commands to use festival to speak any sentences.
+	 * @param speech A string which will be spoken out using festival.
+	 */
 	public void speak(String speech) {
 		
 		// Bash command for speaking out the clue.

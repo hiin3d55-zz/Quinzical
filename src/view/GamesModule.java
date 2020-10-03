@@ -30,13 +30,13 @@ public class GamesModule {
 	public GamesModule(BorderPane pane) {
 		_pane = pane;
 		
-		// QuestionBank retrieves the data from the backend. The argument is true because we are in Games Module.
+		// QuestionBank retrieves the data from the backend.
 		_questionBank = new QuestionBank(true);
 		_allQuestions = new ArrayList<ArrayList<Question>>();
 	}
 	
 	/**
-	 * This method is only called once until the game is reset. This is because this method initialises the GamesModule.
+	 * This method lays out the GUI for Games Module
 	 */
 	private void initialise() {
 		VBox gamesModBox = new VBox();
@@ -105,6 +105,9 @@ public class GamesModule {
 		_pane.getBottom().getStyleClass().remove("invisible-component");
 	}
 	
+	/**
+	 * Depending if all clues have been asked, a reward screen / Games Module screen will be layed out
+	 */
 	public void display() {
 		
 		// When there are no clues left, treat the user to the Reward Screen.
@@ -117,6 +120,9 @@ public class GamesModule {
 		}
 	}
 	
+	/**
+	 * Add listeners to each buttons
+	 */
 	public void handleEvents() {
 		
 		// When a clue button is pressed.

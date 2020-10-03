@@ -47,6 +47,9 @@ public class AnswerScreen {
 		_question = question;
 	}
 	
+	/**
+	 * This method lays out the GUI.
+	 */
 	public void display() {	
 		VBox answerBox = new VBox();
 		answerBox.getStyleClass().add("center-screen-box");
@@ -71,6 +74,9 @@ public class AnswerScreen {
 		speakClue();
 	}
 	
+	/**
+	 * Adds listeners to different buttons.
+	 */
 	public void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -125,6 +131,9 @@ public class AnswerScreen {
 		});
 	}
 	
+	/**
+	 * This method performs bash commands to use festival to speak the clue.
+	 */
 	public void speakClue() {
 		
 		// Bash command for speaking out the clue.

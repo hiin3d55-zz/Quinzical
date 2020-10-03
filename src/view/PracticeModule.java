@@ -2,13 +2,11 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.QuestionBank;
 
 /**
@@ -25,9 +23,12 @@ public class PracticeModule {
 	
 	public PracticeModule(BorderPane pane) {
 		_pane = pane;
-		_questionBank = new QuestionBank(false); // False because we are in Practice Module.
+		_questionBank = new QuestionBank(false);
 	}
 	
+	/**
+	 * This method lays out the GUI for Practice Module
+	 */
 	public void display() {
 		VBox pracModBox = new VBox();
 		pracModBox.getStyleClass().add("center-screen-box");
