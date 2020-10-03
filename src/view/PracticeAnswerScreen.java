@@ -66,7 +66,7 @@ public class PracticeAnswerScreen{
 		pracAnsBox.getStyleClass().add("center-screen-box");
 		
 		Text instruction = new Text("Clue: " + _clue);
-		instruction.getStyleClass().add("normal-text");
+		instruction.getStyleClass().addAll("normal-text", "information-text");
 		instruction.setWrappingWidth(500);
 		instruction.setTextAlignment(TextAlignment.CENTER);
 		speak(_clue);

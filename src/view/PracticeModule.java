@@ -32,13 +32,15 @@ public class PracticeModule {
 		VBox pracModBox = new VBox();
 		pracModBox.getStyleClass().add("center-screen-box");
 		
+		Text header = new Text("PracticeModule!");
+		header.getStyleClass().addAll("header-msg", "normal-text");
 		Text instruction = new Text("Please choose any category");
 		instruction.getStyleClass().add("normal-text");
 		
 		FlowPane categoryBox = new FlowPane();
 		categoryBox.getStyleClass().add("category-grid");
 		
-		pracModBox.getChildren().addAll(instruction, categoryBox);
+		pracModBox.getChildren().addAll(header, instruction, categoryBox);
 		
 		String[] categories = _questionBank.requestCategory();
 		

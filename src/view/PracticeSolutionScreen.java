@@ -55,12 +55,12 @@ public class PracticeSolutionScreen {
 	
 	public void displayIncorrect() {
 		Text clueMsg = new Text("Clue: " + _clue);
-		clueMsg.getStyleClass().addAll("normal-text", "solution-text", "clue-text");
+		clueMsg.getStyleClass().addAll("normal-text", "information-text");
 		clueMsg.setWrappingWidth(500);
 		clueMsg.setTextAlignment(TextAlignment.CENTER);
 		
 		Text answerMsg = new Text("Answer: " + _solution);
-		answerMsg.getStyleClass().addAll("normal-text", "solution-text");
+		answerMsg.getStyleClass().addAll("normal-text", "information-text");
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
 		String sayIncorrectCmd = "echo \"The actual answer is " + _solution + "\" | festival --tts";		

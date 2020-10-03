@@ -5,6 +5,7 @@
 
 .normal-text {
 	-fx-fill: #EAEAEA;
+	-fx-font-size: 14px;
 }
 
 .button {
@@ -72,7 +73,7 @@
 /**
  * This section is for solution screen
  */
-.solution-text {
+.information-text {
 	-fx-font-size: 20px;
 }
 

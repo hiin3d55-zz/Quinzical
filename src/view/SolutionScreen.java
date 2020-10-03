@@ -83,7 +83,7 @@ public class SolutionScreen {
 		handleEvents();
 		updateScoreText();
 		
-		msg.getStyleClass().addAll("normal-text", "solution-text");
+		msg.getStyleClass().addAll("normal-text", "information-text");
 		
 		VBox solutionBox = new VBox();
 		solutionBox.getStyleClass().add("center-screen-box");

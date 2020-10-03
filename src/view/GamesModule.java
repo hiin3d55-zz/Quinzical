@@ -41,13 +41,15 @@ public class GamesModule {
 	private void initialise() {
 		VBox gamesModBox = new VBox();
 		gamesModBox.getStyleClass().add("center-screen-box");
-
+		
+		Text header = new Text("Games Module!");
+		header.getStyleClass().addAll("header-msg","normal-text");
 		Text instruction1 = new Text("Please choose a clue to be read out");
 		instruction1.getStyleClass().add("normal-text");
 		Text instruction2 = new Text("You can only choose the lowest money value for each category.");
 		instruction2.getStyleClass().add("normal-text");
 
-		gamesModBox.getChildren().addAll(instruction1, instruction2);
+		gamesModBox.getChildren().addAll(header, instruction1, instruction2);
 		
 		String[] categoriesStrArray = _questionBank.requestCategory();
 		

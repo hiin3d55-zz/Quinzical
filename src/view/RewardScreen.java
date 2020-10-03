@@ -51,7 +51,7 @@ public class RewardScreen {
 		
 		Text scoreText = new Text(Integer.toString(_score.getScore()));
 		scoreText.setFont(new Font(20));
-		scoreText.getStyleClass().add("normal-text");
+		scoreText.getStyleClass().addAll("normal-text", "information-text");
 		
 		rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, _playAgainBtn);
 		_pane.setCenter(rewardBox);

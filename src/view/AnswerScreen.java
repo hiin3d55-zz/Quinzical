@@ -55,7 +55,7 @@ public class AnswerScreen {
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		
 		Text instruction = new Text("Listen to the clue then answer the question.");
-		instruction.getStyleClass().add("normal-text");
+		instruction.getStyleClass().addAll("normal-text", "information-text");
 		
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
