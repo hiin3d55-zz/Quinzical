@@ -22,9 +22,9 @@ public class WelcomeScreen {
 
 	public WelcomeScreen(BorderPane pane) {
 		_pane = pane;
-		_pracModBtn = new Button("The Practice Module");
+		_pracModBtn = new Button("Practice Module");
 		_pracModBtn.getStyleClass().addAll("golden-button");
-		_gamesModBtn = new Button("The Games Module");
+		_gamesModBtn = new Button("Games Module");
 		_gamesModBtn.getStyleClass().addAll("golden-button");
 	}
 

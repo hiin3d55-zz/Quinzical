@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -36,7 +37,7 @@ public class PracticeAnswerScreen{
 	public PracticeAnswerScreen(BorderPane pane, String clue, String[] answers) {
 		_clue = clue;
 		_answers = answers;
-		_remainingAttempts = 3; // The user is allowed three attempts at one question.
+		_remainingAttempts = 4; // The user is allowed four attempts at one question.
 		
 		_pane = pane;
 		_submitBtn = new Button("Submit");
@@ -64,9 +65,10 @@ public class PracticeAnswerScreen{
 		VBox pracAnsBox = new VBox();
 		pracAnsBox.getStyleClass().add("center-screen-box");
 		
-		Text instruction = new Text();
+		Text instruction = new Text("Clue: " + _clue);
 		instruction.getStyleClass().add("normal-text");
-		instruction.setText("Clue: " + _clue);
+		instruction.setWrappingWidth(500);
+		instruction.setTextAlignment(TextAlignment.CENTER);
 		speak(_clue);
 		
 		HBox inputAndSoundBtn = new HBox();
@@ -109,10 +111,8 @@ public class PracticeAnswerScreen{
 					
 					// Only add wrongText when two attempts remain to prevent from duplicate 
 					// children from being added.
-					if (_remainingAttempts == 2) {
-						_wrongText.getStyleClass().remove("invisible-component");
-						speak("Incorrect");
-					}
+					_wrongText.getStyleClass().remove("invisible-component");
+					speak("Incorrect");
 					
 					if (_remainingAttempts == 1) {
 						_hint.getStyleClass().remove("invisible-component");

@@ -79,7 +79,7 @@ public class SolutionScreen {
 		setUpAndShow(incorrectMsg);
 	}
 	
-	public void setUpAndShow(Text msg) {
+	private void setUpAndShow(Text msg) {
 		handleEvents();
 		updateScoreText();
 		
@@ -98,7 +98,7 @@ public class SolutionScreen {
 		scoreText.setText("Current Score: " + _score.getScore());
 	}
 	
-	public void handleEvents() {
+	private void handleEvents() {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
