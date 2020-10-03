@@ -21,39 +21,21 @@ import javafx.stage.Stage;
  * @author Dave Shin
  *
  */
-public class AnswerScreen {
+public class GamesAnswerScreen extends AnswerScreen{
 	
-	private BorderPane _pane;
-	private TextField _attemptInput;
-	private Button _submitBtn;
 	private Button _dontKnowBtn;
-	private Button _repeatBtn;
 	private Question _question;
 	
-	public AnswerScreen(BorderPane pane, Question question) {
-		_pane = pane;
-		
-		_attemptInput = new TextField();
-		
-		_submitBtn = new Button("Submit");
-		_submitBtn.getStyleClass().add("golden-button");
+	public GamesAnswerScreen(BorderPane pane, Question question) {
+		super(pane, question.getClue());
 		
 		_dontKnowBtn = new Button("Don\'t know");
 		_dontKnowBtn.getStyleClass().add("normal-button");
 		
-		_repeatBtn = new Button("Repeat Clue");
-		_repeatBtn.getStyleClass().add("golden-button");
-		
 		_question = question;
 	}
 	
-	/**
-	 * This method lays out the GUI.
-	 */
-	public void display() {	
-		VBox answerBox = new VBox();
-		answerBox.getStyleClass().add("center-screen-box");
-		
+	protected void createGUI() {			
 		HBox inputAndSoundBtn = new HBox();
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		
@@ -66,18 +48,14 @@ public class AnswerScreen {
 		buttonBox.getStyleClass().add("center-screen-box");
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
-		handleEvents();
-		
-		answerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox);
-		_pane.setCenter(answerBox);
-
-		speakClue();
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox);
+		_pane.setCenter(_centerBox);
 	}
 	
 	/**
 	 * Adds listeners to different buttons.
 	 */
-	public void handleEvents() {
+	protected void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				boolean loseScore = true;
@@ -123,31 +101,5 @@ public class AnswerScreen {
 				solScrn.displayDontKnow();
 			}
 		});
-		
-		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				speakClue();
-			}
-		});
-	}
-	
-	/**
-	 * This method performs bash commands to use festival to speak the clue.
-	 */
-	public void speakClue() {
-		
-		// Bash command for speaking out the clue.
-//		String speakClueCmd = "echo \"" + _question.getClue() + "\" | festival --tts";
-//		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString(); // This line does not do anything. It is just here so that the 
-//								// variable of process is used.
-//		}
-//		catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
 	}
 }

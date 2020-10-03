@@ -20,33 +20,22 @@ import javafx.stage.Stage;
  * @author Sherman Chin, Dave Shin
  *
  */
-public class PracticeAnswerScreen{
+public class PracticeAnswerScreen extends AnswerScreen{
 	
 	private String _clue;
 	private String[] _answers;
 	private int _remainingAttempts;
 	
-	private BorderPane _pane;
-	private Button _submitBtn;
-	private Button _repeatBtn;
-	private TextField _attemptInput;
 	private Text _hint;
 	private Text _wrongText;
 	private Text _attemptsCountText;
 	
 	public PracticeAnswerScreen(BorderPane pane, String clue, String[] answers) {
+		super(pane, clue);
+		
 		_clue = clue;
 		_answers = answers;
 		_remainingAttempts = 4; // The user is allowed four attempts at one question.
-		
-		_pane = pane;
-		_submitBtn = new Button("Submit");
-		_submitBtn.getStyleClass().add("golden-button");
-				
-		_attemptInput = new TextField();
-		
-		_repeatBtn = new Button("Repeat Clue");
-		_repeatBtn.getStyleClass().add("golden-button");
 		
 		_hint = new Text("Hint: The first letter of the answer is \"" + _answers[0].charAt(0) + "\"");
 		_hint.getStyleClass().addAll("normal-text", "invisible-component");
@@ -59,33 +48,25 @@ public class PracticeAnswerScreen{
 		
 	}
 	
-	/**
-	 * Lays out the GUI.
-	 */
-	public void display() {
-		handleEvents();
-		
-		VBox pracAnsBox = new VBox();
-		pracAnsBox.getStyleClass().add("center-screen-box");
+	protected void createGUI() {
 		
 		Text instruction = new Text("Clue: " + _clue);
 		instruction.getStyleClass().addAll("normal-text", "information-text");
 		instruction.setWrappingWidth(500);
 		instruction.setTextAlignment(TextAlignment.CENTER);
-		speak(_clue);
 		
 		HBox inputAndSoundBtn = new HBox();
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
-		pracAnsBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, _attemptsCountText, _hint);
-		_pane.setCenter(pracAnsBox);
+		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, _attemptsCountText, _hint);
+		_pane.setCenter(_centerBox);
 	}
 	
 	/**
 	 * Adds listeners to buttons
 	 */
-	public void handleEvents() {
+	protected void handleEvents() {
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -130,31 +111,5 @@ public class PracticeAnswerScreen{
 				}
 			}
 		});
-		
-		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				speak(_clue);
-			}
-		});
-	}
-	
-	/**
-	 * This method uses bash commands to use festival to speak any sentences.
-	 * @param speech A string which will be spoken out using festival.
-	 */
-	public void speak(String speech) {
-		
-		// Bash command for speaking out the clue.
-//		String speakClueCmd = "echo \"" + speech + "\" | festival --tts";
-//		
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		}
-//		catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
 	}
 }
