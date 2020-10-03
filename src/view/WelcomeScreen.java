@@ -31,9 +31,6 @@ public class WelcomeScreen {
 	public void display() {
 		handleEvents();
 		
-//		BorderPane _welcomePane = new BorderPane();
-		_pane.getStyleClass().add("background-screen");
-		
 		Text welcomeMessage = new Text("Welcome to Quinzical!");
 		welcomeMessage.getStyleClass().addAll("header-msg", "normal-text");
 		

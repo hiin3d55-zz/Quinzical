@@ -1,7 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -31,7 +30,7 @@ public class GamesModule extends Module{
 	/**
 	 * Depending if all clues have been asked, a reward screen / Games Module screen will be layed out
 	 */
-	public void display() {
+	protected void displayScreen() {
 		
 		// When there are no clues left, treat the user to the Reward Screen.
 		if (_questionBank.requestCategory().length == 0) {
@@ -106,9 +105,6 @@ public class GamesModule extends Module{
 		
 		_centerBox.getChildren().add(clueGrid);
 		_pane.setCenter(_centerBox);
-		
-		//Shows the main menu button at the bottom
-		_pane.getBottom().getStyleClass().remove("invisible-component");
 	}
 	
 	/**

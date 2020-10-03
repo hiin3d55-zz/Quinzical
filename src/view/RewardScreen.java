@@ -52,6 +52,7 @@ public class RewardScreen {
 		
 		rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, _playAgainBtn);
 		_pane.setCenter(rewardBox);
+		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 	
 	public void handleEvents() {

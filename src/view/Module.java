@@ -17,5 +17,11 @@ public abstract class Module {
 		_centerBox.getStyleClass().add("center-screen-box");
 	}
 	
-	public abstract void display();
+	public void display() {
+		displayScreen();
+		//Shows the main menu button at the bottom
+		_pane.getBottom().getStyleClass().remove("invisible-component");
+	}
+
+	protected abstract void displayScreen();
 }

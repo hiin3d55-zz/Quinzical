@@ -24,7 +24,7 @@ public class PracticeModule extends Module{
 	/**
 	 * This method lays out the GUI for Practice Module
 	 */
-	public void display() {
+	protected void displayScreen() {
 		
 		Text header = new Text("PracticeModule!");
 		header.getStyleClass().addAll("header-msg", "normal-text");
@@ -56,8 +56,5 @@ public class PracticeModule extends Module{
 		}
 		
 		_pane.setCenter(_centerBox);
-		
-		//Shows the main menu button at the bottom
-		_pane.getBottom().getStyleClass().remove("invisible-component");
 	}
 }

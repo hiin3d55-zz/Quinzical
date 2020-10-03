@@ -23,6 +23,7 @@ public class Quinzical extends Application {
 	
 	public Quinzical() {
 		_pane = new BorderPane();
+		_pane.getStyleClass().add("background-screen");
 		_welcomeScrn = new WelcomeScreen(_pane);
 	}
 	
