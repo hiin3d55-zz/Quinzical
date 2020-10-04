@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 public class SoundAdjuster {
 
 	private double _speed;
-	private String _text;
+	private String _text; 
 	private boolean _clueFileCreated;
 	private Button _fasterBtn;
 	private Button _slowerBtn;
