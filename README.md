@@ -1,7 +1,4 @@
-# project
-
-<h1>Quinzical!</h1>
-
+# Quinzical
 <h2>Follow the below steps for Quinzical setup.</h2>
 <ol>
 	<li>Download the following files/folders into a linux machine</li>
