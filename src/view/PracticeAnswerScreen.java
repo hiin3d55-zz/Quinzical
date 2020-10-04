@@ -80,7 +80,25 @@ public class PracticeAnswerScreen extends AnswerScreen{
 					solution = solution.toLowerCase();
 					solution = solution.trim();
 					
-					if (attempt.equals(solution)) {
+					//For clues that have multiple answers separated by ","
+					if (solution.contains(",")) {
+						String[] solutions = solution.split(",");
+						String[] attemptAns = attempt.split(",");
+						if (solutions.length == attemptAns.length) {
+							int count = 0;
+							for (int i = 0; i < solutions.length; i++) {
+								if (solutions[i].trim().equals(attemptAns[i].trim())) {
+									count++;
+									System.out.println(count);
+								}
+							}
+							System.out.println(count);
+							if (count == solutions.length) {
+								correct = true;
+								solScrn.displayCorrect();
+							}
+						}
+					} else if (attempt.equals(solution)) {
 						solScrn.displayCorrect();
 						correct = true;
 					}
