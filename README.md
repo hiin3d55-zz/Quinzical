@@ -23,7 +23,7 @@
 	<li>Select Region & Language</li>
 	<li>In Input Sources, choose Maori</li>
 </ol>
-<h3>Whenever macrons are needed, press: Alt + vowel you require (make sure Māori language is selected)</h3>
+<h5>Whenever macrons are needed, press: Alt + vowel you require (make sure Māori language is selected)</h5>
 <p>This game is still under improvement and will include Māori vowels in the game.</p>
 
 <h2>Enjoy the game!</h2>
