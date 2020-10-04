@@ -1,6 +1,23 @@
 # project
 
-Use this repo for both Assignment 3 and also your final Project (as you will be in the same team). 
+<h1>Quinzical!</h1>
 
-Be sure to update this README file to provide an easy-to-follow set of instructions on how to run your program. 
+<h2>Follow the below steps for Quinzical setup.</h2>
+<ol>
+	<li>Download the following files/folders into a linux machine</li>
+	<ul>
+		<li>Quinzical.jar</li>
+		<li>quinzical.sh</li>
+		<li>questionBank</li>
+	</ul>
+	<li>Make sure that all the files/folders are in the same directory</li>
+	
+</ol>
 
+<h2>To start the game: </h2>
+<ol>
+	<li>Open a terminal on the same directory by pressing left click, and choose "Open in terminal"</li>
+	<li>Enter the following command: ./quinzical.sh</li>
+</ol>
+
+<h2>Enjoy the game!</h2>
