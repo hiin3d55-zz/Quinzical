@@ -28,6 +28,8 @@ public class PracticeSolutionScreen extends SolutionScreen{
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
+		correctMsg.getStyleClass().addAll("normal-text", "information-text");
+
 		speak("Correct");
 		
 		List<Text> messages = new ArrayList<Text>();

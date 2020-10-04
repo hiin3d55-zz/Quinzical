@@ -1,3 +1,6 @@
+/**
+ * This section is applicable to all GUI screens.
+ */
 .background-screen {
 	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1C1C1C, #494949);
 	-fx-padding: 20px;

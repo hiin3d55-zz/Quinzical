@@ -75,7 +75,23 @@ public class GamesAnswerScreen extends AnswerScreen{
 					solution = solution.toLowerCase();
 					solution = solution.trim();
 					
-					if (attempt.equals(solution)) {
+					//For clues that have multiple answers separated by ","
+					if (solution.contains(",")) {
+						String[] solutions = solution.split(",");
+						String[] attemptAns = attempt.split(",");
+						if (solutions.length == attemptAns.length) {
+							int count = 0;
+							for (int i = 0; i < solutions.length; i++) {
+								if (solutions[i].trim().equals(attemptAns[i].trim())) {
+									count++;
+								}
+							}
+							if (count == solutions.length) {
+								loseScore = false;
+								solScrn.displayCorrect();
+							}
+						}
+					} else if (attempt.equals(solution)) {
 						solScrn.displayCorrect();
 						loseScore = false;
 					}
