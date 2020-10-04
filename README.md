@@ -3,7 +3,7 @@
 <ol>
 	<li>Download the following files/folders into a linux machine</li>
 	<ul>
-		<li>Quinzical.jar</li>
+		<li>quinzical.jar</li>
 		<li>quinzical.sh</li>
 		<li>questionBank</li>
 	</ul>
