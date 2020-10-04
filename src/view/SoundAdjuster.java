@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 
 /**
  * This class represents the sound adjuster that allows the speed of the synthesis speech to be adjusted.
@@ -22,6 +19,7 @@ public class SoundAdjuster {
 	private boolean _clueFileCreated;
 	private Button _fasterBtn;
 	private Button _slowerBtn;
+	private String _setToNZvoice;
 	
 	public SoundAdjuster(String text) {
 		_speed = 1; // Default speed for synthesis speech is 1.
@@ -29,6 +27,7 @@ public class SoundAdjuster {
 		_clueFileCreated = false;
 		_fasterBtn = new Button("Faster");
 		_slowerBtn = new Button("Slower");
+		_setToNZvoice = "(voice_akl_nz_jdt_diphone)\n";
 	}
 	
 	public void createClueFile(String fileWriterArg) {
@@ -74,7 +73,7 @@ public class SoundAdjuster {
 	
 	public void speak(String text) {	
 		if (!_clueFileCreated) {
-			createClueFile("(SayText \"" + text + "\")");
+			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
 	
 		// Bash command for speaking out the clue.
@@ -98,7 +97,7 @@ public class SoundAdjuster {
 			_speed -= 0.2;
 		}
 		
-		createClueFile("(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
+		createClueFile(_setToNZvoice + "(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
 						+ ")\n(SayText \"" + _text + "\")");
 	}
 	
@@ -108,7 +107,7 @@ public class SoundAdjuster {
 			_speed += 0.2;
 		}
 		
-		createClueFile("(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
+		createClueFile(_setToNZvoice + "(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
 						+ ")\n(SayText \"" + _text + "\")");
 	}
 }
