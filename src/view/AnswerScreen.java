@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -14,6 +15,7 @@ public abstract class AnswerScreen {
 	protected Button _repeatBtn;
 	protected TextField _attemptInput;
 	protected VBox _centerBox;
+	protected VBox _soundAdjustBox;
 	
 	protected String _clue;
 	
@@ -36,7 +38,16 @@ public abstract class AnswerScreen {
 		_clue = clue;
 		
 		_adjuster = new SoundAdjuster(_clue);
+		
+		_soundAdjustBox = new VBox();
+		_soundAdjustBox.getStyleClass().addAll("center-screen-box", "sound-box");
+		
 		_currentSpeed = new Text(_adjuster.getSpeed() + " (Default)");
+		_currentSpeed.getStyleClass().add("normal-text");
+		
+		_soundAdjustBox.getChildren().addAll(_adjuster.getFasterBtn(), _currentSpeed, _adjuster.getSlowerBtn());
+		_adjuster.getFasterBtn().getStyleClass().add("golden-button");
+		_adjuster.getSlowerBtn().getStyleClass().add("golden-button");		
 	}
 	
 	/**
@@ -48,16 +59,12 @@ public abstract class AnswerScreen {
 		_adjuster.speak(_adjuster.getText());
 	}
 	
-	protected void updateSpeed() {
-		_centerBox.getChildren().remove(_currentSpeed);
-		
+	protected void updateSpeed() {		
 		if (_adjuster.getSpeed().equals("1.0")) {
-			_currentSpeed = new Text(_adjuster.getSpeed() + " (Deafult)");
+			_currentSpeed.setText(_adjuster.getSpeed() + " (Deafult)");
 		} else {
-			_currentSpeed = new Text(_adjuster.getSpeed());
+			_currentSpeed.setText(_adjuster.getSpeed());
 		}
-
-		_centerBox.getChildren().add(_currentSpeed);
 	}
 	
 	/**

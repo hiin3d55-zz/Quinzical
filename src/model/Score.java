@@ -16,6 +16,8 @@ public class Score {
 	public Score() {
 		_scoreRecordFile = new File("data/score");
 		if (!_scoreRecordFile.exists()) {
+			File dir = new File("data");
+			dir.mkdir();
 			try {
 				_scoreRecordFile.createNewFile();
 			} catch (IOException e) {

@@ -40,7 +40,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		buttonBox.getStyleClass().add("center-screen-box");
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox, _adjuster.getFasterBtn());
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox, _soundAdjustBox);
 		_pane.setCenter(_centerBox);
 	}
 	

@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -33,14 +35,14 @@ public abstract class SolutionScreen {
 	 */
 	protected void speak(String speech) {
 		String cmd = "echo \""+ speech + "\" | festival --tts";	
-//		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-//		try {
-//			Process process = builder.start();
-//			process.toString();
-//		}
-//		catch (IOException e) {
-//			System.out.println("Error with using festival to read out the question.");
-//			e.printStackTrace();
-//		}
+		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
+		try {
+			Process process = builder.start();
+			process.toString();
+		}
+		catch (IOException e) {
+			System.out.println("Error with using festival to read out the question.");
+			e.printStackTrace();
+		}
 	}	
 }

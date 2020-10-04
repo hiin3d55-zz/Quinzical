@@ -28,7 +28,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		
 		_clue = clue;
 		_answers = answers;
-		_remainingAttempts = 4; // The user is allowed four attempts at one question.
+		_remainingAttempts = 3; // The user is allowed three attempts at one question.
 		
 		_hint = new Text("Hint: The first letter of the answer is \"" + _answers[0].charAt(0) + "\"");
 		_hint.getStyleClass().addAll("normal-text", "invisible-component");
@@ -52,7 +52,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
-		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, _attemptsCountText, _hint);
+		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, _attemptsCountText, _hint, _soundAdjustBox);
 		_pane.setCenter(_centerBox);
 	}
 	
@@ -91,13 +91,18 @@ public class PracticeAnswerScreen extends AnswerScreen{
 					
 					// Only add wrongText when two attempts remain to prevent from duplicate 
 					// children from being added.
-					_wrongText.getStyleClass().remove("invisible-component");
+					
 					SoundAdjuster adjuster = new SoundAdjuster("Incorrect");
-					adjuster.speak(adjuster.getText());
+
+					if (_remainingAttempts == 2) {
+						_wrongText.getStyleClass().remove("invisible-component");
+						adjuster.speak(adjuster.getText());
+					}
+
 					
 					if (_remainingAttempts == 1) {
 						_hint.getStyleClass().remove("invisible-component");
-						adjuster.speak(_hint.getText());
+						adjuster.speak("The first letter of the answer is " + _answers[0].charAt(0));
 					} else if (_remainingAttempts < 1) {
 						solScrn.displayIncorrect();
 					}
