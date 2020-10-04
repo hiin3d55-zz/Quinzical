@@ -27,6 +27,9 @@ public class GamesAnswerScreen extends AnswerScreen{
 		_question = question;
 	}
 	
+	/**
+	 * Create GUI componenets for game answer screen.
+	 */
 	protected void createGUI() {			
 		HBox inputAndSoundBtn = new HBox();
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
@@ -34,13 +37,16 @@ public class GamesAnswerScreen extends AnswerScreen{
 		Text instruction = new Text("Listen to the clue then answer the question.");
 		instruction.getStyleClass().addAll("normal-text", "information-text");
 		
+		Text multipleAnsInstruction = new Text("For clues that have multiple answers, separate them using \",\"");
+		multipleAnsInstruction.getStyleClass().add("normal-text");
+		
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
 		HBox buttonBox = new HBox();
 		buttonBox.getStyleClass().add("center-screen-box");
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox, _soundAdjustBox);
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox);
 		_pane.setCenter(_centerBox);
 	}
 	

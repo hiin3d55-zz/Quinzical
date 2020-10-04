@@ -6,6 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class represents a Solution Screen. It is mostly used for reusing codes between different screens
+ * in Games Module and Practice Module solution screen.
+ * @author Sherman, Dave
+ *
+ */
 public abstract class SolutionScreen {
 	protected BorderPane _pane;
 	protected String _solution;

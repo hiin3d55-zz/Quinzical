@@ -26,6 +26,9 @@ public class PracticeSolutionScreen extends SolutionScreen{
 		_clue = clue;
 	}
 	
+	/**
+	 * Create GUI texts informing user is correct.
+	 */
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
 		correctMsg.getStyleClass().addAll("normal-text", "information-text");
@@ -37,6 +40,9 @@ public class PracticeSolutionScreen extends SolutionScreen{
 		setUpAndShow(messages);
 	}
 	
+	/**
+	 * Create GUI texts informing user is not correct
+	 */
 	public void displayIncorrect() {
 		Text clueMsg = new Text("Clue: " + _clue);
 		clueMsg.getStyleClass().addAll("normal-text", "information-text");
@@ -56,6 +62,10 @@ public class PracticeSolutionScreen extends SolutionScreen{
 		setUpAndShow(messages);
 	}
 	
+	/**
+	 * Create GUI components and layout screen for practice solution screen
+	 * @param messages The texts informing if user is correct / incorrect
+	 */
 	private void setUpAndShow(List<Text> messages) {
 		handleEvents();
 				
@@ -67,6 +77,9 @@ public class PracticeSolutionScreen extends SolutionScreen{
 		_pane.setCenter(solutionBox);
 	}
 	
+	/**
+	 * Add listeners to the return button back to Practice Module.
+	 */
 	private void handleEvents() {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
