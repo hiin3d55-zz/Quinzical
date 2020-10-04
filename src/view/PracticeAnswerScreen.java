@@ -41,6 +41,9 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		
 	}
 	
+	/**
+	 * Create GUI components for practice answer screen.
+	 */
 	protected void createGUI() {
 		
 		Text instruction = new Text("Clue: " + _clue);
@@ -48,11 +51,14 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		instruction.setWrappingWidth(500);
 		instruction.setTextAlignment(TextAlignment.CENTER);
 		
+		Text multipleAnsInstruction = new Text("For clues that have multiple answers, separate them using \",\"");
+		multipleAnsInstruction.getStyleClass().add("normal-text");
+		
 		HBox inputAndSoundBtn = new HBox();
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
-		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, _attemptsCountText, _hint, _soundAdjustBox);
+		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, multipleAnsInstruction,_attemptsCountText, _hint, _soundAdjustBox);
 		_pane.setCenter(_centerBox);
 	}
 	

@@ -5,10 +5,15 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * This class represents an Answer Screen. It is mostly used for reusing codes between different screens
+ * in Practice Module and Games Module answer screen.
+ * @author Sherman, Dave
+ *
+ */
 public abstract class AnswerScreen {
 	protected BorderPane _pane;
 	protected Button _submitBtn;
@@ -59,6 +64,9 @@ public abstract class AnswerScreen {
 		_adjuster.speak(_adjuster.getText());
 	}
 	
+	/**
+	 * Update the text displaying speed of speech.
+	 */
 	protected void updateSpeed() {		
 		if (_adjuster.getSpeed().equals("1.0")) {
 			_currentSpeed.setText(_adjuster.getSpeed() + " (Deafult)");

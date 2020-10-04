@@ -23,6 +23,9 @@ public class GamesSolutionScreen extends SolutionScreen{
 		_question = question;
 	}
 	
+	/**
+	 * Create GUI texts informing user is correct and increase user's score
+	 */
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
 		
@@ -34,12 +37,18 @@ public class GamesSolutionScreen extends SolutionScreen{
 		setUpAndShow(correctMsg);
 	}
 	
+	/**
+	 * Create GUI texts informing user is not correct and decrease user's score
+	 */
 	public void displayIncorrect() {
 		// Record the decreased winnings.
 		_score.updateScore(-_question.getAmount());
 		displayDontKnow();
 	}
 	
+	/**
+	 * Create GUI texts informing user did not get the answer correct / no answer given.
+	 */
 	public void displayDontKnow() {
 		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
@@ -49,6 +58,10 @@ public class GamesSolutionScreen extends SolutionScreen{
 		setUpAndShow(incorrectMsg);
 	}
 	
+	/**
+	 * Create GUI components and layout screen for games solution screen
+	 * @param messages The texts informing if user is correct / incorrect
+	 */
 	private void setUpAndShow(Text msg) {
 		handleEvents();
 		updateScoreText();
@@ -60,11 +73,17 @@ public class GamesSolutionScreen extends SolutionScreen{
 		_pane.setCenter(_centerBox);
 	}
 	
+	/**
+	 * Update the user's score.
+	 */
 	private void updateScoreText() {
 		Text scoreText = (Text)_pane.getTop();
 		scoreText.setText("Current Score: " + _score.getScore());
 	}
 	
+	/**
+	 * Add listeners to return button, taking user back to Games Module screen.
+	 */
 	private void handleEvents() {
 		_returnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

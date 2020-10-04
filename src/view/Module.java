@@ -4,6 +4,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.QuestionBank;
 
+
+/**
+ * This class represents the Module Screen. It is mostly used for reusing codes between different screens
+ * in Practice Module and Games Module choosing clue screen.
+ * @author Sherman, Dave
+ *
+ */
 public abstract class Module {
 	protected BorderPane _pane;
 	protected QuestionBank _questionBank;
