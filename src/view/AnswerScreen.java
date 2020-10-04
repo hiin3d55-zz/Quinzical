@@ -1,86 +1,55 @@
 package view;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-/**
- * This class represents the screen that shows when the user tries to answer the question.
- * 
- * @author Dave Shin
- *
- */
-public class AnswerScreen {
+public abstract class AnswerScreen {
+	protected BorderPane _pane;
+	protected Button _submitBtn;
+	protected Button _repeatBtn;
+	protected TextField _attemptInput;
+	protected VBox _centerBox;
 	
-	private BorderPane _pane;
-	private TextField _attemptInput;
-	private Button _submitBtn;
-	private Button _dontKnowBtn;
-	private Button _repeatBtn;
-	private Question _question;
-	private SoundAdjuster _adjuster;
-	private Text _currentSpeed;
-	private VBox _answerBox;
+	protected String _clue;
 	
-	public AnswerScreen(BorderPane pane, Question question) {
+	protected SoundAdjuster _adjuster;
+	protected Text _currentSpeed;
+	
+	public AnswerScreen(BorderPane pane, String clue) {
 		_pane = pane;
+		_centerBox = new VBox();
+		_centerBox.getStyleClass().add("center-screen-box");
 		
 		_attemptInput = new TextField();
-		
+
 		_submitBtn = new Button("Submit");
 		_submitBtn.getStyleClass().add("golden-button");
-		
-		_dontKnowBtn = new Button("Don\'t know");
-		_dontKnowBtn.getStyleClass().add("normal-button");
 		
 		_repeatBtn = new Button("Repeat Clue");
 		_repeatBtn.getStyleClass().add("golden-button");
 		
-		_question = question;
+		_clue = clue;
 		
-		_adjuster = new SoundAdjuster(_question.getClue());
-		
+		_adjuster = new SoundAdjuster(_clue);
 		_currentSpeed = new Text(_adjuster.getSpeed() + " (Default)");
-		
-		_answerBox = new VBox();
 	}
 	
-	public void display() {	
-		
-		_answerBox.getStyleClass().add("center-screen-box");
-		
-		HBox inputAndSoundBtn = new HBox();
-		inputAndSoundBtn.getStyleClass().add("center-screen-box");
-		
-		Text instruction = new Text("Listen to the clue then answer the question.");
-		instruction.getStyleClass().addAll("normal-text", "information-text");
-		
-		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
-		
-		HBox buttonBox = new HBox();
-		buttonBox.getStyleClass().add("center-screen-box");
-		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
-		
+	/**
+	 * Displays the GUI for respective answer screen and also speaks the clue after.
+	 */
+	public void display() {
+		createGUI();
 		handleEvents();
-		
-		_answerBox.getChildren().addAll(instruction, inputAndSoundBtn, buttonBox, _adjuster.getFasterBtn(), 
-				_adjuster.getSlowerBtn(), _currentSpeed);
-		_pane.setCenter(_answerBox);
-		
-		_adjuster.speak();
+		_adjuster.speak(_adjuster.getText());
 	}
 	
-	public void updateSpeed() {
-		_answerBox.getChildren().remove(_currentSpeed);
+	protected void updateSpeed() {
+		_centerBox.getChildren().remove(_currentSpeed);
 		
 		if (_adjuster.getSpeed().equals("1.0")) {
 			_currentSpeed = new Text(_adjuster.getSpeed() + " (Deafult)");
@@ -88,59 +57,21 @@ public class AnswerScreen {
 			_currentSpeed = new Text(_adjuster.getSpeed());
 		}
 
-		_answerBox.getChildren().add(_currentSpeed);
+		_centerBox.getChildren().add(_currentSpeed);
 	}
 	
-	public void handleEvents() {
-		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				boolean loseScore = true;
-				
-				String attempt = _attemptInput.getText();
-				
-				// Make it case-insensitive and trim all leading and trailing spaces.
-				attempt = attempt.toLowerCase();
-				attempt = attempt.trim();
-				
-				SolutionScreen solScrn = new SolutionScreen(_pane, _question, 
-						_question.getSolution()[0]);
-				
-				// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
-				// button is pressed.
-				if (attempt.equals("")) {
-					solScrn.displayDontKnow();
-					loseScore= false;
-				}
-				
-				// A for loop is used because there can be multiple solutions and we want to 
-				// check if the attempt matches with at least one solution.
-				for (String solution : _question.getSolution()) {
-					solution = solution.toLowerCase();
-					solution = solution.trim();
-					
-					if (attempt.equals(solution)) {
-						solScrn.displayCorrect();
-						loseScore = false;
-					}
-				}
-				
-				if (loseScore) {
-					solScrn.displayIncorrect();
-				}
-			}
-		});
-		
-		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				SolutionScreen solScrn = new SolutionScreen(_pane, _question,
-						_question.getSolution()[0]);
-				solScrn.displayDontKnow();
-			}
-		});
-		
+	/**
+	 * Creates the GUI required for the screen
+	 */
+	protected abstract void createGUI();
+	
+	/**
+	 * Add a listener to the repeat button which speaks the clue again
+	 */
+	protected void handleEvents() {
 		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				_adjuster.speak();
+				_adjuster.speak(_adjuster.getText());
 			}
 		});
 		

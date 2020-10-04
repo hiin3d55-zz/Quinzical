@@ -2,13 +2,10 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.QuestionBank;
 
 /**
@@ -18,19 +15,16 @@ import model.QuestionBank;
  * @author Sherman Chin, Dave Shin
  *
  */
-public class PracticeModule {
-	
-	private BorderPane _pane;
-	private QuestionBank _questionBank;
+public class PracticeModule extends Module{
 	
 	public PracticeModule(BorderPane pane) {
-		_pane = pane;
-		_questionBank = new QuestionBank(false); // False because we are in Practice Module.
+		super(pane, new QuestionBank(false));
 	}
 	
-	public void display() {
-		VBox pracModBox = new VBox();
-		pracModBox.getStyleClass().add("center-screen-box");
+	/**
+	 * This method lays out the GUI for Practice Module
+	 */
+	protected void displayScreen() {
 		
 		Text header = new Text("PracticeModule!");
 		header.getStyleClass().addAll("header-msg", "normal-text");
@@ -40,7 +34,7 @@ public class PracticeModule {
 		FlowPane categoryBox = new FlowPane();
 		categoryBox.getStyleClass().add("category-grid");
 		
-		pracModBox.getChildren().addAll(header, instruction, categoryBox);
+		_centerBox.getChildren().addAll(header, instruction, categoryBox);
 		
 		String[] categories = _questionBank.requestCategory();
 		
@@ -61,9 +55,6 @@ public class PracticeModule {
 			categoryBox.getChildren().add(categoryBtn);
 		}
 		
-		_pane.setCenter(pracModBox);
-		
-		//Shows the main menu button at the bottom
-		_pane.getBottom().getStyleClass().remove("invisible-component");
+		_pane.setCenter(_centerBox);
 	}
 }

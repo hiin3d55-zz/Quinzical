@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GamesModuleClue extends Clue{
+	
+	/**
+	 * Get all the clues remaining in a category. Generate clues for the category that has 0 clues in it.
+	 * If file does not exit, then all clues have been attempted for that category.
+	 * @param category The category that the clues are in.
+	 * @return An array of clues. If returned null, all clues have been attempted.
+	 */
 	public String[] getClues(String category) {
 		File file = new File(_dataRecordFolder.getPath() + "/" + category);
 		if (!file.exists()) {
@@ -20,7 +27,10 @@ public class GamesModuleClue extends Clue{
 		String[] clues = getRecordedClues(category);
 		return clues;
 	}
-
+	/**
+	 * Get clues from question bank and record them into respective category files in data/category directory
+	 * @param category The category that the clues are in.
+	 */
 	private void recordClues(String category) {
 		String[] clues = getAllClues(category);
 		clues = randomiseClues(clues, 5);
@@ -36,6 +46,11 @@ public class GamesModuleClue extends Clue{
 		}
 	}
 
+	/**
+	 * Get clues that are already stored into a file in data/category folder
+	 * @param category The category that the clues are in.
+	 * @return An array of clues that is stored in the category file in data/category folder
+	 */
 	private String[] getRecordedClues(String category) {
 		File file = new File(_dataRecordFolder.getPath() + "/" + category);
 		List<String> clues = new ArrayList<String>();
@@ -51,11 +66,11 @@ public class GamesModuleClue extends Clue{
 		return clues.toArray(new String[clues.size()]);
 	}
 
-	public String[] getAnswer(String category, String clue) {
-		String[] ans = super.getAnswer(category, clue);
-		return ans;
-	}
-
+	/**
+	 * Remove the clue in a category file in data/category folder.
+	 * @param category The category that the clue is in .
+	 * @param clue The clue to be removed.
+	 */
 	public void update(String category, String clue) {
 		List<String> cluesList = new ArrayList<String>();
 		Collections.addAll(cluesList, getClues(category));
@@ -84,6 +99,12 @@ public class GamesModuleClue extends Clue{
 		}
 	}
 	
+	/**
+	 * This method determines the value of a clue in a category. The first clue is given 100, second clue
+	 * is 200, and so forth.
+	 * @param category The category that the values are needed for.
+	 * @return An array of int where each int represents the value of a question.
+	 */
 	public int[] getClueValues(String category) {
 		int clues = getRecordedClues(category).length;
 		

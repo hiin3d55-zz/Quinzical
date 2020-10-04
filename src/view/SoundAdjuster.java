@@ -23,9 +23,9 @@ public class SoundAdjuster {
 	private Button _fasterBtn;
 	private Button _slowerBtn;
 	
-	public SoundAdjuster(String clue) {
+	public SoundAdjuster(String text) {
 		_speed = 1; // Default speed for synthesis speech is 1.
-		_text = clue;
+		_text = text;
 		_clueFileCreated = false;
 		_fasterBtn = new Button("Faster");
 		_slowerBtn = new Button("Slower");
@@ -68,9 +68,13 @@ public class SoundAdjuster {
 		return String.format("%.1f", _speed); // Round to 1dp.
 	}
 	
-	public void speak() {	
+	public String getText() {
+		return _text;
+	}
+	
+	public void speak(String text) {	
 		if (!_clueFileCreated) {
-			createClueFile("(SayText \"" + _text + "\")");
+			createClueFile("(SayText \"" + text + "\")");
 		}
 	
 		// Bash command for speaking out the clue.

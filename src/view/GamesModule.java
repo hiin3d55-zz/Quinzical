@@ -1,17 +1,13 @@
 package view;
 
 import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.QuestionBank;
 
 /**
@@ -21,26 +17,35 @@ import model.QuestionBank;
  * @author Dave Shin
  *
  */
-public class GamesModule {
-	private BorderPane _pane;
-	
-	private QuestionBank _questionBank;
+public class GamesModule extends Module{
 	private ArrayList<ArrayList<Question>> _allQuestions; // Keeps track of which clues have been revealed.
 	
 	public GamesModule(BorderPane pane) {
-		_pane = pane;
+		super(pane, new QuestionBank(true));
 		
-		// QuestionBank retrieves the data from the backend. The argument is true because we are in Games Module.
-		_questionBank = new QuestionBank(true);
+		// QuestionBank retrieves the data from the backend.
 		_allQuestions = new ArrayList<ArrayList<Question>>();
 	}
 	
 	/**
-	 * This method is only called once until the game is reset. This is because this method initialises the GamesModule.
+	 * Depending if all clues have been asked, a reward screen / Games Module screen will be layed out
 	 */
-	private void initialise() {
-		VBox gamesModBox = new VBox();
-		gamesModBox.getStyleClass().add("center-screen-box");
+	protected void displayScreen() {
+		
+		// When there are no clues left, treat the user to the Reward Screen.
+		if (_questionBank.requestCategory().length == 0) {
+			RewardScreen rewardScrn = new RewardScreen(_pane);
+			rewardScrn.display();
+		} else { // Keep displaying the GamesModule if there are still clues remaining.
+			createGUI();
+			handleEvents();
+		}
+	}
+	
+	/**
+	 * This method lays out the GUI for Games Module
+	 */
+	private void createGUI() {
 		
 		Text header = new Text("Games Module!");
 		header.getStyleClass().addAll("header-msg","normal-text");
@@ -49,7 +54,7 @@ public class GamesModule {
 		Text instruction2 = new Text("You can only choose the lowest money value for each category.");
 		instruction2.getStyleClass().add("normal-text");
 
-		gamesModBox.getChildren().addAll(header, instruction1, instruction2);
+		_centerBox.getChildren().addAll(header, instruction1, instruction2);
 		
 		String[] categoriesStrArray = _questionBank.requestCategory();
 		
@@ -98,26 +103,14 @@ public class GamesModule {
 			clueGrid.getChildren().add(categoryColumn);
 		}
 		
-		gamesModBox.getChildren().add(clueGrid);
-		_pane.setCenter(gamesModBox);
-		
-		//Shows the main menu button at the bottom
-		_pane.getBottom().getStyleClass().remove("invisible-component");
+		_centerBox.getChildren().add(clueGrid);
+		_pane.setCenter(_centerBox);
 	}
 	
-	public void display() {
-		
-		// When there are no clues left, treat the user to the Reward Screen.
-		if (_questionBank.requestCategory().length == 0) {
-			RewardScreen rewardScrn = new RewardScreen(_pane);
-			rewardScrn.display();
-		} else { // Keep displaying the GamesModule if there are still clues remaining.
-			initialise();
-			handleEvents();
-		}
-	}
-	
-	public void handleEvents() {
+	/**
+	 * Add listeners to each buttons
+	 */
+	private void handleEvents() {
 		
 		// When a clue button is pressed.
 		for (ArrayList<Question> questionsForCategory : _allQuestions) {
@@ -138,7 +131,7 @@ public class GamesModule {
 								_allQuestions.remove(questionsForCategory);
 							}
 							
-							AnswerScreen answerScrn = new AnswerScreen(_pane, pressedQuestion);
+							AnswerScreen answerScrn = new GamesAnswerScreen(_pane, pressedQuestion);
 							answerScrn.display();
 						}
 					}

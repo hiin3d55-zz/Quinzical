@@ -23,6 +23,7 @@ public class Quinzical extends Application {
 	
 	public Quinzical() {
 		_pane = new BorderPane();
+		_pane.getStyleClass().add("background-screen");
 		_welcomeScrn = new WelcomeScreen(_pane);
 	}
 	
@@ -42,6 +43,9 @@ public class Quinzical extends Application {
 		primaryStage.show();
 	}
 	
+	/**
+	 * Sets the Header of Quinzical, which is showing the score of user.
+	 */
 	private void setUpHeader() {
 		Score score = new Score();
 		
@@ -52,6 +56,9 @@ public class Quinzical extends Application {
 		BorderPane.setAlignment(scoreText, Pos.TOP_RIGHT);
 	}
 	
+	/**
+	 * Sets the footer of Quinzical, which is presenting a Main Menu button.
+	 */
 	private void setUpFooter() {
 		Button menuBtn = new Button("Main Menu");
 		menuBtn.getStyleClass().addAll("golden-button", "menu-button");
