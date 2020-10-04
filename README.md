@@ -17,4 +17,13 @@
 	<li>Enter the following command: ./quinzical.sh</li>
 </ol>
 
+<h2>Instructions on how to type Māori macrons (in Linux machine)</h2>
+<ol>
+	<li>Open settings</li>
+	<li>Select Region & Language</li>
+	<li>In Input Sources, choose Maori</li>
+</ol>
+<h3>Whenever macrons are needed, press: Alt + vowel you require (make sure Māori language is selected)</h3>
+<p>This game is still under improvement and will include Māori vowels in the game.</p>
+
 <h2>Enjoy the game!</h2>
