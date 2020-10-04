@@ -28,7 +28,7 @@ public class PracticeSolutionScreen extends SolutionScreen{
 	
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
-		speak("Correct");
+		_adjuster.speak("Correct");
 		
 		List<Text> messages = new ArrayList<Text>();
 		messages.add(correctMsg);
@@ -41,7 +41,7 @@ public class PracticeSolutionScreen extends SolutionScreen{
 		clueMsg.setWrappingWidth(500);
 		clueMsg.setTextAlignment(TextAlignment.CENTER);
 		
-		speak("The actual answer is " + _solution);
+		_adjuster.speak("The actual answer is " + _solution);
 		
 		Text answerMsg = new Text("Answer: " + _solution);
 		answerMsg.getStyleClass().addAll("normal-text", "information-text");

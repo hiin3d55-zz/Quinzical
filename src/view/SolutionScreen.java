@@ -1,7 +1,5 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -11,6 +9,7 @@ public abstract class SolutionScreen {
 	protected String _solution;
 	protected Button _returnBtn;
 	protected VBox _centerBox;
+	protected SoundAdjuster _adjuster;
 	
 	public SolutionScreen(BorderPane pane, String solution, Button returnBtn) {
 		_pane = pane;
@@ -21,6 +20,8 @@ public abstract class SolutionScreen {
 		
 		_centerBox = new VBox();
 		_centerBox.getStyleClass().add("center-screen-box");
+		
+		_adjuster = new SoundAdjuster(_solution);
 	}
 	
 	public abstract void displayCorrect();
@@ -28,21 +29,4 @@ public abstract class SolutionScreen {
 	public abstract void displayIncorrect();
 	
 	public void displayDontKnow() {}
-		
-	/**
-	 * This method uses bash commands to use festival to speak any sentences.
-	 * @param speech A string which will be spoken out using festival.
-	 */
-	protected void speak(String speech) {
-		String cmd = "echo \""+ speech + "\" | festival --tts";	
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-		try {
-			Process process = builder.start();
-			process.toString();
-		}
-		catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
-	}	
 }

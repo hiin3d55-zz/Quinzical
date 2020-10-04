@@ -26,7 +26,7 @@ public class GamesSolutionScreen extends SolutionScreen{
 	public void displayCorrect() {
 		Text correctMsg = new Text("Correct!");
 		
-		speak("Correct");
+		_adjuster.speak("Correct");
 		
 		// Record the increased score.
 		_score.updateScore(_question.getAmount());
@@ -44,7 +44,7 @@ public class GamesSolutionScreen extends SolutionScreen{
 		Text incorrectMsg = new Text("The actual answer is: " + _solution);
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
-		speak("The actual answer is " + _solution);
+		_adjuster.speak("The actual answer is " + _solution);
 
 		setUpAndShow(incorrectMsg);
 	}
