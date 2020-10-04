@@ -92,8 +92,8 @@ public class SoundAdjuster {
 	}
 	
 	public void fasterSpeed() {
-		// Minimum value for _speed is 10. The extra 0.01 is there to prevent rounding errors.
-		if (_speed > 0.21) {
+		// Minimum value for _speed is 0.4. The extra 0.01 is there to prevent rounding errors.
+		if (_speed > 0.41) {
 			_speed -= 0.2;
 		}
 		
@@ -102,8 +102,8 @@ public class SoundAdjuster {
 	}
 	
 	public void slowerSpeed() {
-		// Maximum value for _speed is 10.
-		if (_speed < 10) {
+		// Maximum value for _speed is 4.
+		if (_speed < 4) {
 			_speed += 0.2;
 		}
 		
