@@ -1,21 +1,12 @@
 # Quinzical
-<h2>Follow the below steps for Quinzical setup.</h2>
-<ol>
-	<li>Download the following files/folders into a linux machine</li>
-	<ul>
-		<li>quinzical.jar</li>
-		<li>quinzical.sh</li>
-		<li>questionBank</li>
-	</ul>
-	<li>Make sure that all the files/folders are in the same directory</li>
-	
-</ol>
+
+<h2>Download all the files/folders into a linux machine</h2>
 
 <h2>To start the game: </h2>
 <ol>
 	<li>Open a terminal on the same directory by pressing left click, and choose "Open in terminal"</li>
 	<li>Enable permission by entering in the following command: chmod u+x quinzical.sh</li>
-	<li>Skip the command above if the permission is already in place.</li>
+	<li>Skip the above step if the permission is already in place.</li>
 	<li>Enter the following command: ./quinzical.sh</li>
 	<li>The password is: student</li>
 </ol>
