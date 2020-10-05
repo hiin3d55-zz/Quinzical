@@ -14,6 +14,8 @@
 <h2>To start the game: </h2>
 <ol>
 	<li>Open a terminal on the same directory by pressing left click, and choose "Open in terminal"</li>
+	<li>Enable permission by entering in the following command: chmod u+x quinzical.sh</li>
+	<li>Skip the command above if the permission is already in place.</li>
 	<li>Enter the following command: ./quinzical.sh</li>
 </ol>
 
