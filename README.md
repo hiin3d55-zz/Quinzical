@@ -17,6 +17,7 @@
 	<li>Enable permission by entering in the following command: chmod u+x quinzical.sh</li>
 	<li>Skip the command above if the permission is already in place.</li>
 	<li>Enter the following command: ./quinzical.sh</li>
+	<li>The password is: student</li>
 </ol>
 
 <h2>Instructions on how to type Māori macrons (in Linux machine)</h2>
