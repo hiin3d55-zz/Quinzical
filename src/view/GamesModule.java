@@ -91,7 +91,7 @@ public class GamesModule extends Module{
 				if (valueIdx == 0) {
 					clueButton.getStyleClass().add("golden-button");
 				} else {
-					clueButton.getStyleClass().add("normal-button");
+					clueButton.getStyleClass().add("non-clickable-button");
 				}
 				categoryColumn.getChildren().add(question.getButton());
 				valueIdx++;

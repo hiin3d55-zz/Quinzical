@@ -24,10 +24,15 @@
 	-fx-background-color: #8E793E;
 }
 
+.non-clickable-button {
+	-fx-background-color: transparent;
+	-fx-border-color: #EAEAEA;
+	-fx-opacity: 0.5;
+}
+
 .normal-button {
 	-fx-background-color: transparent;
 	-fx-border-color: #EAEAEA;
-
 }
 
 .normal-button:hover {
