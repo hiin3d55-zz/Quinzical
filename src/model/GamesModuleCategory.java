@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class represents functionalities that retrieves categories for Games
@@ -18,19 +20,21 @@ public class GamesModuleCategory extends Category {
 	 */
 	public String[] getCategories() {
 		if (_dataRecordFolder.exists()) {
-			if (_dataRecordFolder.list().length <= 3) {
-				try {
-					unlockInternationalCategory();
-				} catch (IOException e) {
-					e.printStackTrace();
+			String[] categories = _dataRecordFolder.list();
+			for (int i = 0; i < categories.length; i++) {
+				//The International category is to be placed last.
+				if (categories[i].equals("International")) {
+					categories[i] = categories[categories.length - 1];
+					categories[categories.length - 1] = "International";
+					break;
 				}
 			}
-			return _dataRecordFolder.list();
+			return categories;
 			
 		} else {
 			_dataRecordFolder.mkdirs();
+			
 			File file = new File("questionBank");
-			//change this so that international category will not be picked
 			String[] categories = randomiseCategories(file.list());
 			
 			try {
@@ -41,10 +45,26 @@ public class GamesModuleCategory extends Category {
 			return categories;
 		}
 	}
+	
+	/**
+	 * This method randomly picks six categories from the given input, including International category.
+	 * @param categories The categories to be randomly picked
+	 * @return An array of randomised categories.
+	 */
+	private String[] randomiseCategories(String[] categories) {
+		Set<String> randomed = new HashSet<String>();
 
-	private void unlockInternationalCategory() throws IOException {
-		File file = new File(_dataRecordFolder.getPath() + "/International");
-		file.createNewFile();
+		while (randomed.size() < 6) {
+			randomed.add(categories[(int)(Math.random()*categories.length)]);
+		}
+		
+		String[] randomedArray = randomed.toArray(new String[randomed.size()]);
+		
+		if (!randomed.contains("International")) {
+			randomedArray[randomedArray.length - 1] = "International";
+		}
+		
+		return randomedArray;
 	}
 	
 	/**

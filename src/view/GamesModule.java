@@ -63,9 +63,13 @@ public class GamesModule extends Module{
 
 		// Set out the GUI for Games Module. The end product is a screen with multiple buttons for the clues.
 		for (String categoryStr : categoriesStrArray) {
+			if (categoryStr.equals("International") && categoriesStrArray.length > 4) {
+				break;
+			}
+			
 			VBox categoryColumn = new VBox();
 			categoryColumn.getStyleClass().addAll("center-screen-box");
-			
+	
 			Text categoryText = new Text(categoryStr);
 			categoryText.getStyleClass().add("normal-text");
 			categoryColumn.getChildren().add(categoryText);
