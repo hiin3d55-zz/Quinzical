@@ -3,7 +3,6 @@ package model;
 public class QuestionBank {
 	private Category _category; 
 	private Clue _clue;
-
 	
 	/**
 	 * @param gameModule Give true if data retrieved is for games module, otherwise false.

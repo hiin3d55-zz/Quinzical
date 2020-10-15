@@ -10,6 +10,7 @@ import java.util.Set;
  *
  */
 public abstract class Category {
+	
 	protected File _dataRecordFolder;
 
 	public Category() {
