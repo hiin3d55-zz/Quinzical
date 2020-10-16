@@ -36,7 +36,7 @@ public class Quinzical extends Application {
 		
 		_welcomeScrn.display();
 		
-		Scene scene = new Scene(_pane,700,500);
+		Scene scene = new Scene(_pane, 1366, 768);
 		
 		scene.getStylesheets().add("view/application.css");
 		primaryStage.setScene(scene);

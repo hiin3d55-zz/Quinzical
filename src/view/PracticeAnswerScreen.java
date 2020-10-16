@@ -58,7 +58,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
-		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, multipleAnsInstruction,_attemptsCountText, _hint, _soundAdjustBox);
+		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, multipleAnsInstruction,_attemptsCountText, _hint, _soundAdjustBox, _macrons);
 		_pane.setCenter(_centerBox);
 	}
 	

@@ -79,11 +79,39 @@
 }
 
 /**
- * This section is for answer scren
+ * This section is for answer screen
  */
 .sound-box {
 	-fx-padding: 20px;
 }
+
+.macron-box {
+	-fx-border-color: #EAEAEA;
+	-fx-border-radius: 5px;
+	-fx-background-radius: 5px;
+	-fx-pref-height: 80px;
+    -fx-min-width: 300px;
+    -fx-max-width: 200px;
+}
+
+.macron-box:hover {
+	-fx-background-color: #292929;
+}
+
+.macron-button-box {
+	-fx-opacity: 0.1;
+	-fx-spacing: 15px;
+	
+}
+
+.macron-box:hover .macron-button-box{
+	-fx-opacity: 1;
+}
+
+.macron-box:hover .normal-text {
+	-fx-opacity: 0;
+}
+
 
 /**
  * This section is for solution screen

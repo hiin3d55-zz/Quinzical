@@ -24,6 +24,8 @@ public abstract class Module {
 		_centerBox.getStyleClass().add("center-screen-box");
 	}
 	
+
+	
 	public void display() {
 		displayScreen();
 		//Shows the main menu button at the bottom

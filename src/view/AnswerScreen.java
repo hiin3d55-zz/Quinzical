@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -21,6 +23,8 @@ public abstract class AnswerScreen {
 	protected TextField _attemptInput;
 	protected VBox _centerBox;
 	protected VBox _soundAdjustBox;
+	protected StackPane _macrons;
+
 	
 	protected String _clue;
 	
@@ -53,6 +57,40 @@ public abstract class AnswerScreen {
 		_soundAdjustBox.getChildren().addAll(_adjuster.getFasterBtn(), _currentSpeed, _adjuster.getSlowerBtn());
 		_adjuster.getFasterBtn().getStyleClass().add("golden-button");
 		_adjuster.getSlowerBtn().getStyleClass().add("golden-button");		
+		
+		_macrons = new StackPane();
+		_macrons.getStyleClass().addAll("macron-box");
+		initialiseMacronBox();
+	}
+	
+	private void initialiseMacronBox() {
+		HBox buttonBox = new HBox();
+		buttonBox.getStyleClass().addAll("macron-button-box", "center-screen-box");
+		
+		MacronButtonEvent macronEvent = new MacronButtonEvent();
+		
+		Button macron1  = new Button("ā");
+		macron1.setOnAction(macronEvent);
+		macron1.getStyleClass().addAll("golden-button", "macron-button");
+		Button macron2 = new Button("ē");
+		macron2.setOnAction(macronEvent);
+		macron2.getStyleClass().addAll("golden-button", "macron-button");
+		Button macron3 = new Button("ī");
+		macron3.setOnAction(macronEvent);
+		macron3.getStyleClass().addAll("golden-button", "macron-button");
+		Button macron4  = new Button("ō");
+		macron4.setOnAction(macronEvent);
+		macron4.getStyleClass().addAll("golden-button", "macron-button");
+		Button macron5 = new Button("ū");
+		macron5.setOnAction(macronEvent);
+		macron5.getStyleClass().addAll("golden-button", "macron-button");
+		
+		buttonBox.getChildren().addAll(macron1, macron2, macron3, macron4, macron5);
+		
+		Text text = new Text("Macrons");
+		text.getStyleClass().addAll("information-text", "normal-text");
+		
+		_macrons.getChildren().addAll(text, buttonBox);
 	}
 	
 	/**
@@ -103,5 +141,15 @@ public abstract class AnswerScreen {
 				updateSpeed();
 			}
 		});
+	}
+	
+	private class MacronButtonEvent implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent e) {
+			String macronText = ((Button)e.getSource()).getText();
+			_attemptInput.setText(_attemptInput.getText() + macronText);
+			
+		}
+		
 	}
 }
