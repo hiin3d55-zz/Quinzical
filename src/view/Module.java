@@ -29,7 +29,7 @@ public abstract class Module {
 	public void display() {
 		displayScreen();
 		//Shows the main menu button at the bottom
-		_pane.getBottom().getStyleClass().remove("invisible-component");
+		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 
 	protected abstract void displayScreen();
