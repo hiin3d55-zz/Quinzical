@@ -79,13 +79,14 @@ public abstract class Clue {
 	 */
 	public String[] getAnswer(String category, String clue) {
 		File file = new File("questionBank/" + category);
-		String ans = null;
+		String actualAnswer = null;
 		try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNext()) {
-				ans = scanner.nextLine();
-				if (ans.matches(clue + ".*")) {
-					ans = ans.split("[|]")[2];
+				String line = scanner.nextLine();
+				String currentClue = line.split("[|]")[0];
+				if (currentClue.equals(clue)) {
+					actualAnswer = line.split("[|]")[2];
 					break;
 				}
 			}
@@ -93,7 +94,7 @@ public abstract class Clue {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return ans.split("/");
+		return actualAnswer.split("/");
 	}
 	
 	public void update(String category, String clue) {}

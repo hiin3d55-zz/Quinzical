@@ -32,7 +32,7 @@ public class GamesModuleClue extends Clue{
 	 * @param category The category that the clues are in.
 	 */
 	private void recordClues(String category) {
-		String[] clues = getAllClues(category);
+		String[] clues = getAllClues(category);	
 		clues = randomiseClues(clues, 5);
 		FileWriter fw;
 		try {
@@ -81,8 +81,7 @@ public class GamesModuleClue extends Clue{
 			FileWriter fw = new FileWriter(file);	
 			int pos = 0;
 			for (int i = 0; i < cluesList.size(); i++) {
-
-				if (cluesList.get(i).matches(clue + ".*")) {
+				if (cluesList.get(i).equals(clue)) {
 					pos = i;
 				} else {
 					fw.write(cluesList.get(i) + "\n");
