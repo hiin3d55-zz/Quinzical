@@ -3,6 +3,7 @@ package view;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import speech.SoundAdjuster;
 
 /**
  * This class represents a Solution Screen. It is mostly used for reusing codes between different screens

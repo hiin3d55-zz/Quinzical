@@ -1,4 +1,4 @@
-package view;
+package view.gamesModule;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.QuestionBank;
 import model.Score;
+import view.WelcomeScreen;
 
 /**
  * This class represents the reward screen which is a screen where the reward is displayed. This screen gets displayed

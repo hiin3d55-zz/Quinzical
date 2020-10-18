@@ -1,4 +1,4 @@
-package view;
+package view.practiceModule;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import model.QuestionBank;
+import view.Module;
 
 /**
  * This class represents the screen that gets displayed when the user selects Practice Module from the WelcomeScreen.

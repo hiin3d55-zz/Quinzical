@@ -1,4 +1,4 @@
-package model;
+package model.clue;
 
 import java.io.File;
 import java.io.FileNotFoundException;

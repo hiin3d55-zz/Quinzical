@@ -1,4 +1,4 @@
-package view;
+
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Score;
+import view.WelcomeScreen;
 
 /**
  * Quinzical game (Main class).
@@ -38,7 +39,7 @@ public class Quinzical extends Application {
 		
 		Scene scene = new Scene(_pane, 1280, 720);
 		
-		scene.getStylesheets().add("view/application.css");
+		scene.getStylesheets().add("application.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

@@ -1,5 +1,12 @@
 package model;
 
+import model.category.Category;
+import model.category.GamesModuleCategory;
+import model.category.PracticeModuleCategory;
+import model.clue.Clue;
+import model.clue.GamesModuleClue;
+import model.clue.PracticeModuleClue;
+
 public class QuestionBank {
 	private Category _category; 
 	private Clue _clue;

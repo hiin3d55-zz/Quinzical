@@ -1,4 +1,4 @@
-package view;
+package view.gamesModule;
 
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.QuestionBank;
+import view.Module;
+import view.Question;
 
 /**
  * This class represents the screen of Games Module. It displays the question board and the user is able to choose the

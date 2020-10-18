@@ -1,8 +1,6 @@
-package model;
+package model.category;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * This class represents the functionalities required to obtain categories from question bank.

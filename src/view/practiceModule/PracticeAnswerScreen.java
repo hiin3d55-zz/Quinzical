@@ -1,4 +1,4 @@
-package view;
+package view.practiceModule;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,6 +6,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import speech.SoundAdjuster;
+import view.AnswerScreen;
 
 /**
  * This class represents the screen that gets displayed when the user is trying to answer the question.

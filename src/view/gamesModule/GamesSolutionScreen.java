@@ -1,10 +1,12 @@
-package view;
+package view.gamesModule;
 
 import javafx.event.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import model.Score;
+import view.Question;
+import view.SolutionScreen;
 
 /**
  * This class represents the screen that get shown after the user submits their answer.

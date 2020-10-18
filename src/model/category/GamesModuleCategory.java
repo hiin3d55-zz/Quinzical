@@ -1,4 +1,4 @@
-package model;
+package model.category;
 
 import java.io.File;
 import java.io.IOException;

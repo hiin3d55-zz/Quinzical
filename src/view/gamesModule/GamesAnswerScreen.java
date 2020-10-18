@@ -1,4 +1,4 @@
-package view;
+package view.gamesModule;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -6,11 +6,13 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import view.AnswerScreen;
+import view.Question;
+import view.SolutionScreen;
 
 /**
  * This class represents the screen that shows when the user tries to answer the question.

@@ -1,4 +1,4 @@
-package model;
+package model.clue;
 
 /**
  * This class represents functionalities to retrieve clues for Practice Module.

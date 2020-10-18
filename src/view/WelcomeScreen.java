@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import view.gamesModule.GamesModule;
+import view.practiceModule.PracticeModule;
 
 /**
  * This class represents the screen that gets displayed when the user starts the game.

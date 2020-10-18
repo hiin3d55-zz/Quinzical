@@ -1,4 +1,4 @@
-package view;
+package view.practiceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import view.SolutionScreen;
 
 /**
  * This class represents the screen that gets displayed when the user has submitted the correct
