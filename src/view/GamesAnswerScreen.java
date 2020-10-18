@@ -35,7 +35,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		
 		Text instruction = new Text("Listen to the clue then answer the question.");
-		instruction.getStyleClass().addAll("normal-text", "information-text");
+		instruction.getStyleClass().add("information-text");
 		
 		Text multipleAnsInstruction = new Text("For clues that have multiple answers, separate them using \",\"");
 		multipleAnsInstruction.getStyleClass().add("normal-text");
@@ -46,8 +46,10 @@ public class GamesAnswerScreen extends AnswerScreen{
 		buttonBox.getStyleClass().add("center-screen-box");
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox, _macrons);
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox);
 		_pane.setCenter(_centerBox);
+		_pane.setLeft(_macrons);
+		_pane.setRight(_soundAdjustBox);
 	}
 	
 	/**

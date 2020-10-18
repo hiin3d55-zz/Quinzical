@@ -4,11 +4,38 @@
 .background-screen {
 	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1C1C1C, #494949);
 	-fx-padding: 20px;
+	-fx-font-family: 'serif';
 }
 
 .normal-text {
+	-fx-fill: #E0FFFF;
+	-fx-font-size: 17px;
+}
+
+.information-text {
 	-fx-fill: #EAEAEA;
-	-fx-font-size: 14px;
+	-fx-font-size: 25px;
+}
+
+.header-msg {
+	-fx-fill: #EAEAEA;
+	-fx-font-weight: bold;
+	-fx-font-size: 35px;
+}
+
+.center-screen-box {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-size: 17px;
+	-fx-spacing: 13px;
+}
+
+.menu-button {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 100px;
+	-fx-border-color: #EAEAEA;
+	-fx-border-radius: 5px;
+	-fx-background-radius: 5px;
 }
 
 .button {
@@ -39,29 +66,8 @@
 	-fx-background-color: #292929;
 }
 
-.center-screen-box {
-	-fx-alignment: center;
-	-fx-text-alignment: center;
-	-fx-font-family: 'serif';
-	-fx-font-size: 14px;
-	-fx-spacing: 7px;
-}
-
-.menu-button {
-    -fx-pref-height: 30px;
-    -fx-pref-width: 100px;
-	-fx-border-color: #EAEAEA;
-	-fx-border-radius: 5px;
-	-fx-background-radius: 5px;
-}
-
 .invisible-component {
 	visibility: hidden;
-}
-
-.header-msg {
-	-fx-font-weight: bold;
-	-fx-font-size: 25px;
 }
 
 .text-field {
@@ -74,13 +80,18 @@
  
 .clue-grid {
 	-fx-padding: 20px;
-	-fx-spacing: 28px;
+	-fx-spacing: 35px;
 	-fx-alignment: baseline-center;
 }
 
 /**
  * This section is for answer screen
  */
+ .left-right-box {
+ 	-fx-min-width: 130px;
+ 	-fx-max-height: 300px;
+ }
+ 
 .sound-box {
 	-fx-padding: 20px;
 }
@@ -89,9 +100,6 @@
 	-fx-border-color: #EAEAEA;
 	-fx-border-radius: 5px;
 	-fx-background-radius: 5px;
-	-fx-pref-height: 80px;
-    -fx-min-width: 300px;
-    -fx-max-width: 200px;
 }
 
 .macron-box:hover {
@@ -104,20 +112,12 @@
 	
 }
 
-.macron-box:hover .macron-button-box{
+.macron-box:hover .macron-button-box {
 	-fx-opacity: 1;
 }
 
-.macron-box:hover .normal-text {
+.macron-box:hover .information-text {
 	-fx-opacity: 0;
-}
-
-
-/**
- * This section is for solution screen
- */
-.information-text {
-	-fx-font-size: 20px;
 }
 
 /**
