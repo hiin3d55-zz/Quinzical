@@ -36,7 +36,7 @@ public class Quinzical extends Application {
 		
 		_welcomeScrn.display();
 		
-		Scene scene = new Scene(_pane, 1366, 768);
+		Scene scene = new Scene(_pane, 1280, 720);
 		
 		scene.getStylesheets().add("view/application.css");
 		primaryStage.setScene(scene);
@@ -51,6 +51,7 @@ public class Quinzical extends Application {
 		
 		Text scoreText = new Text("Current Score: " + score.getScore());
 		scoreText.getStyleClass().add("normal-text");
+		scoreText.setStyle("-fx-fill: #EAEAEA");
 		
 		_pane.setTop(scoreText);
 		BorderPane.setAlignment(scoreText, Pos.TOP_RIGHT);

@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -49,22 +50,27 @@ public abstract class AnswerScreen {
 		_adjuster = new SoundAdjuster(_clue);
 		
 		_soundAdjustBox = new VBox();
-		_soundAdjustBox.getStyleClass().addAll("center-screen-box", "sound-box");
+		_soundAdjustBox.getStyleClass().addAll("center-screen-box", "sound-box", "left-right-box");
 		
 		_currentSpeed = new Text(_adjuster.getSpeed() + " (Default)");
 		_currentSpeed.getStyleClass().add("normal-text");
+		_currentSpeed.setStyle("#EAEAEA");
 		
 		_soundAdjustBox.getChildren().addAll(_adjuster.getFasterBtn(), _currentSpeed, _adjuster.getSlowerBtn());
 		_adjuster.getFasterBtn().getStyleClass().add("golden-button");
 		_adjuster.getSlowerBtn().getStyleClass().add("golden-button");		
 		
 		_macrons = new StackPane();
-		_macrons.getStyleClass().addAll("macron-box");
+		_macrons.getStyleClass().addAll("macron-box", "left-right-box");
 		initialiseMacronBox();
+		
+		BorderPane.setAlignment(_macrons, Pos.CENTER);
+		BorderPane.setAlignment(_soundAdjustBox, Pos.CENTER);
+
 	}
 	
 	private void initialiseMacronBox() {
-		HBox buttonBox = new HBox();
+		VBox buttonBox = new VBox();
 		buttonBox.getStyleClass().addAll("macron-button-box", "center-screen-box");
 		
 		MacronButtonEvent macronEvent = new MacronButtonEvent();
@@ -88,7 +94,7 @@ public abstract class AnswerScreen {
 		buttonBox.getChildren().addAll(macron1, macron2, macron3, macron4, macron5);
 		
 		Text text = new Text("Macrons");
-		text.getStyleClass().addAll("information-text", "normal-text");
+		text.getStyleClass().add("information-text");
 		
 		_macrons.getChildren().addAll(text, buttonBox);
 	}
@@ -99,7 +105,7 @@ public abstract class AnswerScreen {
 	public void display() {
 		createGUI();
 		handleEvents();
-		_adjuster.speak(_adjuster.getText());
+//		_adjuster.speak(_adjuster.getText());
 	}
 	
 	/**

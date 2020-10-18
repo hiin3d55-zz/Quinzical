@@ -48,7 +48,7 @@ public class GamesModule extends Module{
 	private void createGUI() {
 		
 		Text header = new Text("Games Module!");
-		header.getStyleClass().addAll("header-msg","normal-text");
+		header.getStyleClass().add("header-msg");
 		Text instruction1 = new Text("Please choose a clue to be read out");
 		instruction1.getStyleClass().add("normal-text");
 		Text instruction2 = new Text("You can only choose the lowest money value for each category.");
@@ -72,6 +72,8 @@ public class GamesModule extends Module{
 	
 			Text categoryText = new Text(categoryStr);
 			categoryText.getStyleClass().add("normal-text");
+			categoryText.setStyle("-fx-fill: #EAEAEA");
+			
 			categoryColumn.getChildren().add(categoryText);
 			
 			String[] clues = _questionBank.requestClueForCategory(categoryStr);

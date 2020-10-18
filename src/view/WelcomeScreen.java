@@ -35,7 +35,7 @@ public class WelcomeScreen {
 		handleEvents();
 		
 		Text welcomeMessage = new Text("Welcome to Quinzical!");
-		welcomeMessage.getStyleClass().addAll("header-msg", "normal-text");
+		welcomeMessage.getStyleClass().add("header-msg");
 		
 		Text optionsText = new Text("Please select from one of the following options:");
 		optionsText.getStyleClass().add("normal-text");
