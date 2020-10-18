@@ -36,6 +36,7 @@ public abstract class AnswerScreen {
 		_pane = pane;
 		_centerBox = new VBox();
 		_centerBox.getStyleClass().add("center-screen-box");
+		_centerBox.setStyle("-fx-spacing: 25px;");
 		
 		_attemptInput = new TextField();
 
@@ -54,7 +55,7 @@ public abstract class AnswerScreen {
 		
 		_currentSpeed = new Text(_adjuster.getSpeed() + " (Default)");
 		_currentSpeed.getStyleClass().add("normal-text");
-		_currentSpeed.setStyle("#EAEAEA");
+		_currentSpeed.setStyle("-fx-fill: #EAEAEA");
 		
 		_soundAdjustBox.getChildren().addAll(_adjuster.getFasterBtn(), _currentSpeed, _adjuster.getSlowerBtn());
 		_adjuster.getFasterBtn().getStyleClass().add("golden-button");
@@ -105,7 +106,9 @@ public abstract class AnswerScreen {
 	public void display() {
 		createGUI();
 		handleEvents();
-//		_adjuster.speak(_adjuster.getText());
+		_pane.setLeft(_macrons);
+		_pane.setRight(_soundAdjustBox);
+		_adjuster.speak(_adjuster.getText());
 	}
 	
 	/**

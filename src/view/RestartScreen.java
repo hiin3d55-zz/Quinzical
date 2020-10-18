@@ -8,8 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import model.QuestionBank;
+import model.Score;
 
-
+/**
+ * This class represents the screen when users wants to restart the game.
+ * @author se2062020
+ *
+ */
 public class RestartScreen {
 	private BorderPane _pane;
 	private Button _yesBtn;
@@ -28,12 +33,15 @@ public class RestartScreen {
 		_returnBtn.getStyleClass().add("golden-button");
 	}
 	
+	/**
+	 * Displays the screen asking user for restart confirmation
+	 */
 	public void display() {
 		VBox centerBox = new VBox();
 		centerBox.getStyleClass().add("center-screen-box");
 		
 		Text header = new Text("Confirm to Restart Game?");
-		header.getStyleClass().addAll("normal-text", "header-msg");
+		header.getStyleClass().addAll("header-msg");
 		
 		centerBox.getChildren().addAll(header, _yesBtn, _noBtn);
 		
@@ -43,12 +51,15 @@ public class RestartScreen {
 		
 	}
 	
+	/**
+	 * Displays a screen telling the user the game has successfully restarted
+	 */
 	private void displayRestarted() {
 		VBox centerBox = new VBox();
 		centerBox.getStyleClass().add("center-screen-box");
 		
 		Text restartedHeader = new Text("Game has been restarted!");
-		restartedHeader.getStyleClass().addAll("normal-text", "header-msg");
+		restartedHeader.getStyleClass().addAll("header-msg");
 	
 		
 		centerBox.getChildren().addAll(restartedHeader, _returnBtn);
@@ -63,6 +74,13 @@ public class RestartScreen {
 			public void handle(ActionEvent event) {
 				QuestionBank questionBank = new QuestionBank(true);
 				questionBank.resetGame();
+				
+				Score score = new Score();
+				score.resetScore();
+				
+				Text scoreText = (Text)_pane.getTop();
+				score = new Score();
+				scoreText.setText("Current Score: " + score.getScore());
 				
 				displayRestarted();
 			}

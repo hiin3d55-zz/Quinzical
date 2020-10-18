@@ -27,15 +27,16 @@
 	-fx-alignment: center;
 	-fx-text-alignment: center;
 	-fx-font-size: 17px;
-	-fx-spacing: 13px;
+	-fx-spacing: 15px;
 }
 
 .menu-button {
-    -fx-pref-height: 30px;
-    -fx-pref-width: 100px;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 130px;
 	-fx-border-color: #EAEAEA;
 	-fx-border-radius: 5px;
 	-fx-background-radius: 5px;
+	-fx-font-size: 17px;
 }
 
 .button {
@@ -89,6 +90,7 @@
  */
  .left-right-box {
  	-fx-min-width: 130px;
+ 	-fx-max-width: 130px;
  	-fx-max-height: 300px;
  }
  

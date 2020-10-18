@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.QuestionBank;
 import model.Score;
@@ -41,14 +40,15 @@ public class RewardScreen {
 		rewardBox.getStyleClass().add("center-screen-box");
 		
 		Text congratulationMsg = new Text("Congratulations! All Questions Attempted!");
-		congratulationMsg.getStyleClass().addAll("header-msg", "normal-text");
+		congratulationMsg.getStyleClass().add("header-msg");
 
 		Text infoMsg = new Text("Your final score is");
 		infoMsg.getStyleClass().add("normal-text");
+		infoMsg.setStyle("-fx-fill: #EAEAEA;");
 		
 		Text scoreText = new Text(Integer.toString(_score.getScore()));
-		scoreText.setFont(new Font(20));
-		scoreText.getStyleClass().addAll("normal-text", "information-text");
+		scoreText.getStyleClass().addAll("information-text");
+		scoreText.setStyle("-fx-fill: #E0FFFF;");
 		
 		rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, _playAgainBtn);
 		_pane.setCenter(rewardBox);

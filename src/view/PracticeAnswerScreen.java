@@ -34,7 +34,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		_hint.getStyleClass().addAll("normal-text", "invisible-component");
 		
 		_wrongText = new Text("Incorrect!");
-		_wrongText.getStyleClass().addAll("header-msg", "normal-text", "invisible-component");
+		_wrongText.getStyleClass().addAll("header-msg", "invisible-component");
 		
 		_attemptsCountText = new Text("Number of attempts remaining: " + Integer.toString(_remainingAttempts));
 		_attemptsCountText.getStyleClass().add("normal-text");
@@ -47,8 +47,8 @@ public class PracticeAnswerScreen extends AnswerScreen{
 	protected void createGUI() {
 		
 		Text instruction = new Text("Clue: " + _clue);
-		instruction.getStyleClass().addAll("normal-text", "information-text");
-		instruction.setWrappingWidth(500);
+		instruction.getStyleClass().add("information-text");
+		instruction.setWrappingWidth(600);
 		instruction.setTextAlignment(TextAlignment.CENTER);
 		
 		Text multipleAnsInstruction = new Text("For clues that have multiple answers, separate them using \",\"");
@@ -58,7 +58,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		inputAndSoundBtn.getStyleClass().add("center-screen-box");
 		inputAndSoundBtn.getChildren().addAll(_attemptInput, _repeatBtn);
 		
-		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, multipleAnsInstruction,_attemptsCountText, _hint, _soundAdjustBox, _macrons);
+		_centerBox.getChildren().addAll(_wrongText, instruction, inputAndSoundBtn, _submitBtn, multipleAnsInstruction,_attemptsCountText, _hint);
 		_pane.setCenter(_centerBox);
 	}
 	

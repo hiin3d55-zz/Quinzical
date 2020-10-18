@@ -66,11 +66,15 @@ public class GamesSolutionScreen extends SolutionScreen{
 		handleEvents();
 		updateScoreText();
 		
-		msg.getStyleClass().addAll("normal-text", "information-text");
+		msg.getStyleClass().add("information-text");
 		
 		_centerBox.getChildren().addAll(msg, _returnBtn);
 		
 		_pane.setCenter(_centerBox);
+		
+		//Remove sound buttons and macron box
+		_pane.setLeft(null);
+		_pane.setRight(null);
 	}
 	
 	/**

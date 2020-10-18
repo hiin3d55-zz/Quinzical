@@ -16,12 +16,13 @@ public class GamesModuleCategory extends Category {
 
 	/**
 	 * Gets the categories that are already stored in data. If the data/category folder does not exist,
-	 * then create the folder and store 5 categories into it.
+	 * then create the folder and store 6 categories into it, including International category.
 	 */
 	public String[] getCategories() {
 		if (_dataRecordFolder.exists()) {
 			String[] categories = _dataRecordFolder.list();
 			for (int i = 0; i < categories.length; i++) {
+				
 				//The International category is to be placed last.
 				if (categories[i].equals("International")) {
 					categories[i] = categories[categories.length - 1];
@@ -70,7 +71,7 @@ public class GamesModuleCategory extends Category {
 	/**
 	 * Create a file for each category in data/category folder.
 	 * 
-	 * @param categories
+	 * @param categories the name of the files to be created
 	 * @throws IOException
 	 */
 	private void recordCategories(String[] categories) throws IOException {
