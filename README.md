@@ -11,13 +11,27 @@
 	<li>The password is: student</li>
 </ol>
 
-<h2>Instructions on how to type Māori macrons (in Linux machine)</h2>
+<h2>Instructions on adding clues to existing categories to the database</h2>
 <ol>
-	<li>Open settings</li>
-	<li>Select Region & Language</li>
-	<li>In Input Sources, choose Maori</li>
+	<li>Click on the "questionBank" folder</li>
+	<li>Click on any categories that you wish to add clues into</li>
+	<li>Include you clue into the text file with the following format.</li>
+	<ul>
+		<li>The clue|type of questions|Answer</li>
+		<li>Example: Without this broadcasting device, we wouldn't be able to hear your response|What is|Microphone</li>
+		<li>Not following this format would result in incorrect functioning of the app.</li>
+	</ul>
+	<li>Save changes</li>
 </ol>
-<h5>Whenever macrons are needed, press: Alt + vowel you require (make sure Māori language is selected)</h5>
-<p>This game is still under improvement and will include Māori vowels in the game.</p>
+
+<h2>Instructions on adding new categories to the database</h2>
+<ol>
+	<li>Click on the "questionBank" folder</li>
+	<li>Create a new text file with the name of your new category</li>
+	<li>Open your new text file add at least FIVE clues (Clues less than five would result in incorrect behaviour of the app)</li>
+	<li>The format is to be the same specified on step 3 in the above instruction</li>
+</ol>
+
+<p>Note that International questions will only be unlocked if you have completed at least two categories from Games Module</p>
 
 <h2>Enjoy the game!</h2>
