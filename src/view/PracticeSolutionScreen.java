@@ -34,7 +34,7 @@ public class PracticeSolutionScreen extends SolutionScreen{
 
 		_adjuster.speak("Correct");
 
-		correctMsg.getStyleClass().addAll("normal-text", "information-text");
+		correctMsg.getStyleClass().addAll("information-text");
 		
 		List<Text> messages = new ArrayList<Text>();
 		messages.add(correctMsg);
@@ -45,15 +45,16 @@ public class PracticeSolutionScreen extends SolutionScreen{
 	 * Create GUI texts informing user is not correct
 	 */
 	public void displayIncorrect() {
-		Text clueMsg = new Text("Clue: " + _clue);
-		clueMsg.getStyleClass().addAll("normal-text", "information-text");
-		clueMsg.setWrappingWidth(500);
+		Text clueMsg = new Text(_clue);
+		clueMsg.getStyleClass().add("information-text");
+		clueMsg.setWrappingWidth(680);
 		clueMsg.setTextAlignment(TextAlignment.CENTER);
 		
 		_adjuster.speak("The actual answer is " + _solution);
 		
 		Text answerMsg = new Text("Answer: " + _solution);
-		answerMsg.getStyleClass().addAll("normal-text", "information-text");
+		answerMsg.getStyleClass().add("normal-text");
+		answerMsg.setStyle("-fx-font-size: 20px;");
 		
 		// Sound out to the user that their attempt is incorrect and tell them the correct answer.
 		
@@ -69,13 +70,18 @@ public class PracticeSolutionScreen extends SolutionScreen{
 	 */
 	private void setUpAndShow(List<Text> messages) {
 		handleEvents();
-				
+			
 		VBox solutionBox = new VBox();
 		solutionBox.getStyleClass().add("center-screen-box");
 		
 		solutionBox.getChildren().addAll(messages);
 		solutionBox.getChildren().addAll(_returnBtn);
 		_pane.setCenter(solutionBox);
+		
+		
+		//Remove sound buttons and macron box
+		_pane.setLeft(null);
+		_pane.setRight(null);
 	}
 	
 	/**

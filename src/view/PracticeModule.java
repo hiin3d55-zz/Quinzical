@@ -27,7 +27,7 @@ public class PracticeModule extends Module{
 	protected void displayScreen() {
 		
 		Text header = new Text("Practice Module!");
-		header.getStyleClass().addAll("header-msg", "normal-text");
+		header.getStyleClass().addAll("header-msg");
 		Text instruction = new Text("Please choose any category");
 		instruction.getStyleClass().add("normal-text");
 		

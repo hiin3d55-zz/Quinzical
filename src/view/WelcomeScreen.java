@@ -47,6 +47,10 @@ public class WelcomeScreen {
 		
 		_pane.setCenter(welcomeBox);
 		
+		//Remove sound buttons and macron box
+		_pane.setLeft(null);
+		_pane.setRight(null);
+		
 		//Hiddens the main menu button at the bottom
 		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
