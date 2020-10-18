@@ -1,7 +1,12 @@
 package view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,6 +23,11 @@ public class GamesAnswerScreen extends AnswerScreen{
 	private Button _dontKnowBtn;
 	private Question _question;
 	
+	private int _timeLimit;
+	private Text _timerTime;
+	
+	private boolean _BtnPressed;
+	
 	public GamesAnswerScreen(BorderPane pane, Question question) {
 		super(pane, question.getClue());
 		
@@ -25,10 +35,34 @@ public class GamesAnswerScreen extends AnswerScreen{
 		_dontKnowBtn.getStyleClass().add("normal-button");
 		
 		_question = question;
+		
+		_timeLimit = 15; // Time limit for answering a question is 15 seconds.
+		_timerTime = new Text(String.valueOf(_timeLimit));
+		
+		_BtnPressed = false;
+	}
+	
+	public void startTimer() {
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				if (_timeLimit == 0) {
+					timer.cancel();
+					_timeLimit = 15;
+					if (!_BtnPressed) {
+						TimerTaskCompletedPaper paper = new TimerTaskCompletedPaper(_dontKnowBtn); 
+						Platform.runLater(paper);
+					}
+				} else {
+					_timeLimit--;
+				}
+				_timerTime.setText(String.valueOf(_timeLimit));
+			}
+		}, 1000, 1000);
 	}
 	
 	/**
-	 * Create GUI componenets for game answer screen.
+	 * Create GUI components for game answer screen.
 	 */
 	protected void createGUI() {			
 		HBox inputAndSoundBtn = new HBox();
@@ -46,7 +80,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 		buttonBox.getStyleClass().add("center-screen-box");
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox, _macrons);
+
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox, _macrons, _timerTime);
 		_pane.setCenter(_centerBox);
 	}
 	
@@ -57,6 +92,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				_BtnPressed = true;
+				
 				boolean loseScore = true;
 				
 				String attempt = _attemptInput.getText();
@@ -111,6 +148,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				_BtnPressed = true;
 				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();

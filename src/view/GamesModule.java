@@ -135,8 +135,9 @@ public class GamesModule extends Module{
 								_allQuestions.remove(questionsForCategory);
 							}
 							
-							AnswerScreen answerScrn = new GamesAnswerScreen(_pane, pressedQuestion);
+							GamesAnswerScreen answerScrn = new GamesAnswerScreen(_pane, pressedQuestion);
 							answerScrn.display();
+							answerScrn.startTimer();
 						}
 					}
 				});
