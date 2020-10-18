@@ -3,8 +3,10 @@ package view;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +26,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 	private int _timeLimit;
 	private Text _timerTime;
 	
+	private boolean _BtnPressed;
+	
 	public GamesAnswerScreen(BorderPane pane, Question question) {
 		super(pane, question.getClue());
 		
@@ -34,6 +38,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_timeLimit = 15; // Time limit for answering a question is 15 seconds.
 		_timerTime = new Text(String.valueOf(_timeLimit));
+		
+		_BtnPressed = false;
 	}
 	
 	public void startTimer() {
@@ -43,9 +49,10 @@ public class GamesAnswerScreen extends AnswerScreen{
 				if (_timeLimit == 0) {
 					timer.cancel();
 					_timeLimit = 15;
-					_dontKnowBtn.fire(); // If the time limit is reached, nothing gets 
-										  // submitted. This is equivalent to the _dontKnowBtn
-										  // getting pressed.
+					if (!_BtnPressed) {
+						TimerTaskCompletedPaper paper = new TimerTaskCompletedPaper(_dontKnowBtn); 
+						Platform.runLater(paper);
+					}
 				} else {
 					_timeLimit--;
 				}
@@ -74,7 +81,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
 
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox, _macrons);
+		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _soundAdjustBox, _macrons, _timerTime);
 		_pane.setCenter(_centerBox);
 	}
 	
@@ -85,6 +92,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				_BtnPressed = true;
+				
 				boolean loseScore = true;
 				
 				String attempt = _attemptInput.getText();
@@ -139,6 +148,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				_BtnPressed = true;
 				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();

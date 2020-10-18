@@ -75,24 +75,8 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-	
-		// Bash command for speaking out the clue.
-		String speakClueCmd = "festival -b clueFile.scm";
-		
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
-		try {
-			Process process = builder.start();
-			try {
-				process.waitFor(); // This line does not do anything. It is just here so that the 
-								// variable of process is used.
-		
-			} catch (InterruptedException ie) {
-				
-			}
-		} catch (IOException e) {
-			System.out.println("Error with using festival to read out the question.");
-			e.printStackTrace();
-		}
+		SpeechSynthesisThread synthThread = new SpeechSynthesisThread();
+		synthThread.start();
 	}
 	
 	public void fasterSpeed() {
