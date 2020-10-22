@@ -3,9 +3,11 @@ package view.gamesModule;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import model.QuestionBank;
 import model.Score;
 import view.WelcomeScreen;
@@ -21,14 +23,25 @@ import view.WelcomeScreen;
 public class RewardScreen {
 	
 	private BorderPane _pane;
-	private Button _playAgainBtn;
+	private Button _saveGameBtn;
+	private Button _playAgnBtn;
 	private Score _score;
 	private QuestionBank _questionBank;
+	private TextField _userName;
+	private VBox _rewardBox;
 	
 	public RewardScreen(BorderPane pane) {
 		_pane = pane;
-		_playAgainBtn = new Button("Play again!");
-		_playAgainBtn.getStyleClass().add("golden-button");
+		
+		_rewardBox = new VBox();
+		
+		_saveGameBtn = new Button("Save");
+		_saveGameBtn.getStyleClass().add("golden-button");
+		
+		_playAgnBtn = new Button("Play Again");
+		_playAgnBtn.getStyleClass().add("golden-button");
+		
+		_userName = new TextField();
 		
 		_score = new Score();
 		_questionBank = new QuestionBank(true);
@@ -37,8 +50,7 @@ public class RewardScreen {
 	public void display() {
 		handleEvents();
 		
-		VBox rewardBox = new VBox();
-		rewardBox.getStyleClass().add("center-screen-box");
+		_rewardBox.getStyleClass().add("center-screen-box");
 		
 		Text congratulationMsg = new Text("Congratulations! All Questions Attempted!");
 		congratulationMsg.getStyleClass().add("header-msg");
@@ -51,13 +63,50 @@ public class RewardScreen {
 		scoreText.getStyleClass().addAll("information-text");
 		scoreText.setStyle("-fx-fill: #E0FFFF;");
 		
-		rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, _playAgainBtn);
-		_pane.setCenter(rewardBox);
+		Text saveScoreText = new Text("Save your score under the name: ");
+		saveScoreText.getStyleClass().add("information-text");
+		
+		
+		_rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, saveScoreText, _userName, _saveGameBtn);
+		_pane.setCenter(_rewardBox);
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 	
+	private void displaySaved() {
+		VBox userSavedBox = new VBox();
+		userSavedBox.getStyleClass().add("center-screen-box");
+		Text header = new Text(_userName.getText() + ", You are ");
+		header.getStyleClass().add("information-text");
+		header.setWrappingWidth(600);
+		header.setTextAlignment(TextAlignment.CENTER);
+		
+		Text userRanking = new Text("Number " + 1 + "!");
+		userRanking.getStyleClass().add("header-msg");
+		
+		userSavedBox.getChildren().addAll(header, userRanking, _playAgnBtn);
+		
+		_pane.setCenter(userSavedBox);
+		_pane.getBottom().getStyleClass().add("invisible-component");
+	}
+	
 	public void handleEvents() {
-		_playAgainBtn.setOnAction(new EventHandler<ActionEvent>() {
+		_saveGameBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+        	public void handle(ActionEvent event) {
+				//save score here
+				//display score saved screen
+				displaySaved();
+				
+				_score.resetScore();
+				_questionBank.resetGame();
+				//Updates the score
+				Text scoreText = (Text)_pane.getTop();
+				_score = new Score();
+				scoreText.setText("Current Score: " + _score.getScore());
+        	}
+		});
+		
+		_playAgnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
 				_score.resetScore();
@@ -67,8 +116,8 @@ public class RewardScreen {
 				_score = new Score();
 				scoreText.setText("Current Score: " + _score.getScore());
 				
-        		WelcomeScreen welcomeScrn = new WelcomeScreen(_pane);
-        		welcomeScrn.display();
+				WelcomeScreen welcomeScrn = new WelcomeScreen(_pane);
+				welcomeScrn.display();
         	}
 		});
 	}

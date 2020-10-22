@@ -22,15 +22,22 @@ public class WelcomeScreen {
 	private Button _pracModBtn;
 	private Button _gamesModBtn;
 	private Button _restartBtn;
+	private Button _leaderBoardBtn;
 
 	public WelcomeScreen(BorderPane pane) {
 		_pane = pane;
 		_pracModBtn = new Button("Practice Module");
 		_pracModBtn.getStyleClass().addAll("golden-button");
+		
 		_gamesModBtn = new Button("Games Module");
 		_gamesModBtn.getStyleClass().addAll("golden-button");
+		
 		_restartBtn = new Button("Restart Game");
 		_restartBtn.getStyleClass().add("golden-button");
+		
+		_leaderBoardBtn = new Button("Leader Board");
+		_leaderBoardBtn.getStyleClass().add("golden-button");
+
 	}
 
 	public void display() {
@@ -43,7 +50,7 @@ public class WelcomeScreen {
 		optionsText.getStyleClass().add("normal-text");
 		// Display the main menu.
 		VBox welcomeBox = new VBox();
-		welcomeBox.getChildren().addAll(welcomeMessage, optionsText, _gamesModBtn,_pracModBtn, _restartBtn);
+		welcomeBox.getChildren().addAll(welcomeMessage, optionsText, _gamesModBtn, _pracModBtn, _leaderBoardBtn, _restartBtn);
 		welcomeBox.getStyleClass().add("center-screen-box");
 		VBox.setMargin(welcomeMessage, new Insets(0, 0, 15, 0));
 		
@@ -79,6 +86,14 @@ public class WelcomeScreen {
 			public void handle(ActionEvent event) {
 				RestartScreen restartScrn = new RestartScreen(_pane);
 				restartScrn.display();
+			}
+		});
+		
+		_leaderBoardBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				LeaderBoardScreen leaderBoardScrn = new LeaderBoardScreen(_pane);
+				leaderBoardScrn.display();
 			}
 		});
 	}
