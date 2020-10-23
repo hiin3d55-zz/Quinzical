@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.QuestionBank;
 import model.Score;
+import model.User;
 import model.Users;
 import view.WelcomeScreen;
 
@@ -91,15 +92,15 @@ public class RewardScreen {
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 	
-	private void displaySaved() {
+	private void displaySaved(User user) {
 		VBox userSavedBox = new VBox();
 		userSavedBox.getStyleClass().add("center-screen-box");
-		Text header = new Text(_userName.getText() + ", You are ");
+		Text header = new Text(_userName.getText() + ", You are ranked");
 		header.getStyleClass().add("information-text");
 		header.setWrappingWidth(600);
 		header.setTextAlignment(TextAlignment.CENTER);
 		
-		Text userRanking = new Text("Number " + 1 + "!");
+		Text userRanking = new Text("Number " + _users.getRanking(user) + "!");
 		userRanking.getStyleClass().add("header-msg");
 		
 		userSavedBox.getChildren().addAll(header, userRanking, _playAgnBtn);
@@ -112,8 +113,6 @@ public class RewardScreen {
 		_saveGameBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
         	public void handle(ActionEvent event) {
-				//save score here
-				//display score saved screen
 				if (_userName.getText().equals("") || _userId.getText().equals("")) {
 					_invalidInput.setText("Please fill in all required fields");
 					_invalidInput.getStyleClass().remove("invinsible-component");
@@ -123,18 +122,19 @@ public class RewardScreen {
 					_invalidInput.getStyleClass().remove("invinsible-component");
 					
 				} else {
-					_users.addUser(_userName.getText(), _userId.getText(), Integer.toString(_score.getScore()));
+					User user = new User(_userName.getText(), _userId.getText(), Integer.toString(_score.getScore()));
+					_users.addUser(user);
 					
-					displaySaved();
+					displaySaved(user);
 					
 					_score.resetScore();
 					_questionBank.resetGame();
+					
 					//Updates the score
 					Text scoreText = (Text)_pane.getTop();
 					_score = new Score();
 					scoreText.setText("Current Score: " + _score.getScore());
 				}
-
         	}
 		});
 		

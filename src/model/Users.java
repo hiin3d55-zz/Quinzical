@@ -30,19 +30,28 @@ public class Users {
 		}
 	}
 	
-	public void addUser(String userName, String userId, String score) {
-		_users.add(new User(userName, userId, score));
+	public void addUser(User user) {
 		try {
 			FileWriter fw = new FileWriter(_usersData, true);
-			fw.write(userName + "|" + userId + "|" + score + "\n");
+			fw.write(user.getUserName() + "|" + user.getUserId() + "|" + user.getScore() + "\n");
 			fw.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		//Updates the list by re-reading database
 		_users = new ArrayList<User>();
 		retrieveUsers();
+	}
+	
+	public String getRanking(User user) {
+		for (int i = 0; i < _users.size(); i++) {
+			if (_users.get(i).getUserId().equals(user.getUserId())) {
+				return Integer.toString(i + 1);
+			}
+		}
+		return null;
 	}
 	
 	public List<User> getUsers() {
