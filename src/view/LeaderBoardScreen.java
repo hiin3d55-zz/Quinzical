@@ -31,6 +31,7 @@ public class LeaderBoardScreen {
 
 		_table = new TableView<User>();
 		_table.setMaxWidth(650);
+		_table.setDisable(true);
 		initializeTable();
 	}
 

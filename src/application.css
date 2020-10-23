@@ -132,3 +132,29 @@
 	-fx-alignment: center;
 }
 
+/**
+ * This section is for Leader Board screen
+ */
+ .table-view {
+ 	-fx-border-radius: 5px;
+ }
+ 
+.table-view:disabled {
+	-fx-opacity: 1;
+}
+ 
+.table-view .column-header-background .label {
+	-fx-text-fill: #E0FFFF;
+	-fx-font-size: 20px;
+	-fx-font-family: 'serif';
+	-fx-background-color: transparent;
+	-fx-opacity: 1;
+}
+
+.table-view .table-column {
+	-fx-text-fill: #EAEAEA;
+	-fx-font-family: 'serif';
+	-fx-font-size: 17px;
+	-fx-background-color: #292929;
+	-fx-alignment: center;
+}
