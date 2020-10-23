@@ -5,11 +5,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.QuestionBank;
 import model.Score;
+import model.Users;
 import view.WelcomeScreen;
 
 /**
@@ -25,10 +27,15 @@ public class RewardScreen {
 	private BorderPane _pane;
 	private Button _saveGameBtn;
 	private Button _playAgnBtn;
+	private Text _invalidInput;
+	private TextField _userName;
+	private TextField _userId;
+	private VBox _rewardBox;
+	
 	private Score _score;
 	private QuestionBank _questionBank;
-	private TextField _userName;
-	private VBox _rewardBox;
+	private Users _users;
+
 	
 	public RewardScreen(BorderPane pane) {
 		_pane = pane;
@@ -42,9 +49,16 @@ public class RewardScreen {
 		_playAgnBtn.getStyleClass().add("golden-button");
 		
 		_userName = new TextField();
+		_userName.setPromptText("User Name");
+		_userId = new TextField();
+		_userId.setPromptText("User ID");
 		
 		_score = new Score();
 		_questionBank = new QuestionBank(true);
+		_users = new Users();
+		
+		_invalidInput = new Text();
+		_invalidInput.getStyleClass().addAll("normal-text", "invinsible-component");
 	}
 	
 	public void display() {
@@ -63,11 +77,16 @@ public class RewardScreen {
 		scoreText.getStyleClass().addAll("information-text");
 		scoreText.setStyle("-fx-fill: #E0FFFF;");
 		
-		Text saveScoreText = new Text("Save your score under the name: ");
+		Text saveScoreText = new Text("Save your score under: ");
 		saveScoreText.getStyleClass().add("information-text");
 		
+		HBox userInputBox = new HBox();
+		userInputBox.getStyleClass().add("center-screen-box");
+		userInputBox.getChildren().addAll(_userName, _userId);
 		
-		_rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, saveScoreText, _userName, _saveGameBtn);
+
+		
+		_rewardBox.getChildren().addAll(congratulationMsg, infoMsg, scoreText, saveScoreText, userInputBox, _saveGameBtn, _invalidInput);
 		_pane.setCenter(_rewardBox);
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
@@ -95,14 +114,27 @@ public class RewardScreen {
         	public void handle(ActionEvent event) {
 				//save score here
 				//display score saved screen
-				displaySaved();
-				
-				_score.resetScore();
-				_questionBank.resetGame();
-				//Updates the score
-				Text scoreText = (Text)_pane.getTop();
-				_score = new Score();
-				scoreText.setText("Current Score: " + _score.getScore());
+				if (_userName.getText().equals("") || _userId.getText().equals("")) {
+					_invalidInput.setText("Please fill in all required fields");
+					_invalidInput.getStyleClass().remove("invinsible-component");
+
+				} else if (_users.userIdExists(_userId.getText())) {
+					_invalidInput.setText("User ID already exists. Please enter another user ID");
+					_invalidInput.getStyleClass().remove("invinsible-component");
+					
+				} else {
+					_users.addUser(_userName.getText(), _userId.getText(), Integer.toString(_score.getScore()));
+					
+					displaySaved();
+					
+					_score.resetScore();
+					_questionBank.resetGame();
+					//Updates the score
+					Text scoreText = (Text)_pane.getTop();
+					_score = new Score();
+					scoreText.setText("Current Score: " + _score.getScore());
+				}
+
         	}
 		});
 		

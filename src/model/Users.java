@@ -2,8 +2,10 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,8 +30,32 @@ public class Users {
 		}
 	}
 	
+	public void addUser(String userName, String userId, String score) {
+		_users.add(new User(userName, userId, score));
+		try {
+			FileWriter fw = new FileWriter(_usersData, true);
+			fw.write(userName + "|" + userId + "|" + score + "\n");
+			fw.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		_users = new ArrayList<User>();
+		retrieveUsers();
+	}
+	
 	public List<User> getUsers() {
 		return _users;
+	}
+	
+	public boolean userIdExists(String userId) {
+		for (User u: _users) {
+			if (u.getUserId().equals(userId)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private void retrieveUsers() {
@@ -39,9 +65,6 @@ public class Users {
 			
 			while (scanner.hasNext()) {
 				String[] userDetail = formatUserDetail(scanner.nextLine());
-				System.out.println(userDetail[0]);
-				System.out.println(userDetail[1]);
-				System.out.println(userDetail[2]);
 				User user = new User(userDetail[0], userDetail[1], userDetail[2]);
 				_users.add(user);
 			}
@@ -51,6 +74,8 @@ public class Users {
 			e.printStackTrace();
 		}
 		
+		//Sort by users' score
+		Collections.sort(_users);
 
 	}
 	
