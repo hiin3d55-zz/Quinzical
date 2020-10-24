@@ -7,7 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.QuestionBank;
 import view.gamesModule.GamesModule;
+import view.gamesModule.GamesModuleRequestCategory;
 import view.practiceModule.PracticeModule;
 
 /**
@@ -76,8 +78,17 @@ public class WelcomeScreen {
 		_gamesModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				GamesModule gamesMod = new GamesModule(_pane);
-				gamesMod.display();
+				QuestionBank questionBank = new QuestionBank(true);
+				
+				//If user has not chosen five categories to play with
+				if (questionBank.isCategoryChosen() == false) {
+					GamesModuleRequestCategory gamesModReqCategory = new GamesModuleRequestCategory(_pane);
+					gamesModReqCategory.display();
+					
+				} else {
+					GamesModule gamesMod = new GamesModule(_pane);
+					gamesMod.display();
+				}
 			}
 		});
 		

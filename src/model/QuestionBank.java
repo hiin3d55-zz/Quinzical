@@ -24,6 +24,27 @@ public class QuestionBank {
 		}
 	}
 	
+	/**
+	 * Checks if 5 categories chosen by user has been stored into database
+	 * @return Returns true if chosen, false otherwise.
+	 */
+	public boolean isCategoryChosen() {
+		if (_category.getAllCategories().length == _category.getCategories().length) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * Add categories to the database
+	 * @param categories The list of categories to be added.
+	 */
+	public void storeCategories(String[] categories) {
+		if (isCategoryChosen() ==  false) {
+			_category.recordCategories(categories);
+		}
+	}
 	
 	public String[] requestCategory() {
 		return _category.getCategories();

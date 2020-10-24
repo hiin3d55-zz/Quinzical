@@ -2,8 +2,9 @@ package model.category;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class represents functionalities that retrieves categories for Games
@@ -16,7 +17,7 @@ public class GamesModuleCategory extends Category {
 
 	/**
 	 * Gets the categories that are already stored in data. If the data/category folder does not exist,
-	 * then create the folder and store 6 categories into it, including International category.
+	 * then return all categories.
 	 */
 	public String[] getCategories() {
 		if (_dataRecordFolder.exists()) {
@@ -33,40 +34,11 @@ public class GamesModuleCategory extends Category {
 			return categories;
 			
 		} else {
-			_dataRecordFolder.mkdirs();
-			
-			File file = new File("questionBank");
-			String[] categories = randomiseCategories(file.list());
-			
-			try {
-				recordCategories(categories);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return categories;
+			return getAllCategories();
 		}
 	}
 	
-	/**
-	 * This method randomly picks six categories from the given input, including International category.
-	 * @param categories The categories to be randomly picked
-	 * @return An array of randomised categories.
-	 */
-	private String[] randomiseCategories(String[] categories) {
-		Set<String> randomed = new HashSet<String>();
-
-		while (randomed.size() < 6) {
-			randomed.add(categories[(int)(Math.random()*categories.length)]);
-		}
-		
-		String[] randomedArray = randomed.toArray(new String[randomed.size()]);
-		
-		if (!randomed.contains("International")) {
-			randomedArray[randomedArray.length - 1] = "International";
-		}
-		
-		return randomedArray;
-	}
+	
 	
 	/**
 	 * Create a file for each category in data/category folder.
@@ -74,10 +46,23 @@ public class GamesModuleCategory extends Category {
 	 * @param categories the name of the files to be created
 	 * @throws IOException
 	 */
-	private void recordCategories(String[] categories) throws IOException {
+	public void recordCategories(String[] categories){
+		_dataRecordFolder.mkdirs();
+		
+		//Also add International clue to the database
+		List<String> categoriesList = new ArrayList<>(Arrays.asList(categories));
+		categoriesList.add("International");
+		categories = categoriesList.toArray(categories);
+		
+		
 		for (int i = 0; i < categories.length; i++) {
 			File file = new File(_dataRecordFolder.getPath() + "/" + categories[i]);
-			file.createNewFile();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
 	}
 }
