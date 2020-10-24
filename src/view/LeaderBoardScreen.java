@@ -46,6 +46,8 @@ public class LeaderBoardScreen {
 		initializeTable();
 		
 		_scrollBar = new ScrollBar();
+		_scrollBar.setId("leader-board-scroll");
+		
 		_scrollBar.setOrientation(Orientation.VERTICAL);
 		_scrollBar.setMax(10);
 		_scrollBar.setMin(0);
