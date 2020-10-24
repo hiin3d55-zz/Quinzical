@@ -92,7 +92,7 @@ public class RewardScreen {
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 	
-	private void displaySaved(User user) {
+	private void displaySaved() {
 		VBox userSavedBox = new VBox();
 		userSavedBox.getStyleClass().add("center-screen-box");
 		Text header = new Text(_userName.getText() + ", You are ranked");
@@ -100,7 +100,7 @@ public class RewardScreen {
 		header.setWrappingWidth(600);
 		header.setTextAlignment(TextAlignment.CENTER);
 		
-		Text userRanking = new Text("Number " + _users.getRanking(user) + "!");
+		Text userRanking = new Text("Number " + _users.getRanking(_userId.getText()) + "!");
 		userRanking.getStyleClass().add("header-msg");
 		
 		userSavedBox.getChildren().addAll(header, userRanking, _playAgnBtn);
@@ -125,7 +125,7 @@ public class RewardScreen {
 					User user = new User(_userName.getText(), _userId.getText(), Integer.toString(_score.getScore()));
 					_users.addUser(user);
 					
-					displaySaved(user);
+					displaySaved();
 					
 					_score.resetScore();
 					_questionBank.resetGame();

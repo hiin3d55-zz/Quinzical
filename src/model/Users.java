@@ -45,10 +45,10 @@ public class Users {
 		retrieveUsers();
 	}
 	
-	public String getRanking(User user) {
-		for (int i = 0; i < _users.size(); i++) {
-			if (_users.get(i).getUserId().equals(user.getUserId())) {
-				return Integer.toString(i + 1);
+	public String getRanking(String userId) {
+		for (User u: _users) {
+			if (u.getUserId().equals(userId)) {
+				return u.getRanking();
 			}
 		}
 		return null;
@@ -82,9 +82,18 @@ public class Users {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		//Sort by users' score
 		Collections.sort(_users);
+		rankUsers();
+	}
+	
+	private void rankUsers() {
+		int i = 1;
+		for (User u: _users) {
+			u.setRanking(Integer.toString(i));
+			i++;
+		}
 
 	}
 	

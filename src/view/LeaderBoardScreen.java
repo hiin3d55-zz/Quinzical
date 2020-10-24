@@ -2,24 +2,15 @@ package view;
 
 import java.util.Arrays;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -76,41 +67,21 @@ public class LeaderBoardScreen {
 	}
 
 	private void initializeTable() {
+		TableColumn<User, String> rankingColumn = new TableColumn<>("Ranking");
+		rankingColumn.setCellValueFactory(new PropertyValueFactory<>("ranking"));
+		
 		TableColumn<User, String> userNameColumn = new TableColumn<>("User Name");
 		userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
-		userNameColumn.setSortable(false);
 
 		TableColumn<User, String> userIdColumn = new TableColumn<>("User ID");
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-		userIdColumn.setSortable(false);
 
-		
 		TableColumn<User, String> scoreColumn = new TableColumn<>("Score");
 		scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
-		scoreColumn.setSortable(false);
-		
-		TableColumn<User, Integer> indexColumn = new TableColumn<>("Ranking");
-		indexColumn.setCellFactory(col -> {
-			TableCell<User, Integer> indexCell = new TableCell<>();
-			ReadOnlyObjectProperty<TableRow<User>> rowProperty = indexCell.tableRowProperty();
-			ObjectBinding<String> rowBinding = Bindings.createObjectBinding(() -> {
-				TableRow<User> row = rowProperty.get();
-				if (row != null) {
-					int rowIndex = row.getIndex();
-					if (rowIndex < row.getTableView().getItems().size()) {
-						return Integer.toString(rowIndex + 1);
-					}
-				}
-				return null;
-			}, rowProperty);
-			indexCell.textProperty().bind(rowBinding);
-			return indexCell;
-		});
-		indexColumn.setSortable(false);
 
 		
 		_table.setItems(getUsers());
-		_table.getColumns().addAll(Arrays.asList(indexColumn, userNameColumn, userIdColumn, scoreColumn));
+		_table.getColumns().addAll(Arrays.asList(rankingColumn, userNameColumn, userIdColumn, scoreColumn));
 		_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 

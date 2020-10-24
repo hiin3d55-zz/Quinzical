@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 
 public class User implements Comparable<User> {
+	private SimpleStringProperty _ranking;
 	private SimpleStringProperty _userName;
 	private SimpleStringProperty _userId;
 	private SimpleStringProperty _score;
@@ -11,6 +12,7 @@ public class User implements Comparable<User> {
 		_userName = new SimpleStringProperty(userName);
 		_userId = new SimpleStringProperty(userId);
 		_score = new SimpleStringProperty(score);
+		
 	}
 
 	public String getUserName() {
@@ -24,7 +26,14 @@ public class User implements Comparable<User> {
 	public String getScore() {
 		return _score.get();
 	}
-
+	
+	public String getRanking() {
+		return _ranking.get();
+	}
+	
+	public void setRanking(String ranking) {
+		_ranking = new SimpleStringProperty(ranking);
+	}
 	
 	/**
 	 * Rank user's score by descending order.
