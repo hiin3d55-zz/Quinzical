@@ -92,6 +92,9 @@ public class RewardScreen {
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 	
+	/**
+	 * Displays the GUI that tells the user their details have been saved and their ranking.
+	 */
 	private void displaySaved() {
 		VBox userSavedBox = new VBox();
 		userSavedBox.getStyleClass().add("center-screen-box");

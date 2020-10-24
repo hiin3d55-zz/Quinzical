@@ -2,6 +2,11 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Represents a User that finished the game.
+ * @author Sherman
+ *
+ */
 public class User implements Comparable<User> {
 	private SimpleStringProperty _ranking;
 	private SimpleStringProperty _userName;

@@ -18,6 +18,11 @@ import javafx.scene.text.Text;
 import model.User;
 import model.Users;
 
+/**
+ * Represents the screen that displays the Leader Board to the users.
+ * @author se2062020
+ *
+ */
 public class LeaderBoardScreen {
 	private BorderPane _pane;
 	private VBox _leaderBoardBox;
@@ -25,11 +30,15 @@ public class LeaderBoardScreen {
 	private TableView<User> _table;
 	private ScrollBar _scrollBar;
 	
+	private Users _users;
+	
 	public LeaderBoardScreen(BorderPane pane) {
+		_users = new Users();
+		
 		_pane = pane;
 		_leaderBoardBox = new VBox();
 		_leaderBoardBox.getStyleClass().add("center-screen-box");
-
+		
 		_table = new TableView<User>();
 		_table.setMaxWidth(650);
 		_table.setMinWidth(650);
@@ -51,7 +60,10 @@ public class LeaderBoardScreen {
 
 		});	
 	}
-
+	
+	/**
+	 * Shows the GUI screen to the user.
+	 */
 	public void display() {
 		Text header = new Text("LeaderBoard!");
 		header.getStyleClass().addAll("header-msg");
@@ -65,7 +77,10 @@ public class LeaderBoardScreen {
 		_pane.setCenter(_leaderBoardBox);
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
-
+	
+	/**
+	 * Populate the leader board's TableView.
+	 */
 	private void initializeTable() {
 		TableColumn<User, String> rankingColumn = new TableColumn<>("Ranking");
 		rankingColumn.setCellValueFactory(new PropertyValueFactory<>("ranking"));
@@ -85,11 +100,14 @@ public class LeaderBoardScreen {
 		_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 
+	/**
+	 * Get all the users stored in database.
+	 * @return
+	 */
 	private ObservableList<User> getUsers() {
 		ObservableList<User> usersList = FXCollections.observableArrayList();
 
-		Users users = new Users();
-		usersList.addAll(users.getUsers());
+		usersList.addAll(_users.getUsers());
 
 		return usersList;
 

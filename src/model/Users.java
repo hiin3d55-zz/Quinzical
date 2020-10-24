@@ -9,6 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class represents a list of Users.
+ * @author Sherman
+ *
+ */
 public class Users {
 	private List<User> _users;
 	private File _usersData;
@@ -30,6 +35,10 @@ public class Users {
 		}
 	}
 	
+	/**
+	 * Add user to the database.
+	 * @param user
+	 */
 	public void addUser(User user) {
 		try {
 			FileWriter fw = new FileWriter(_usersData, true);
@@ -58,6 +67,11 @@ public class Users {
 		return _users;
 	}
 	
+	/**
+	 * Check if the specified user ID already exists.
+	 * @param userId Returns true if exists, false otherwise.
+	 * @return
+	 */
 	public boolean userIdExists(String userId) {
 		for (User u: _users) {
 			if (u.getUserId().equals(userId)) {
@@ -67,6 +81,9 @@ public class Users {
 		return false;
 	}
 	
+	/**
+	 * Initialize the list of users (field: _users) from the database.
+	 */
 	private void retrieveUsers() {
 		Scanner scanner;
 		try {
@@ -83,11 +100,14 @@ public class Users {
 			e.printStackTrace();
 		}
 
-		//Sort by users' score
+		//Sort by users' score and ranks them.
 		Collections.sort(_users);
 		rankUsers();
 	}
 	
+	/**
+	 * Give a ranking to each User objects.
+	 */
 	private void rankUsers() {
 		int i = 1;
 		for (User u: _users) {
@@ -97,6 +117,11 @@ public class Users {
 
 	}
 	
+	/**
+	 * Formats the user information stored in the database.
+	 * @param userDetail The raw format from the database.
+	 * @return An array of String. String[0] is the user's name, String[1] is the user's ID, and String[2] is the user's score 
+	 */
 	private String[] formatUserDetail(String userDetail) {
 		String[] formattedUserDetail = userDetail.split("[|]");
 		return formattedUserDetail;
