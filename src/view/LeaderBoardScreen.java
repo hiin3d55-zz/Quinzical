@@ -5,14 +5,23 @@ import java.util.Arrays;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.User;
@@ -23,7 +32,8 @@ public class LeaderBoardScreen {
 	private VBox _leaderBoardBox;
 
 	private TableView<User> _table;
-
+	private ScrollBar _scrollBar;
+	
 	public LeaderBoardScreen(BorderPane pane) {
 		_pane = pane;
 		_leaderBoardBox = new VBox();
@@ -31,16 +41,34 @@ public class LeaderBoardScreen {
 
 		_table = new TableView<User>();
 		_table.setMaxWidth(650);
+		_table.setMinWidth(650);
 		_table.setDisable(true);
 		initializeTable();
+		
+		_scrollBar = new ScrollBar();
+		_scrollBar.setOrientation(Orientation.VERTICAL);
+		_scrollBar.setMax(10);
+		_scrollBar.setMin(0);
+		_scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> value, Number n1, Number n2) {
+				_table.scrollTo(n2.intValue());
+			}
+
+		});	
 	}
 
 	public void display() {
 		Text header = new Text("LeaderBoard!");
 		header.getStyleClass().addAll("header-msg");
-
-		_leaderBoardBox.getChildren().addAll(header, _table);
-
+		
+		HBox tableAndScroll = new HBox();
+		tableAndScroll.getStyleClass().add("center-screen-box");
+		tableAndScroll.getChildren().addAll(_table, _scrollBar);
+		
+		_leaderBoardBox.getChildren().addAll(header, tableAndScroll);
+		
 		_pane.setCenter(_leaderBoardBox);
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
@@ -81,7 +109,7 @@ public class LeaderBoardScreen {
 		
 		_table.setItems(getUsers());
 		_table.getColumns().addAll(Arrays.asList(indexColumn, userNameColumn, userIdColumn, scoreColumn));
-		_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);		
+		_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 
 	private ObservableList<User> getUsers() {

@@ -135,13 +135,26 @@
 /**
  * This section is for Leader Board screen
  */
- .table-view {
- 	-fx-border-radius: 5px;
- }
  
 .table-view:disabled {
 	-fx-opacity: 1;
 }
+
+.table-view .scroll-bar:vertical .increment-button ,
+.table-view .scroll-bar:vertical .decrement-button {
+ 
+    -fx-background-color:transparent;
+	-fx-background-radius: 0;
+	-fx-padding:0;
+}
+ 
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+	-fx-shape: " ";	
+	-fx-padding:0;        
+}
+
+
  
 .table-view .column-header-background .label {
 	-fx-text-fill: #E0FFFF;
