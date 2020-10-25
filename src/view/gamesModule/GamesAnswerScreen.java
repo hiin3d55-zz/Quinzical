@@ -40,7 +40,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_timeLimit = 15; // Time limit for answering a question is 15 seconds.
 		_timerTime = new Text(String.valueOf(_timeLimit));
-		_timerTime.getStyleClass().add("information-text");
+		_timerTime.getStyleClass().add("header-msg");
 		
 		_BtnPressed = false;
 	}
@@ -84,7 +84,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		buttonBox.getChildren().addAll(_submitBtn, _dontKnowBtn);
 		
 
-		_centerBox.getChildren().addAll(instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox, _timerTime);
+		_centerBox.getChildren().addAll(_timerTime, instruction, inputAndSoundBtn, multipleAnsInstruction, buttonBox);
 		_pane.setCenter(_centerBox);
 	}
 	
