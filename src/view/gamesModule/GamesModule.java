@@ -1,10 +1,14 @@
 package view.gamesModule;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -125,10 +129,25 @@ public class GamesModule extends Module {
 					container.setMinHeight(270);
 					container.getChildren().add(categoryColumn);
 
-					Text notifyText = new Text("Unlocked!");
-					notifyText.getStyleClass().add("normal-text");
+					unlockedBox.getChildren().add(container);
 
-					unlockedBox.getChildren().addAll(container, notifyText);
+					try {
+						Image image = new Image(new FileInputStream("resources/lock-unlocked-24.png"));
+						ImageView imageView = new ImageView(image);
+
+						imageView.setFitHeight(30);
+						imageView.setFitWidth(30);
+
+						imageView.setPreserveRatio(true);						
+
+						unlockedBox.getChildren().add(imageView);
+
+					} catch (FileNotFoundException e) {
+						Text notifyText = new Text("Unlocked!");
+						notifyText.getStyleClass().add("normal-text");
+						unlockedBox.getChildren().add(notifyText);
+					}
+
 					clueGrid.getChildren().add(unlockedBox);
 				}
 
