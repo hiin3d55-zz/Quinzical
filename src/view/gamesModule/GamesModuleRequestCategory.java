@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.QuestionBank;
 import view.Module;
@@ -32,14 +33,15 @@ public class GamesModuleRequestCategory extends Module {
 		Text instruction = new Text("Please choose any five categories");
 		instruction.getStyleClass().add("normal-text");
 		
-		Text warning = new Text("Only five categories!");
+		Text warning = new Text("Choose upto and only five categories!");
 		warning.getStyleClass().addAll("normal-text", "invisible-component");
 		
 		FlowPane unselectedCategoryBox = new FlowPane();
 		unselectedCategoryBox.getStyleClass().add("category-grid");
-				
+		
 		FlowPane selectedCategoryBox = new FlowPane();
-		selectedCategoryBox.getStyleClass().addAll("center-screen-box");
+		selectedCategoryBox.getStyleClass().addAll("category-grid");
+		selectedCategoryBox.setMinHeight(75);
 		
 		String[] categories = _questionBank.requestCategory();
 		
@@ -50,9 +52,7 @@ public class GamesModuleRequestCategory extends Module {
 			
 			categoryBtn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(ActionEvent e) {
-					System.out.println(categoryBtn.getParent().toString());
-					
+				public void handle(ActionEvent e) {					
 					//Only max five categories can be selected
 					if (categoryBtn.getParent().equals(unselectedCategoryBox) && selectedCategoryBox.getChildren().size() < 5) {
 						selectedCategoryBox.getChildren().add(categoryBtn);
@@ -81,29 +81,46 @@ public class GamesModuleRequestCategory extends Module {
 		confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				storeSelectedCategories(selectedCategoryBox);
-				GamesModule gamesMod = new GamesModule(_pane);
-				gamesMod.display();
+				if (storeSelectedCategories(selectedCategoryBox) == false) {
+					warning.getStyleClass().remove("invisible-component");
+				} else {
+					GamesModule gamesMod = new GamesModule(_pane);
+					gamesMod.display();
+				}
 			}
 		});
 		
-		_centerBox.getChildren().addAll(header, instruction, unselectedCategoryBox, selectedCategoryBox, warning, confirmBtn);
+		Text selectText = new Text("Selected");
+		selectText.getStyleClass().add("information-text");
+		
+		VBox selectionBox = new VBox();
+		selectionBox.getStyleClass().addAll("selected-box", "center-screen-box");
+		selectionBox.getChildren().addAll(selectText, selectedCategoryBox, confirmBtn);
+		
+		_centerBox.getChildren().addAll(header, instruction, unselectedCategoryBox, selectionBox, warning);
 		
 		_pane.setCenter(_centerBox);
 	}
 	
 	/**
 	 * Add chosen categories to the database model.
-	 * @param selectedCategoryBox The parent node that contains all five categories buttons chosed.
+	 * @param selectedCategoryBox The parent node that contains all five categories buttons chosen.
+	 * @return Return false if storing categories failed (have not selected five categories). Returns true if successful.
 	 */
-	private void storeSelectedCategories(FlowPane selectedCategoryBox) {
+	private boolean storeSelectedCategories(FlowPane selectedCategoryBox) {
 		List<Node> selectedButtons = selectedCategoryBox.getChildren();
+		if (selectedButtons.size() != 5) {
+			return false;
+		}
+		
 		String[] categories = new String[selectedButtons.size()];
 		
 		for (int i = 0; i < categories.length; i++) {
 			categories[i] = ((Button)selectedButtons.get(i)).getText();
 		}
 		_questionBank.storeCategories(categories);
+		
+		return true;
 	}
 
 }
