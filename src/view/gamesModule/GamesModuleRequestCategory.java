@@ -15,7 +15,7 @@ import view.Module;
 
 /**
  * This class represents the screen where users choose five categories to play.
- * @author se2062020
+ * @author Sherman
  *
  */
 public class GamesModuleRequestCategory extends Module {
@@ -52,7 +52,8 @@ public class GamesModuleRequestCategory extends Module {
 			
 			categoryBtn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(ActionEvent e) {					
+				public void handle(ActionEvent e) {		
+					
 					//Only max five categories can be selected
 					if (categoryBtn.getParent().equals(unselectedCategoryBox) && selectedCategoryBox.getChildren().size() < 5) {
 						selectedCategoryBox.getChildren().add(categoryBtn);
@@ -66,12 +67,14 @@ public class GamesModuleRequestCategory extends Module {
 						
 						categoryBtn.getStyleClass().remove("normal-button");
 						categoryBtn.getStyleClass().add("golden-button");
+						
 					} else {
 						//Displays warning because user selected more than five categories.
 						warning.getStyleClass().remove("invisible-component");
 					}
 				}
 			});
+			
 			unselectedCategoryBox.getChildren().add(categoryBtn);
 		}
 		
@@ -94,11 +97,10 @@ public class GamesModuleRequestCategory extends Module {
 		selectText.getStyleClass().add("information-text");
 		
 		VBox selectionBox = new VBox();
-		selectionBox.getStyleClass().addAll("selected-box", "center-screen-box");
+		selectionBox.getStyleClass().addAll("boundary-box", "center-screen-box");
 		selectionBox.getChildren().addAll(selectText, selectedCategoryBox, confirmBtn);
 		
 		_centerBox.getChildren().addAll(header, instruction, unselectedCategoryBox, selectionBox, warning);
-		
 		_pane.setCenter(_centerBox);
 	}
 	
@@ -109,6 +111,7 @@ public class GamesModuleRequestCategory extends Module {
 	 */
 	private boolean storeSelectedCategories(FlowPane selectedCategoryBox) {
 		List<Node> selectedButtons = selectedCategoryBox.getChildren();
+		
 		if (selectedButtons.size() != 5) {
 			return false;
 		}

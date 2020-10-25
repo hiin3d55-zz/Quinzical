@@ -78,7 +78,7 @@
 /**
  * This section is for Games Module user selecting categories
  */
-.selected-box {
+.boundary-box {
 	-fx-border-color: #EAEAEA;
 	-fx-border-radius: 5px;
 	-fx-background-radius: 5px;
