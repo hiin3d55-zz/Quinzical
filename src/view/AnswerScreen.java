@@ -1,10 +1,15 @@
 package view;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -43,7 +48,11 @@ public abstract class AnswerScreen {
 		_submitBtn = new Button("Submit");
 		_submitBtn.getStyleClass().add("golden-button");
 		
-		_repeatBtn = new Button("Repeat Clue");
+		try {
+			createImageForSoundButton();
+		} catch (FileNotFoundException e) {
+			_repeatBtn = new Button("Repeat Clue");
+		}
 		_repeatBtn.getStyleClass().add("golden-button");
 		
 		_clue = clue;
@@ -67,7 +76,17 @@ public abstract class AnswerScreen {
 		
 		BorderPane.setAlignment(_macrons, Pos.CENTER);
 		BorderPane.setAlignment(_soundAdjustBox, Pos.CENTER);
-
+	}
+	
+	private void createImageForSoundButton() throws FileNotFoundException {
+		Image image = new Image(new FileInputStream("resources/volume.png"));
+		ImageView imageView = new ImageView(image);
+		imageView.setFitHeight(30);
+		imageView.setPreserveRatio(true);
+		
+		_repeatBtn = new Button();
+		_repeatBtn.setPrefSize(30, 30);
+		_repeatBtn.setGraphic(imageView);		
 	}
 	
 	private void initialiseMacronBox() {

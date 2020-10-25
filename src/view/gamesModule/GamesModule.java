@@ -131,8 +131,9 @@ public class GamesModule extends Module {
 
 					unlockedBox.getChildren().add(container);
 
+					//Add unlock image for international category
 					try {
-						Image image = new Image(new FileInputStream("resources/lock-unlocked-24.png"));
+						Image image = new Image(new FileInputStream("resources/lock-unlocked-512.png"));
 						ImageView imageView = new ImageView(image);
 
 						imageView.setFitHeight(30);
@@ -143,6 +144,7 @@ public class GamesModule extends Module {
 						unlockedBox.getChildren().add(imageView);
 
 					} catch (FileNotFoundException e) {
+						//If image not found, then simply display a text
 						Text notifyText = new Text("Unlocked!");
 						notifyText.getStyleClass().add("normal-text");
 						unlockedBox.getChildren().add(notifyText);
