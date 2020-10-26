@@ -134,6 +134,10 @@
 	-fx-opacity: 0;
 }
 
+.macron-button {
+	-fx-focus-traversable: false;
+}
+
 /**
  * This section is for practice module
  */

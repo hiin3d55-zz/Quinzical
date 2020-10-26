@@ -78,6 +78,11 @@ public abstract class AnswerScreen {
 		BorderPane.setAlignment(_soundAdjustBox, Pos.CENTER);
 	}
 	
+	/**
+	 * This method initializes the repeat clue button with a sound image if the image can be found from the resources folder.
+	 * Throws an exception if not found.
+	 * @throws FileNotFoundException
+	 */
 	private void createImageForSoundButton() throws FileNotFoundException {
 		Image image = new Image(new FileInputStream("resources/volume.png"));
 		ImageView imageView = new ImageView(image);
@@ -97,7 +102,7 @@ public abstract class AnswerScreen {
 		
 		Button macron1  = new Button("ā");
 		macron1.setOnAction(macronEvent);
-		macron1.getStyleClass().addAll("golden-button", "macron-button");
+		macron1.getStyleClass().addAll("golden-button", "macron-button");		
 		Button macron2 = new Button("ē");
 		macron2.setOnAction(macronEvent);
 		macron2.getStyleClass().addAll("golden-button", "macron-button");
@@ -171,12 +176,17 @@ public abstract class AnswerScreen {
 		});
 	}
 	
+	/**
+	 * This class handles events for the five different macron buttons
+	 * @author Sherman
+	 *
+	 */
 	private class MacronButtonEvent implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {
 			String macronText = ((Button)e.getSource()).getText();
-			_attemptInput.setText(_attemptInput.getText() + macronText);
-			
+			int position = _attemptInput.getCaretPosition();
+			_attemptInput.insertText(position, macronText);			
 		}
 		
 	}
