@@ -51,8 +51,8 @@ public class Quinzical extends Application {
 		Score score = new Score();
 		
 		Text scoreText = new Text("Current Score: " + score.getScore());
-		scoreText.getStyleClass().add("normal-text");
-		scoreText.setStyle("-fx-fill: #EAEAEA");
+		scoreText.getStyleClass().add("information-text");
+		scoreText.setStyle("-fx-font-size: 23px");
 		
 		_pane.setTop(scoreText);
 		BorderPane.setAlignment(scoreText, Pos.TOP_RIGHT);
