@@ -20,6 +20,7 @@ public class SoundAdjuster {
 	private Button _fasterBtn;
 	private Button _slowerBtn;
 	private String _setToNZvoice;
+	private SpeechSynthesisThread _synthThread;
 	
 	public SoundAdjuster(String text) {
 		_speed = 1; // Default speed for synthesis speech is 1.
@@ -75,8 +76,8 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-		SpeechSynthesisThread synthThread = new SpeechSynthesisThread();
-		synthThread.start();
+		_synthThread = new SpeechSynthesisThread();
+		_synthThread.start();
 	}
 	
 	public void fasterSpeed() {
@@ -97,5 +98,9 @@ public class SoundAdjuster {
 		
 		createClueFile(_setToNZvoice + "(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
 						+ ")\n(SayText \"" + _text + "\")");
+	}
+	
+	public void stopSpeech() {
+		_synthThread.stopSpeech();
 	}
 }

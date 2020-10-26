@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class SpeechSynthesisThread extends Thread {
 	
+	private Process _process;
+	
 	@Override
 	public void run() {
 		// Bash command for speaking out the clue.
@@ -11,9 +13,9 @@ public class SpeechSynthesisThread extends Thread {
 				
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
 		try {
-			Process process = builder.start();
+			Process _process = builder.start();
 			try {
-				process.waitFor(); 
+				_process.waitFor(); 
 			} catch (InterruptedException ie) {
 				System.out.println("Error with waiting for the speech synthesis process to finish.");
 				ie.printStackTrace();	
@@ -22,5 +24,9 @@ public class SpeechSynthesisThread extends Thread {
 			System.out.println("Error with using festival to read out the question.");
 			e.printStackTrace();
 		}
+	}
+	
+	public void stopSpeech() {
+		_process.destroy();
 	}
 }
