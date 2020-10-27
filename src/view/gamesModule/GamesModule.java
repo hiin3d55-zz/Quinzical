@@ -36,7 +36,7 @@ public class GamesModule extends Module {
 
 	/**
 	 * Depending if all clues have been asked, a reward screen / Games Module screen
-	 * will be layed out
+	 * will be laid out
 	 */
 	protected void displayScreen() {
 

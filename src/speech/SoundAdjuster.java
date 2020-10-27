@@ -7,12 +7,15 @@ import java.io.IOException;
 import javafx.scene.control.Button;
 
 /**
- * This class represents the sound adjuster that allows the speed of the synthesis speech to be adjusted.
+ * This class represents the sound adjuster that allows the speed of the synthesis speech to 
+ * be adjusted.
  * 
  * @author Dave Shin
  *
  */
 public class SoundAdjuster {
+	
+	private static SoundAdjuster _adjuster;
 
 	private double _speed;
 	private String _text; 
@@ -76,7 +79,7 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-		_synthThread = new SpeechSynthesisThread();
+		_synthThread = SpeechSynthesisThread.getInstance();
 		_synthThread.start();
 	}
 	
