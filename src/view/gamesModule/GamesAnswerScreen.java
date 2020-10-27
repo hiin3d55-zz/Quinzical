@@ -7,6 +7,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -98,57 +100,19 @@ public class GamesAnswerScreen extends AnswerScreen{
 	protected void handleEvents() {
 		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				_btnPressed = true;
-				
-				boolean loseScore = true;
-				
-				String attempt = _attemptInput.getText();
-				
-				// Make it case-insensitive and trim all leading and trailing spaces.
-				attempt = attempt.toLowerCase();
-				attempt = attempt.trim();
-				
-				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question, 
-						_question.getSolution()[0]);
-				
-				// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
-				// button is pressed.
-				if (attempt.equals("")) {
-					solScrn.displayDontKnow();
-					loseScore= false;
-				}
-				
-				// A for loop is used because there can be multiple solutions and we want to 
-				// check if the attempt matches with at least one solution.
-				for (String solution : _question.getSolution()) {
-					solution = solution.toLowerCase();
-					solution = solution.trim();
-					
-					//For clues that have multiple answers separated by ","
-					if (solution.contains(",")) {
-						String[] solutions = solution.split(",");
-						String[] attemptAns = attempt.split(",");
-						if (solutions.length == attemptAns.length) {
-							int count = 0;
-							for (int i = 0; i < solutions.length; i++) {
-								if (solutions[i].trim().equals(attemptAns[i].trim())) {
-									count++;
-								}
-							}
-							if (count == solutions.length) {
-								loseScore = false;
-								solScrn.displayCorrect();
-							}
-						}
-					} else if (attempt.equals(solution)) {
-						solScrn.displayCorrect();
-						loseScore = false;
-					}
-				}
-				
-				if (loseScore) {
-					solScrn.displayIncorrect();
+
+			@Override
+			public void handle(ActionEvent event) {				
+				checkAnswerAndDisplayNext();
+			}
+		});
+		
+		_attemptInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					checkAnswerAndDisplayNext();
 				}
 			}
 		});
@@ -166,5 +130,63 @@ public class GamesAnswerScreen extends AnswerScreen{
 			_btnPressed = true; // Make sure that the timer is stopped when the user exits to the
 								// main menu.
 		});
+	}
+	
+	/**
+	 * This method checks if user has input the correct answer, then display the next screen
+	 * depending on what the user's input is.
+	 */
+	private void checkAnswerAndDisplayNext() {
+		_btnPressed = true;
+		
+		boolean loseScore = true;
+		
+		String attempt = _attemptInput.getText();
+		
+		// Make it case-insensitive and trim all leading and trailing spaces.
+		attempt = attempt.toLowerCase();
+		attempt = attempt.trim();
+		
+		SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question, 
+				_question.getSolution()[0]);
+		
+		// If the attempt is an empty string, it gets treated as the same way when the Don't Know 
+		// button is pressed.
+		if (attempt.equals("")) {
+			solScrn.displayDontKnow();
+			loseScore= false;
+		}
+		
+		// A for loop is used because there can be multiple solutions and we want to 
+		// check if the attempt matches with at least one solution.
+		for (String solution : _question.getSolution()) {
+			solution = solution.toLowerCase();
+			solution = solution.trim();
+			
+			//For clues that have multiple answers separated by ","
+			if (solution.contains(",")) {
+				String[] solutions = solution.split(",");
+				String[] attemptAns = attempt.split(",");
+				if (solutions.length == attemptAns.length) {
+					int count = 0;
+					for (int i = 0; i < solutions.length; i++) {
+						if (solutions[i].trim().equals(attemptAns[i].trim())) {
+							count++;
+						}
+					}
+					if (count == solutions.length) {
+						loseScore = false;
+						solScrn.displayCorrect();
+					}
+				}
+			} else if (attempt.equals(solution)) {
+				solScrn.displayCorrect();
+				loseScore = false;
+			}
+		}
+		
+		if (loseScore) {
+			solScrn.displayIncorrect();
+		}	
 	}
 }

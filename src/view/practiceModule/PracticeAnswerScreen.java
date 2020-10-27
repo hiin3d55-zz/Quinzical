@@ -2,6 +2,8 @@ package view.practiceModule;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -72,70 +74,90 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
-				boolean correct = false;
-				
-				String attempt = _attemptInput.getText();
-				
-				// Make it case-insensitive and trim all leading and trailing spaces.
-				attempt = attempt.toLowerCase();
-				attempt = attempt.trim();
-				
-				PracticeSolutionScreen solScrn = new PracticeSolutionScreen(_pane, _clue, _answers[0]);
-				
-				// A for loop is used because there can be multiple solutions and we want to 
-				// check if the attempt matches with at least one solution.
-				for (String solution : _answers) {
-					solution = solution.toLowerCase();
-					solution = solution.trim();
-					
-					//For clues that have multiple answers separated by ","
-					if (solution.contains(",")) {
-						String[] solutions = solution.split(",");
-						String[] attemptAns = attempt.split(",");
-						if (solutions.length == attemptAns.length) {
-							int count = 0;
-							for (int i = 0; i < solutions.length; i++) {
-								if (solutions[i].trim().equals(attemptAns[i].trim())) {
-									count++;
-									System.out.println(count);
-								}
-							}
-							System.out.println(count);
-							if (count == solutions.length) {
-								correct = true;
-								solScrn.displayCorrect();
-							}
-						}
-					} else if (attempt.equals(solution)) {
-						solScrn.displayCorrect();
-						correct = true;
-					}
-				}
-				
-				if (!correct) {
-					_remainingAttempts--;
-					
-					// Only add wrongText when two attempts remain to prevent from duplicate 
-					// children from being added.
-					
-					SoundAdjuster adjuster = new SoundAdjuster("Incorrect");
+				checkAnswerAndDisplayNext();
+			}
+		});
+		
+		_attemptInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-					if (_remainingAttempts == 2) {
-						_wrongText.getStyleClass().remove("invisible-component");
-						adjuster.speak(adjuster.getText());
-					}
-
-					
-					if (_remainingAttempts == 1) {
-						_hint.getStyleClass().remove("invisible-component");
-						adjuster.speak("The first letter of the answer is " + _answers[0].charAt(0));
-					} else if (_remainingAttempts < 1) {
-						solScrn.displayIncorrect();
-					}
-
-					_attemptsCountText.setText("Number of attempts remaining: " + (_remainingAttempts));
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					checkAnswerAndDisplayNext();
 				}
 			}
 		});
+	}
+	
+	/**
+	 * This method checks the user's answers and change the GUI screen accordingly
+	 * - Display "Incorrect" to user if answer is false
+	 * - Display hint on third attempt
+	 * - Change screen to PracticeSoluctionScreen after third attempt
+	 */
+	private void checkAnswerAndDisplayNext() {
+		boolean correct = false;
+		
+		String attempt = _attemptInput.getText();
+		
+		// Make it case-insensitive and trim all leading and trailing spaces.
+		attempt = attempt.toLowerCase();
+		attempt = attempt.trim();
+		
+		PracticeSolutionScreen solScrn = new PracticeSolutionScreen(_pane, _clue, _answers[0]);
+		
+		// A for loop is used because there can be multiple solutions and we want to 
+		// check if the attempt matches with at least one solution.
+		for (String solution : _answers) {
+			solution = solution.toLowerCase();
+			solution = solution.trim();
+			
+			//For clues that have multiple answers separated by ","
+			if (solution.contains(",")) {
+				String[] solutions = solution.split(",");
+				String[] attemptAns = attempt.split(",");
+				if (solutions.length == attemptAns.length) {
+					int count = 0;
+					for (int i = 0; i < solutions.length; i++) {
+						if (solutions[i].trim().equals(attemptAns[i].trim())) {
+							count++;
+							System.out.println(count);
+						}
+					}
+					System.out.println(count);
+					if (count == solutions.length) {
+						correct = true;
+						solScrn.displayCorrect();
+					}
+				}
+			} else if (attempt.equals(solution)) {
+				solScrn.displayCorrect();
+				correct = true;
+			}
+		}
+		
+		if (!correct) {
+			_remainingAttempts--;
+			
+			// Only add wrongText when two attempts remain to prevent from duplicate 
+			// children from being added.
+			
+			SoundAdjuster adjuster = new SoundAdjuster("Incorrect");
+
+			if (_remainingAttempts == 2) {
+				_wrongText.getStyleClass().remove("invisible-component");
+				adjuster.speak(adjuster.getText());
+			}
+
+			
+			if (_remainingAttempts == 1) {
+				_hint.getStyleClass().remove("invisible-component");
+				adjuster.speak("The first letter of the answer is " + _answers[0].charAt(0));
+			} else if (_remainingAttempts < 1) {
+				solScrn.displayIncorrect();
+			}
+
+			_attemptsCountText.setText("Number of attempts remaining: " + (_remainingAttempts));
+		}
 	}
 }
