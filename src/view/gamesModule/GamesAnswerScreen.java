@@ -22,16 +22,19 @@ import view.SolutionScreen;
  */
 public class GamesAnswerScreen extends AnswerScreen{
 	
+	private Button _mainMenuBtn;
 	private Button _dontKnowBtn;
 	private Question _question;
 	
 	private int _timeLimit;
 	private Text _timerTime;
 	
-	private boolean _BtnPressed;
+	private boolean _btnPressed;
 	
 	public GamesAnswerScreen(BorderPane pane, Question question) {
 		super(pane, question.getClue());
+		
+		_mainMenuBtn = (Button)pane.getBottom();
 		
 		_dontKnowBtn = new Button("Don\'t know");
 		_dontKnowBtn.getStyleClass().add("normal-button");
@@ -42,7 +45,8 @@ public class GamesAnswerScreen extends AnswerScreen{
 		_timerTime = new Text(String.valueOf(_timeLimit));
 		_timerTime.getStyleClass().add("header-msg");
 		
-		_BtnPressed = false;
+		_btnPressed = false; // If a button is pressed, the timer will be stopped using this 
+							 // boolean variable.
 	}
 	
 	public void startTimer() {
@@ -52,7 +56,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 				if (_timeLimit == 0) {
 					timer.cancel();
 					_timeLimit = 15;
-					if (!_BtnPressed) {
+					if (!_btnPressed) {
 						TimerTaskCompletedPaper paper = new TimerTaskCompletedPaper(_dontKnowBtn); 
 						Platform.runLater(paper);
 					}
@@ -95,7 +99,7 @@ public class GamesAnswerScreen extends AnswerScreen{
 		super.handleEvents();
 		_submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				_BtnPressed = true;
+				_btnPressed = true;
 				
 				boolean loseScore = true;
 				
@@ -151,11 +155,16 @@ public class GamesAnswerScreen extends AnswerScreen{
 		
 		_dontKnowBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				_BtnPressed = true;
+				_btnPressed = true;
 				SolutionScreen solScrn = new GamesSolutionScreen(_pane, _question,
 						_question.getSolution()[0]);
 				solScrn.displayDontKnow();
 			}
+		});
+		
+		_mainMenuBtn.setOnMouseClicked(event -> {
+			_btnPressed = true; // Make sure that the timer is stopped when the user exits to the
+								// main menu.
 		});
 	}
 }

@@ -14,8 +14,6 @@ import javafx.scene.control.Button;
  *
  */
 public class SoundAdjuster {
-	
-	private static SoundAdjuster _adjuster;
 
 	private double _speed;
 	private String _text; 
@@ -79,7 +77,8 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-		_synthThread = SpeechSynthesisThread.getInstance();
+//		_synthThread = SpeechSynthesisThread.getInstance();
+		_synthThread = new SpeechSynthesisThread();
 		_synthThread.start();
 	}
 	
