@@ -35,3 +35,6 @@
 <p>Note that International questions will only be unlocked if you have completed at least two categories from Games Module</p>
 
 <h2>Enjoy the game!</h2>
+
+<p>References: </p>
+<div>Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
