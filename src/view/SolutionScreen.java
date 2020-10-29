@@ -28,7 +28,7 @@ public abstract class SolutionScreen {
 		_centerBox = new VBox();
 		_centerBox.getStyleClass().add("center-screen-box");
 		
-		_adjuster = new SoundAdjuster(_solution);
+		_adjuster = SoundAdjuster.getInstance(_solution);
 	}
 	
 	public abstract void displayCorrect();

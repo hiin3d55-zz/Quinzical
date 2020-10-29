@@ -112,6 +112,10 @@ public class RewardScreen {
 		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 	
+	private void displayMedals() {
+		
+	}
+	
 	public void handleEvents() {
 		_saveGameBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

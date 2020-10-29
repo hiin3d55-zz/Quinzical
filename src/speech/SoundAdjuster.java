@@ -14,23 +14,49 @@ import javafx.scene.control.Button;
  *
  */
 public class SoundAdjuster {
+	
+	private static SoundAdjuster _adjuster;
 
 	private double _speed;
-	private String _text; 
-	private boolean _clueFileCreated;
+	private static String _text; 
+	private static boolean _clueFileCreated;
 	private Button _fasterBtn;
 	private Button _slowerBtn;
 	private String _setToNZvoice;
 	private SpeechSynthesisThread _synthThread;
 	
-	public SoundAdjuster(String text) {
+	/**
+	 * This class is a singleton class. Instances of it cannot be made in other places.
+  	*/
+	private SoundAdjuster() {
 		_speed = 1; // Default speed for synthesis speech is 1.
-		_text = text;
-		_clueFileCreated = false;
 		_fasterBtn = new Button("Faster");
 		_slowerBtn = new Button("Slower");
 		_setToNZvoice = "(voice_akl_nz_jdt_diphone)\n";
 	}
+	
+	 /**
+	  * Use this static method if the instance of SoundAdjuster is needed. This ensures that only
+	  * one instance of SoundAdjuster is created.
+	  */
+	 public static SoundAdjuster getInstance(String text) {
+		 _text = text;
+		 _clueFileCreated = false;
+		 
+	     if (_adjuster == null) {
+	    	 _adjuster = new SoundAdjuster();
+	     }
+	     return _adjuster;
+	 }
+	
+//	public SoundAdjuster(String text) {
+//		_speed = 1; // Default speed for synthesis speech is 1.
+//		_text = text;
+//		_clueFileCreated = false;
+//		_fasterBtn = new Button("Faster");
+//		_slowerBtn = new Button("Slower");
+//		_setToNZvoice = "(voice_akl_nz_jdt_diphone)\n";
+//	}
 	
 	public void createClueFile(String fileWriterArg) {
 		try {
@@ -77,7 +103,6 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-//		_synthThread = SpeechSynthesisThread.getInstance();
 		_synthThread = new SpeechSynthesisThread();
 		_synthThread.start();
 	}

@@ -1,6 +1,7 @@
 package speech;
 
 import java.io.IOException;
+import java.util.stream.Stream;
 
 public class SpeechSynthesisThread extends Thread {
 	
@@ -31,12 +32,12 @@ public class SpeechSynthesisThread extends Thread {
 				
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
 		try {
-//			if (_process != null) {
-//				_process.descendants().forEach(ProcessHandle::destroy);
-//				_process.destroyForcibly();
-//				_process.destroy();
-//			}
-			Process _process = builder.start();
+			if (_process != null) {
+				stopSpeech();
+			}
+					
+			_process = builder.start();
+			System.out.println(_process);
 			try {
 				_process.waitFor(); 
 			} catch (InterruptedException ie) {
@@ -50,8 +51,12 @@ public class SpeechSynthesisThread extends Thread {
 	}
 	
 	public void stopSpeech() {
-		System.out.println(_process);
-		_process.descendants().forEach(ProcessHandle::destroy);
-		_process.destroy();
+		Stream<ProcessHandle> descendants = _process.descendants();
+		descendants.filter(ProcessHandle::isAlive).forEach(ph -> {
+			ph.destroy();
+		});
+		
+//		_process.descendants().forEach(ProcessHandle::destroy);
+//		_process.destroy();
 	}
 }

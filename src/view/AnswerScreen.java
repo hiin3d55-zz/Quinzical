@@ -57,7 +57,7 @@ public abstract class AnswerScreen {
 		
 		_clue = clue;
 		
-		_adjuster = new SoundAdjuster(_clue);
+		_adjuster = SoundAdjuster.getInstance(_clue);
 		
 		_soundAdjustBox = new VBox();
 		_soundAdjustBox.getStyleClass().addAll("center-screen-box", "sound-box", "left-right-box");
