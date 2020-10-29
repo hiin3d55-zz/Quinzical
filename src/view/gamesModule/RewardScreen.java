@@ -25,8 +25,13 @@ import view.WelcomeScreen;
  */
 public class RewardScreen {
 	
+	// Amount of score that is needed to win a specific medal.
+	private static final int bronze = 3000;
+	private static final int silver = 6000;
+	
 	private BorderPane _pane;
 	private Button _saveGameBtn;
+	private Button _seeMedalBtn;
 	private Button _playAgnBtn;
 	private Text _invalidInput;
 	private TextField _userName;
@@ -36,7 +41,6 @@ public class RewardScreen {
 	private Score _score;
 	private QuestionBank _questionBank;
 	private Users _users;
-
 	
 	public RewardScreen(BorderPane pane) {
 		_pane = pane;
@@ -44,6 +48,9 @@ public class RewardScreen {
 		_rewardBox = new VBox();
 		
 		_saveGameBtn = new Button("Save");
+		_saveGameBtn.getStyleClass().add("golden-button");
+		
+		_seeMedalBtn = new Button("See Medal");
 		_saveGameBtn.getStyleClass().add("golden-button");
 		
 		_playAgnBtn = new Button("Play Again");
@@ -106,14 +113,37 @@ public class RewardScreen {
 		Text userRanking = new Text("Number " + _users.getRanking(_userId.getText()) + "!");
 		userRanking.getStyleClass().add("header-msg");
 		
-		userSavedBox.getChildren().addAll(header, userRanking, _playAgnBtn);
+		userSavedBox.getChildren().addAll(header, userRanking, _seeMedalBtn);
 		
 		_pane.setCenter(userSavedBox);
 		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 	
-	private void displayMedals() {
+	private void displayMedal() {
+		VBox medalBox = new VBox();
+		medalBox.getStyleClass().add("center-screen-box");
 		
+		Text medalText;
+		
+		if (_score.getScore() <= bronze) {
+			medalText = new Text("You have won a bronze medal!");
+		} else if (_score.getScore() > bronze && _score.getScore() <= silver) {
+			medalText = new Text("You have won a silver medal!");
+		} else {
+			medalText = new Text("You have won a gold medal!");
+		}
+		
+		medalText.getStyleClass().add("information-text");
+		medalText.setWrappingWidth(600);
+		medalText.setTextAlignment(TextAlignment.CENTER);
+		
+		Text userRanking = new Text("Number " + _users.getRanking(_userId.getText()) + "!");
+		userRanking.getStyleClass().add("header-msg");
+		
+		medalBox.getChildren().addAll(medalText, userRanking, _playAgnBtn);
+		
+		_pane.setCenter(medalBox);
+		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 	
 	public void handleEvents() {
@@ -143,6 +173,13 @@ public class RewardScreen {
 					scoreText.setText("Current Score: " + _score.getScore());
 				}
         	}
+		});
+		
+		_seeMedalBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+        	public void handle(ActionEvent event) {
+				displayMedal();
+			}
 		});
 		
 		_playAgnBtn.setOnAction(new EventHandler<ActionEvent>() {
