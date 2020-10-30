@@ -16,8 +16,8 @@ import javafx.scene.control.Button;
 public class SoundAdjuster {
 
 	private double _speed;
-	private String _text; 
-	private boolean _clueFileCreated;
+	private static String _text; 
+	private static boolean _clueFileCreated;
 	private Button _fasterBtn;
 	private Button _slowerBtn;
 	private String _setToNZvoice;
@@ -77,7 +77,6 @@ public class SoundAdjuster {
 		if (!_clueFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-//		_synthThread = SpeechSynthesisThread.getInstance();
 		_synthThread = new SpeechSynthesisThread();
 		_synthThread.start();
 	}
