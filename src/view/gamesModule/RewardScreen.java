@@ -52,7 +52,7 @@ public class RewardScreen {
 		
 		_seeMedalBtn = new Button("See Medal");
 		_seeMedalBtn.getStyleClass().add("golden-button");
-		
+
 		_playAgnBtn = new Button("Play Again");
 		_playAgnBtn.getStyleClass().add("golden-button");
 		
