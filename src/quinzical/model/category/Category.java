@@ -12,6 +12,24 @@ import java.util.List;
  */
 public abstract class Category {
 	
+
+	public enum Categories {
+		/**
+		 * Represents an International category.
+		 */
+		INTERNATIONAL("International");
+
+		private String _name;		
+
+		private Categories(String name) {
+			_name = name;
+		}
+		
+		public String getName() {
+			return _name;
+		}
+	}
+	
 	protected File _dataRecordFolder;
 
 	public Category() {
@@ -27,7 +45,7 @@ public abstract class Category {
 		String[] categories = file.list();
 		List<String> categoriesList = new ArrayList<String>(Arrays.asList(categories));
 		for (int i = 0; i < categoriesList.size(); i++) {
-			if (categoriesList.get(i).equals("International")) {
+			if (categoriesList.get(i).equals(Categories.INTERNATIONAL.getName())) {
 				categoriesList.remove(i);
 			}
 		}

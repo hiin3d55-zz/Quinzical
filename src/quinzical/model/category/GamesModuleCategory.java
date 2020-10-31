@@ -16,7 +16,7 @@ import java.util.List;
 public class GamesModuleCategory extends Category {
 
 	/**
-	 * Gets the categories that are already stored in data. If the data/category folder does not exist,
+	 * Gets the categories that are already stored in the database. If the data/category folder does not exist (database is empty),
 	 * then return all categories.
 	 */
 	public String[] getCategories() {
@@ -25,9 +25,9 @@ public class GamesModuleCategory extends Category {
 			for (int i = 0; i < categories.length; i++) {
 				
 				//The International category is to be placed last.
-				if (categories[i].equals("International")) {
+				if (categories[i].equals(Categories.INTERNATIONAL.getName())) {
 					categories[i] = categories[categories.length - 1];
-					categories[categories.length - 1] = "International";
+					categories[categories.length - 1] = Categories.INTERNATIONAL.getName();
 					break;
 				}
 			}
@@ -50,7 +50,7 @@ public class GamesModuleCategory extends Category {
 		
 		//Also add International clue to the database
 		List<String> categoriesList = new ArrayList<>(Arrays.asList(categories));
-		categoriesList.add("International");
+		categoriesList.add(Categories.INTERNATIONAL.getName());
 		categories = categoriesList.toArray(categories);
 		
 		
