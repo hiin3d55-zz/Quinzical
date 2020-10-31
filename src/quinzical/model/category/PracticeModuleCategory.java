@@ -1,7 +1,7 @@
 package quinzical.model.category;
 
 /**
- * This class represents functionalities that retrieves categories for Practice Module.
+ * This class represents a set of functionalities to manipulate the categories for Practice Module.
  * @author se2062020
  *
  */

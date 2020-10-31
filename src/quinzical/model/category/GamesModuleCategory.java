@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class represents functionalities that retrieves categories for Games
+ * This class represents a set of functionalities to manipulate the categories in Games Module.
  * Module usage.
  * 
  * @author Sherman
@@ -41,10 +41,9 @@ public class GamesModuleCategory extends Category {
 	
 	
 	/**
-	 * Create a file for each category in data/category folder.
+	 * Store the category into the database. It creates a file for each category in data/category folder.
 	 * 
 	 * @param categories the name of the files to be created
-	 * @throws IOException
 	 */
 	public void recordCategories(String[] categories){
 		_dataRecordFolder.mkdirs();

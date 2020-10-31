@@ -28,7 +28,7 @@ public class Score {
 	}
 	
 	/**
-	 * Stores the score of a user into data/score file
+	 * Stores the score of a user into the database (data/score file).
 	 * @param value The value to be stored.
 	 */
 	private void setScore(int value) {
@@ -58,7 +58,7 @@ public class Score {
 	}
 	
 	/**
-	 * Updates the score of a user. This method adds up to its current score
+	 * Updates the score of a user. This method adds up to its current score.
 	 * @param value The score to be added on top of current score.
 	 */
 	public void updateScore(int value) {
@@ -67,7 +67,7 @@ public class Score {
 	}
 	
 	/**
-	 * Deletes the data/score file which acts as a reset to a user's score.
+	 * Resets the user's score by deleting the data/score file. 
 	 */
 	public void resetScore() {
 		_scoreRecordFile.delete();
