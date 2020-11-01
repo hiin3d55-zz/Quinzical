@@ -16,17 +16,19 @@ import javafx.scene.control.Button;
 public class SoundAdjuster {
 
 	private double _speed;
-	private static String _text; 
-	private static boolean _clueFileCreated;
+	private String _text; 
+	private boolean _clueOrSolFileCreated;
+	private boolean _isClueOrSol; // True if _text is a clue or a solution.
 	private Button _fasterBtn;
 	private Button _slowerBtn;
 	private String _setToNZvoice;
 	private SpeechSynthesisThread _synthThread;
 	
-	public SoundAdjuster(String text) {
+	public SoundAdjuster(String text, boolean isClue) {
 		_speed = 1; // Default speed for synthesis speech is 1.
 		_text = text;
-		_clueFileCreated = false;
+		_clueOrSolFileCreated = false;
+		_isClueOrSol = isClue;
 		_fasterBtn = new Button("Faster");
 		_slowerBtn = new Button("Slower");
 		_setToNZvoice = "(voice_akl_nz_jdt_diphone)\n";
@@ -37,19 +39,29 @@ public class SoundAdjuster {
 	 */
 	public void createClueFile(String fileWriterArg) {
 		try {
-			File clueFile = new File("clueFile.scm");
-			if (clueFile.createNewFile()) {
+			File TTSfile;
+			if (_isClueOrSol) {
+				TTSfile = new File("clueOrSolFile.scm");
 			} else {
-				clueFile.delete();
-				clueFile.createNewFile();
+				TTSfile = new File("nonClueOrSolFile.scm");
+			}
+			if (TTSfile.createNewFile()) {
+			} else {
+				TTSfile.delete();
+				TTSfile.createNewFile();
 			}
 		} catch (IOException e) {
-			System.out.println("Error with creating the file: clueFile.scm.");
+			System.out.println("Error with creating the TTS file.");
 			e.printStackTrace();
 		}
 		
 		try {
-			FileWriter clueFileWriter = new FileWriter("clueFile.scm");
+			FileWriter clueFileWriter;
+			if (_isClueOrSol) {
+				clueFileWriter = new FileWriter("clueOrSolFile.scm");
+			} else {
+				clueFileWriter = new FileWriter("nonClueOrSolFile.scm");
+			} 
 			clueFileWriter.write(fileWriterArg);
 			clueFileWriter.close();
 		} catch (IOException e) {
@@ -57,7 +69,7 @@ public class SoundAdjuster {
 			e.printStackTrace();
 		}
 		
-		_clueFileCreated = true;
+		_clueOrSolFileCreated = true;
 	}
 	
 	public Button getFasterBtn() {
@@ -75,12 +87,17 @@ public class SoundAdjuster {
 	public String getText() {
 		return _text;
 	}
-	
-	public void speak(String text) {	
-		if (!_clueFileCreated) {
+
+	public void speak(String text) {
+		if (!_clueOrSolFileCreated) {
 			createClueFile(_setToNZvoice + "(SayText \"" + text + "\")");
 		}
-		_synthThread = new SpeechSynthesisThread();
+		
+		if (_isClueOrSol) {
+			_synthThread = new SpeechSynthesisThread(true);
+		} else {
+			_synthThread = new SpeechSynthesisThread(false);
+		}
 		_synthThread.start();
 	}
 	

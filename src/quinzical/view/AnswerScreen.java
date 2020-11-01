@@ -57,7 +57,7 @@ public abstract class AnswerScreen {
 		
 		_clue = clue;
 		
-		_adjuster = new SoundAdjuster(_clue);
+		_adjuster = new SoundAdjuster(_clue, true);
 		
 		_soundAdjustBox = new VBox();
 		_soundAdjustBox.getStyleClass().addAll("center-screen-box", "sound-box", "left-right-box");
@@ -161,7 +161,7 @@ public abstract class AnswerScreen {
 	protected void handleEvents() {
 		_repeatBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				_adjuster.speak(_adjuster.getText());
+				_adjuster.speak(_clue);
 			}
 		});
 		

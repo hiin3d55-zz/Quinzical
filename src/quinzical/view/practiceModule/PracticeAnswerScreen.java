@@ -17,7 +17,7 @@ import quinzical.speech.SoundAdjuster;
  * @author Sherman Chin, Dave Shin
  *
  */
-public class PracticeAnswerScreen extends AnswerScreen{
+public class PracticeAnswerScreen extends AnswerScreen {
 	
 	private String _clue;
 	private String[] _answers;
@@ -42,7 +42,6 @@ public class PracticeAnswerScreen extends AnswerScreen{
 		
 		_attemptsCountText = new Text("Number of attempts remaining: " + Integer.toString(_remainingAttempts));
 		_attemptsCountText.getStyleClass().add("normal-text");
-		
 	}
 	
 	/**
@@ -142,7 +141,7 @@ public class PracticeAnswerScreen extends AnswerScreen{
 			// Only add wrongText when two attempts remain to prevent from duplicate 
 			// children from being added.
 			
-			SoundAdjuster adjuster = new SoundAdjuster("Incorrect");
+			SoundAdjuster adjuster = new SoundAdjuster("Incorrect", false);
 
 			if (_remainingAttempts == 2) {
 				_wrongText.getStyleClass().remove("invisible-component");
