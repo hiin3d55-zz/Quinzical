@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import quinzical.model.QuestionBank;
+import quinzical.model.category.Category.Categories;
 import quinzical.view.Module;
 import quinzical.view.Question;
 
@@ -109,7 +110,7 @@ public class GamesModule extends Module {
 			_allQuestions.add(questions);
 
 			// Add checks if the category is International
-			if (categoryStr.equals("International")) {
+			if (categoryStr.equals(Categories.INTERNATIONAL.getName())) {
 
 				// Don't show International category because haven't finished two categories
 				if (categoriesStrArray.length > 4) {
