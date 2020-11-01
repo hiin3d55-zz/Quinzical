@@ -1,15 +1,25 @@
 package quinzical.speech;
 
 import java.io.IOException;
-import java.util.stream.Stream;
 
 public class SpeechSynthesisThread extends Thread {
 	private Process _process;
+	private boolean _isClueOrSol;
+	
+	SpeechSynthesisThread(boolean isClueOrSol) {
+		_isClueOrSol = isClueOrSol;
+	}
 	
 	@Override
 	public void run() {
 		// Bash command for speaking out the clue.
-		String speakClueCmd = "festival -b clueFile.scm";
+		String speakClueCmd;
+		if (_isClueOrSol) {
+			speakClueCmd = "festival -b clueOrSolFile.scm";
+		} else {
+			speakClueCmd = "festival -b nonClueOrSolFile.scm";
+		}
+		
 				
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", speakClueCmd);
 		try {	
