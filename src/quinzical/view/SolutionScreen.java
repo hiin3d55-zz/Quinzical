@@ -8,6 +8,7 @@ import quinzical.speech.SoundAdjuster;
 /**
  * This class represents a Solution Screen. It is mostly used for reusing codes between different screens
  * in Games Module and Practice Module solution screen.
+ * 
  * @author Sherman, Dave
  *
  */
@@ -31,9 +32,18 @@ public abstract class SolutionScreen {
 		_adjuster = new SoundAdjuster(_solution);
 	}
 	
+	/**
+	 * Displays the screen that lets the user know that they are correct.
+	 */
 	public abstract void displayCorrect();
 	
+	/**
+	 * Displays the screen that lets the user know that they are incorrect.
+	 */
 	public abstract void displayIncorrect();
 	
+	/**
+	 * Displays the screen when the user presses the don't know button.
+	 */
 	public void displayDontKnow() {}
 }

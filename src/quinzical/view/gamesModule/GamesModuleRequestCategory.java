@@ -25,6 +25,9 @@ public class GamesModuleRequestCategory extends Module {
 		super(pane, new QuestionBank(true));
 	}
 
+	/**
+	 * Displays the screen where the user can select categories.
+	 */
 	@Override
 	protected void displayScreen() {
 		

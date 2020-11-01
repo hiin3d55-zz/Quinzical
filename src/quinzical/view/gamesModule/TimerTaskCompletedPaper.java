@@ -2,6 +2,13 @@ package quinzical.view.gamesModule;
 
 import javafx.scene.control.Button;
 
+/**
+ * This class fires an event that is fired when the _dontKnowButton is pressed when the time limit is 
+ * reached (timer task is finished).
+ * 
+ * @author Dave Shin
+ *
+ */
 public class TimerTaskCompletedPaper implements Runnable {
 	private Button _dontKnowBtn;
 	

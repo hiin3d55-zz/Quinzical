@@ -42,6 +42,9 @@ public class WelcomeScreen {
 
 	}
 
+	/**
+	 * Displays the welcome screen.
+	 */
 	public void display() {
 		handleEvents();
 		
@@ -66,6 +69,9 @@ public class WelcomeScreen {
 		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 	
+	/**
+	 * Handles events that are fired by button presses.
+	 */
 	public void handleEvents() {
 		_pracModBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
