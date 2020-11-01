@@ -11,4 +11,4 @@ if ! [ -d "/usr/share/festival/voices/english/akl_nz_jdt_diphone" ] ; then
 fi
 
 # Run the executable jar file.
-java --module-path /home/se2062020/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.media,javafx.base,javafx.fxml -jar quinzical.jar
+java --module-path /usr/share/java/lib --add-modules javafx.controls,javafx.media,javafx.base,javafx.fxml -jar quinzical.jar
