@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * This class represents the functionalities required to obtain clues from question bank.
+ * This class represents a set of functionalities required to manipulate clues in the question bank.
  * @author Sherman
  *
  */
@@ -97,7 +97,19 @@ public abstract class Clue {
 		return actualAnswer.split("/");
 	}
 	
+	/**
+	 * Update the database by removing the clue from the database. THis method must
+	 * be called by only from Games Module
+	 * @param category The category of the clue it is in.
+	 * @param clue The clue to be updated in the database.
+	 */
 	public void update(String category, String clue) {}
 	
+	/**
+	 * Assign values to each clues in a category. This method must be called by only
+	 * from Games Module.
+	 * @param category The category of the clues they are in.
+	 * @return An array of integer. The values and length of the array depends on the remaining clues in the database.
+	 */
 	public abstract int[] getClueValues(String category);
 }

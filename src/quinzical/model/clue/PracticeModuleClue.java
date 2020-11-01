@@ -1,14 +1,14 @@
 package quinzical.model.clue;
 
 /**
- * This class represents functionalities to retrieve clues for Practice Module.
- * @author se2062020
+ * This class represents a set of functionalities to manipulate clues for Practice Module.
+ * @author Sherman
  *
  */
 public class PracticeModuleClue extends Clue{
 	
 	/**
-	 * Get all the clues that are in a category from the question bank.
+	 * Get a randomly generated clue for the specified category.
 	 */
 	public String[] getClues(String category) {
 		String[] clues = getAllClues(category);

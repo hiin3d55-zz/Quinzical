@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class represents a set of functionalities to manipulate clues for Games Module.
+ * @author Sherman
+ *
+ */
 public class GamesModuleClue extends Clue{
 	
 	/**
@@ -28,7 +33,7 @@ public class GamesModuleClue extends Clue{
 		return clues;
 	}
 	/**
-	 * Get clues from question bank and record them into respective category files in data/category directory
+	 * Get clues from question bank and record them into respective category files in data/category directory (five clues per category)
 	 * @param category The category that the clues are in.
 	 */
 	private void recordClues(String category) {

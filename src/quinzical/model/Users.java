@@ -68,9 +68,8 @@ public class Users {
 	}
 	
 	/**
-	 * Check if the specified user ID already exists.
-	 * @param userId Returns true if exists, false otherwise.
-	 * @return
+	 * Check if the specified user ID already exists in database.
+	 * @return Returns true if exists, false otherwise.
 	 */
 	public boolean userIdExists(String userId) {
 		for (User u: _users) {
