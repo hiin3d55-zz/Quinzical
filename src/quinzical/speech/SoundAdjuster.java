@@ -32,6 +32,9 @@ public class SoundAdjuster {
 		_setToNZvoice = "(voice_akl_nz_jdt_diphone)\n";
 	}
 	
+	/**
+	 * Creates a file that includes the clue that is going to the read out.
+	 */
 	public void createClueFile(String fileWriterArg) {
 		try {
 			File clueFile = new File("clueFile.scm");
@@ -99,9 +102,5 @@ public class SoundAdjuster {
 		
 		createClueFile(_setToNZvoice + "(Parameter.set 'Duration_Stretch " + String.valueOf(_speed) 
 						+ ")\n(SayText \"" + _text + "\")");
-	}
-	
-	public void stopSpeech() {
-		_synthThread.stopSpeech();
 	}
 }

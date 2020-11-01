@@ -96,7 +96,6 @@ public class GamesSolutionScreen extends SolutionScreen{
         	public void handle(ActionEvent event) {
 				GamesModule gamesMod = new GamesModule(_pane);
         		gamesMod.display();
-        		_adjuster.stopSpeech();
         	}
 		});
 	}
