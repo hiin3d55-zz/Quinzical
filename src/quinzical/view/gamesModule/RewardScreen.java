@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -40,7 +41,6 @@ public class RewardScreen {
 
 	private BorderPane _pane;
 	private Button _saveGameBtn;
-	private Button _seeMedalBtn;
 	private Button _playAgnBtn;
 	private Text _invalidInput;
 	private TextField _userName;
@@ -58,9 +58,6 @@ public class RewardScreen {
 
 		_saveGameBtn = new Button("Save");
 		_saveGameBtn.getStyleClass().add("golden-button");
-
-		_seeMedalBtn = new Button("See Medal");
-		_seeMedalBtn.getStyleClass().add("golden-button");
 
 		_playAgnBtn = new Button("Play Again");
 		_playAgnBtn.getStyleClass().add("golden-button");
@@ -117,48 +114,51 @@ public class RewardScreen {
 	private void displaySaved() {
 		VBox userSavedBox = new VBox();
 		userSavedBox.getStyleClass().add("center-screen-box");
-		Text header = new Text(_userName.getText() + ", You are ranked");
+		
+		Text header = new Text("You are ranked");
 		header.getStyleClass().add("information-text");
-		header.setWrappingWidth(600);
-		header.setTextAlignment(TextAlignment.CENTER);
 
 		Text userRanking = new Text("Number " + _users.getRanking(_userId.getText()) + "!");
 		userRanking.getStyleClass().add("header-msg");
 
-		userSavedBox.getChildren().addAll(header, userRanking, _seeMedalBtn);
 
+		Text winningText = new Text("And have won a");
+		winningText.getStyleClass().add("normal-text");
+		
+		userSavedBox.getChildren().addAll(header, userRanking, winningText);
+
+		displayMedal(userSavedBox);
+		
+		userSavedBox.getChildren().add(_playAgnBtn);
+		
+		VBox.setMargin(userRanking, new Insets(10,0,10,0));
+		VBox.setMargin(_playAgnBtn, new Insets(10, 0, 0, 0));
+		
 		_pane.setCenter(userSavedBox);
 		_pane.getBottom().getStyleClass().add("invisible-component");
 	}
 
-	private void displayMedal() {
-		VBox medalBox = new VBox();
-		medalBox.getStyleClass().add("center-screen-box");
-		
+	/**
+	 * Display a bronze/silver/gold medal to the users depending on their scores.
+	 * @param centerBox The container to be added to the center of the layout.
+	 */
+	private void displayMedal(VBox centerBox) {
 		if (_score.getScore() <= bronze) {
-			addMedal(medalBox, "bronze");
+			addMedal(centerBox, "bronze");
 		} else if (_score.getScore() > bronze && _score.getScore() <= silver) {
-			addMedal(medalBox, "silver");
+			addMedal(centerBox, "silver");
 		} else {
-			addMedal(medalBox, "gold");
-			;
+			addMedal(centerBox, "gold");
 		}
-
-		Text userRanking = new Text("Number " + _users.getRanking(_userId.getText()) + "!");
-		userRanking.getStyleClass().add("header-msg");
-
-		medalBox.getChildren().addAll(userRanking, _playAgnBtn);
-
-		_pane.setCenter(medalBox);
 	}
 
 	
 	/**
 	 * Adds a medal image to the screen. If the image file can't be found, then display a text instead.
-	 * @param medalBox The container where the medal/text should be added into
+	 * @param centerBox The container where the medal/text should be added into
 	 * @param medalType A String which is either "bronze", "silver", or "gold"
 	 */
-	private void addMedal(VBox medalBox, String medalType) {
+	private void addMedal(VBox centerBox, String medalType) {
 		Image image;
 		try {
 			image = new Image(new FileInputStream("resources/" + medalType + "-medal.png"));
@@ -170,16 +170,17 @@ public class RewardScreen {
 
 			imageView.setPreserveRatio(true);						
 
-			medalBox.getChildren().add(imageView);
+			centerBox.getChildren().add(imageView);
+			
 		} catch (FileNotFoundException e) {
 			//If image not found, then simply display a text
-			Text medalText = new Text("You have won a " + medalType + " medal!");
+			Text medalText = new Text(medalType + " medal!");
 
 			medalText.getStyleClass().add("information-text");			
 			medalText.setWrappingWidth(600);
 			medalText.setTextAlignment(TextAlignment.CENTER);
 
-			medalBox.getChildren().add(medalText);
+			centerBox.getChildren().add(medalText);
 		}
 	}
 
@@ -195,18 +196,12 @@ public class RewardScreen {
 
 		_userName.setOnKeyPressed(new UserTextFieldListener());
 
-		_seeMedalBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				displayMedal();
-			}
-		});
-
 		_playAgnBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				_score.resetScore();
 				_questionBank.resetGame();
+				
 				// Updates the score
 				Text scoreText = (Text) _pane.getTop();
 				_score = new Score();
@@ -253,14 +248,6 @@ public class RewardScreen {
 			_users.addUser(user);
 
 			displaySaved();
-
-			_score.resetScore();
-			_questionBank.resetGame();
-
-			// Updates the score
-			Text scoreText = (Text) _pane.getTop();
-			_score = new Score();
-			scoreText.setText("Current Score: " + _score.getScore());
 		}
 	}
 }
