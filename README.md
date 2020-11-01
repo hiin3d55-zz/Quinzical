@@ -33,11 +33,12 @@
 </ol>
 
 <p>Note that International questions will only be unlocked if you have completed at least two categories from Games Module.</p>
-
+<br>
 <h3>For more help in playing with Quinzical, open "User-Manual.pdf".</h3>
-
+<br>
 <h2>Enjoy the game!</h2>
-
+<br>
+<br>
 <p>References: </p>
 <div>Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
