@@ -11,7 +11,8 @@ import quinzical.model.Score;
 
 /**
  * This class represents the screen when users wants to restart the game.
- * @author se2062020
+ * 
+ * @author Dave, Sherman
  *
  */
 public class RestartScreen {
@@ -66,6 +67,9 @@ public class RestartScreen {
 		_pane.setCenter(centerBox);
 	}
 	
+	/**
+	 * Method for handling events fired by button clicks.
+	 */
 	private void handleEvents() {
 		_yesBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -89,8 +93,13 @@ public class RestartScreen {
 		_returnBtn.setOnAction(new ReturnWelcomeScreen());
 	}
 	
+	/**
+	 * Class for going back to the welcome screen (main screen) from the restart screen.
+	 * 
+	 * @author Dave, Sherman
+	 *
+	 */
 	private class ReturnWelcomeScreen implements EventHandler<ActionEvent> {
-
 		@Override
 		public void handle(ActionEvent arg0) {
 			WelcomeScreen welcomeScrn = new WelcomeScreen(_pane);
@@ -98,6 +107,4 @@ public class RestartScreen {
 		}
 		
 	}
-	
-
 }

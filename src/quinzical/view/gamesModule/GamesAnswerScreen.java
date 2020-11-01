@@ -51,6 +51,9 @@ public class GamesAnswerScreen extends AnswerScreen{
 							 // boolean variable.
 	}
 	
+	/**
+	 * Starts the timer which counts down from the specified time limit. 
+	 */
 	public void startTimer() {
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {

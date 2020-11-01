@@ -20,7 +20,8 @@ import quinzical.model.Users;
 
 /**
  * Represents the screen that displays the Leader Board to the users.
- * @author se2062020
+ * 
+ * @author Sherman, Dave
  *
  */
 public class LeaderBoardScreen {

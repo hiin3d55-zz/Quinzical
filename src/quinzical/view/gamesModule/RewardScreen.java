@@ -71,6 +71,9 @@ public class RewardScreen {
 		_invalidInput.getStyleClass().addAll("normal-text", "invinsible-component");
 	}
 	
+	/**
+	 * Displays the reward screen.
+	 */
 	public void display() {
 		handleEvents();
 		

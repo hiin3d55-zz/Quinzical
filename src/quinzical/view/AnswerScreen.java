@@ -19,18 +19,18 @@ import quinzical.speech.SoundAdjuster;
 /**
  * This class represents an Answer Screen. It is mostly used for reusing codes between different screens
  * in Practice Module and Games Module answer screen.
+ * 
  * @author Sherman, Dave
  *
  */
 public abstract class AnswerScreen {
 	protected BorderPane _pane;
+	protected StackPane _macrons;
 	protected Button _submitBtn;
 	protected Button _repeatBtn;
 	protected TextField _attemptInput;
 	protected VBox _centerBox;
 	protected VBox _soundAdjustBox;
-	protected StackPane _macrons;
-
 	
 	protected String _clue;
 	
@@ -79,7 +79,8 @@ public abstract class AnswerScreen {
 	}
 	
 	/**
-	 * This method initializes the repeat clue button with a sound image if the image can be found from the resources folder.
+	 * This method initializes the repeat clue button with a sound image if the image can be found 
+	 * from the resources folder.
 	 * Throws an exception if not found.
 	 * @throws FileNotFoundException
 	 */
@@ -94,6 +95,9 @@ public abstract class AnswerScreen {
 		_repeatBtn.setGraphic(imageView);		
 	}
 	
+	/**
+	 * Sets up the macron box.
+	 */
 	private void initialiseMacronBox() {
 		VBox buttonBox = new VBox();
 		buttonBox.getStyleClass().addAll("macron-button-box", "center-screen-box");
@@ -177,7 +181,8 @@ public abstract class AnswerScreen {
 	}
 	
 	/**
-	 * This class handles events for the five different macron buttons
+	 * This class handles events for the five different macron buttons.
+	 * 
 	 * @author Sherman
 	 *
 	 */

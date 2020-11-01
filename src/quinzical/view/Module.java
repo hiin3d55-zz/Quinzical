@@ -8,6 +8,7 @@ import quinzical.model.QuestionBank;
 /**
  * This class represents the Module Screen. It is mostly used for reusing codes between different screens
  * in Practice Module and Games Module choosing clue screen.
+ * 
  * @author Sherman, Dave
  *
  */
@@ -24,13 +25,18 @@ public abstract class Module {
 		_centerBox.getStyleClass().add("center-screen-box");
 	}
 	
-
-	
+	/**
+	 * Displays the screen of the module.
+	 */
 	public void display() {
 		displayScreen();
+		
 		//Shows the main menu button at the bottom
 		_pane.getBottom().getStyleClass().removeAll("invisible-component");
 	}
 
+	/**
+	 * Displays the screen of the module. This method is used for template method pattern.
+	 */
 	protected abstract void displayScreen();
 }
