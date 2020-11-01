@@ -1,7 +1,6 @@
 package quinzical.speech;
 
 import java.io.IOException;
-import java.util.stream.Stream;
 
 public class SpeechSynthesisThread extends Thread {
 	private Process _process;

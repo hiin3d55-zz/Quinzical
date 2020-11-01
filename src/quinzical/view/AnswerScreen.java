@@ -144,7 +144,7 @@ public abstract class AnswerScreen {
 	 */
 	protected void updateSpeed() {		
 		if (_adjuster.getSpeed().equals("1.0")) {
-			_currentSpeed.setText(_adjuster.getSpeed() + " (Deafult)");
+			_currentSpeed.setText(_adjuster.getSpeed() + " (Default)");
 		} else {
 			_currentSpeed.setText(_adjuster.getSpeed());
 		}
