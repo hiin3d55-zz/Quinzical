@@ -32,7 +32,9 @@
 	<li>The format is to be the same specified on step 3 in the above instruction</li>
 </ol>
 
-<p>Note that International questions will only be unlocked if you have completed at least two categories from Games Module</p>
+<p>Note that International questions will only be unlocked if you have completed at least two categories from Games Module.</p>
+
+<h3>For more help in playing with Quinzical, open "User-Manual.pdf".</h3>
 
 <h2>Enjoy the game!</h2>
 
