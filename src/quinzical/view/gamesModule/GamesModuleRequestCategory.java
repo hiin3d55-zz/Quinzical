@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import quinzical.model.QuestionBank;
 import quinzical.view.Module;
-import quinzical.view.gamesModule.GamesModule;
 
 /**
  * This class represents the screen where users choose five categories to play.
